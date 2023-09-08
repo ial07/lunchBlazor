@@ -1,0 +1,12 @@
+D:\Program\lunchBlazor\lunchBlazor\Shared\bin\Debug\net6.0\lunchBlazor.Shared.deps.json
+D:\Program\lunchBlazor\lunchBlazor\Shared\bin\Debug\net6.0\lunchBlazor.Shared.dll
+D:\Program\lunchBlazor\lunchBlazor\Shared\bin\Debug\net6.0\lunchBlazor.Shared.pdb
+D:\Program\lunchBlazor\lunchBlazor\Shared\obj\Debug\net6.0\lunchBlazor.Shared.csproj.AssemblyReference.cache
+D:\Program\lunchBlazor\lunchBlazor\Shared\obj\Debug\net6.0\lunchBlazor.Shared.GeneratedMSBuildEditorConfig.editorconfig
+D:\Program\lunchBlazor\lunchBlazor\Shared\obj\Debug\net6.0\lunchBlazor.Shared.AssemblyInfoInputs.cache
+D:\Program\lunchBlazor\lunchBlazor\Shared\obj\Debug\net6.0\lunchBlazor.Shared.AssemblyInfo.cs
+D:\Program\lunchBlazor\lunchBlazor\Shared\obj\Debug\net6.0\lunchBlazor.Shared.csproj.CoreCompileInputs.cache
+D:\Program\lunchBlazor\lunchBlazor\Shared\obj\Debug\net6.0\lunchBlazor.Shared.dll
+D:\Program\lunchBlazor\lunchBlazor\Shared\obj\Debug\net6.0\refint\lunchBlazor.Shared.dll
+D:\Program\lunchBlazor\lunchBlazor\Shared\obj\Debug\net6.0\lunchBlazor.Shared.pdb
+D:\Program\lunchBlazor\lunchBlazor\Shared\obj\Debug\net6.0\ref\lunchBlazor.Shared.dll

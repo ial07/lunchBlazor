@@ -1,0 +1,82 @@
+@inject NavigationManager NavigationManager
+
+<div class="vertical-menu">
+
+    <div class="h-100">
+
+        <!--- Sidemenu -->
+        <div id="sidebar-menu">
+            <!-- Left Menu Start -->
+            <ul class="metismenu list-unstyled" id="side-menu">
+                <li>
+                    <NavLink href="/" Match="NavLinkMatch.All">
+                        <i class="bi bi-grid-1x2-fill"></i>
+                        <span data-key="t-dashboard">Dashboard</span>
+                    </NavLink>
+                </li>
+                <li>
+                    <NavLink href="/pengajuan-mpp">
+                        <i class="bi bi-plus-square"></i>
+                        <span data-key="t-dashboard">Pengajuan MPP</span>
+                    </NavLink>
+                </li>
+                <li>
+                    <NavLink href="/pemenuhan-mpp">
+                        <i class="bi bi-geo-alt-fill"></i>
+                        <span data-key="t-dashboard">Pemenuhan MPP</span>
+                    </NavLink>
+                </li>
+                <li>
+                    <NavLink href="/menu-report">
+                        <i class="bi bi-bar-chart-fill"></i>
+                        <span data-key="t-dashboard">Menu Report</span>
+                    </NavLink>
+                </li>
+                <li>
+                    <NavLink href="/master-data">
+                        <i class="bi bi-database-fill"></i>
+                        <span data-key="t-dashboard">Master Data</span>
+                    </NavLink>
+                </li>
+                <li>
+                    <NavLink href="/akun">
+                        <i class="bi bi-person-circle"></i>
+                        <span data-key="t-dashboard">Akun</span>
+                    </NavLink>
+                </li>
+            </ul>
+        </div>
+        <!-- Sidebar -->
+    </div>
+</div>
+
+@code {
+}
+
+<style scoped>
+    a span {
+        color: #8F90A6;
+    }
+
+    a i {
+        color: #8F90A6 !important;
+    }
+
+    a.active {
+        border-right: 4px solid #FFCA0D;
+    }
+
+    a.active span {
+        color: #000;
+    }
+
+    a.active i {
+        color: #FFCA0D !important;
+    }
+
+    a.active .border {
+        width: 10px;
+        height: 10px;
+        background-color: blue;
+    }
+</style>

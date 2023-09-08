@@ -1,0 +1,39 @@
+﻿@inherits LayoutComponentBase
+
+<div class="sidebar-enable">
+
+
+    <!-- Begin page -->
+    <div id="layout-wrapper">
+
+        <!-- ========== Header ========== -->
+        <Header />
+        <!-- Header End -->
+
+        <!-- ========== Left Sidebar Start ========== -->
+        <Sidebar />
+        <!-- Left Sidebar End -->
+
+        <!-- ============================================================== -->
+        <!-- Start right Content here -->
+        <!-- ============================================================== -->
+        <div class="main-content" id="miniaresult">
+            <div class="page-content">
+                <div class="container-fluid">
+                    @Body
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== Footer ========== -->
+        <Footer />
+        <!-- ========== Footer End ========== -->
+
+        <!-- end main content-->
+
+    </div>
+    <!-- END layout-wrapper -->
+
+    <!-- Right bar overlay-->
+    <div class="rightbar-overlay"></div>
+</div>

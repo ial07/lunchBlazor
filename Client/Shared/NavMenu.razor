@@ -1,0 +1,57 @@
+﻿<div class="top-row pt-4 ml-4">
+    <div class="flex justify-between mx-2">
+        <div class="text-black fw-bold">
+            <div class="flex justify-center items-center">
+                <i class="ri-mail-settings-line mr-3 text-lg"></i>
+                <a class="flex flex-col">
+                    <div class="text-black text-2xl font-bold" href="#">Planner</div>
+                    <div class="text-black text-sm" href="#">lunchBlazor</div>
+                </a>
+            </div>
+        </div>
+        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
+            <i class="ri-home-2-line mr-3 text-lg"></i>
+        </button>
+        <button title="Navigation menu" @onclick="ToggleNavMenu2">
+            <i class="ri-home-2-line mr-3 text-lg"></i>
+        </button>
+    </div>
+</div>
+
+<div class="@NavMenuCssClass @NavMenuCssClass2 transition-max-h duration-300 ease-in-out max-h-0 overflow-hidden"
+@onclick="ToggleNavMenu">
+    <nav class="flex-col ml-3 mt-5 pt-3">
+        <div class="text-black px-3">
+            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                <span class="oi oi-home" aria-hidden="true"></span> Home
+            </NavLink>
+        </div>
+        <div class="text-black p-3">
+            <NavLink class="nav-link" href="counter">
+                <span class="oi oi-plus" aria-hidden="true"></span> Counter
+            </NavLink>
+        </div>
+        <div class="text-black p-3">
+            <NavLink class="nav-link" href="fetchdata">
+                <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch data
+            </NavLink>
+        </div>
+    </nav>
+</div>
+
+@code {
+    private bool collapseNavMenu = false;
+    private bool collapseNavMenu2 = false;
+
+    private string? NavMenuCssClass => collapseNavMenu ? "max-h-0 max-h-screen" : null;
+    private string? NavMenuCssClass2 => collapseNavMenu2 ? "max-w-3" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+    private void ToggleNavMenu2()
+    {
+        collapseNavMenu2 = !collapseNavMenu2;
+    }
+}

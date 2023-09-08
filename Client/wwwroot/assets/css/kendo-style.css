@@ -1,0 +1,579 @@
+﻿/*--------------------------------------------------------------
+    AUTHORS : NUGROHO ADI PRATOMO - CST
+    PLEASE DONT REMOVE AUTHORS
+
+/*--------------------------------------------------------------
+######## CUSTOME STYLE KENDO UI ########
+    Contribution : CST TEAM
+
+    LIST :
+    -KENDO GRID
+    -KENDO LIST
+    -KENDO DROPDOWN LIST
+    -OTHERS
+--------------------------------------------------------------*/
+
+/*--------------------------------------------------------------
+#########  #########  #########  #########  #########  #########  
+--------------------------------------------------------------*/
+
+/*--------------------------------------------------------------
+# STYLE UT GRID
+
+    *Must include id=ut-style-grid in html tag, before table
+    example
+        <div id="ut-style-grid">
+            ... Your code grid
+        </div>
+--------------------------------------------------------------*/
+
+#ut-style-grid th {
+    background-image: none;
+    background-color: #191E3D;
+}
+
+#ut-style-grid th .k-link,
+#ut-style-grid th .k-icon {
+    font-weight: 500;
+    color: #FFCA0D;
+}
+
+#ut-style-grid .k-grid-header-wrap,
+#ut-style-grid .k-grid-header {
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+#ut-style-grid .k-widget {
+    border-radius: 8px;
+}
+
+#ut-style-grid .k-grid td {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+#ut-style-grid .k-grid tr:hover {
+    background-color: #E5F0FF;
+    color: #0e0e0e;
+}
+
+#ut-style-grid .k-grid-header th.k-header {
+    padding-top: 16px;
+    padding-bottom: 16px;
+}
+
+#ut-style-grid .k-grid-pager {
+    background-color: #fbfbfb;
+    border-color: #fbfbfb;
+    color: #1C1C28;
+}
+
+#ut-style-grid .k-link .k-state-selected {
+    color: #1C1C28;
+}
+
+#ut-style-grid .k-pager-wrap .k-disabled,
+#ut-style-grid .k-pager-wrap .k-pager-nav,
+#ut-style-grid .k-pager-wrap .k-pager-first,
+#ut-style-grid .k-pager-wrap .k-pager-last,
+#ut-style-grid .k-pager-wrap .k-link > .k-icon {
+    color: #FFCA0D;
+    border-color: transparent;
+}
+
+#ut-style-grid .k-pager-numbers {
+    color: #1C1C28;
+    border-color: transparent;
+}
+
+#ut-style-grid .k-pager-wrap .k-link.k-selected,
+#ut-style-grid .k-pager-wrap .k-link:hover {
+    background-image: none;
+    background-color: #191E3D;
+    color: #FFCA0D;
+}
+
+#ut-style-grid .k-pager-wrap .k-link:focus {
+    box-shadow: none;
+}
+
+#ut-style-grid .k-popup .k-list .k-item:hover {
+    background-color: #F2F2F5;
+    border-color: #F2F2F5;
+    color: #1C1C28;
+}
+
+#ut-style-grid .k-state-selected, 
+#ut-style-grid .k-state-focused.k-state-selected {
+    background-color: #cbcbcb;
+    border-color: none;
+    color: #1C1C28;
+    box-shadow: none;
+}
+
+#ut-style-grid .k-grid .k-selected td,
+#ut-style-grid .k-grid .k-selected td:hover {
+    background-color: #E5F0FF;
+    color: #191E3D;
+}
+
+#ut-style-grid .k-grid tr.k-state-selected:hover {
+    background-color: #F2F2F5;
+    border-color: #F2F2F5;
+    color: #1C1C28;
+}
+
+#ut-style-grid .k-grid-header {
+    background-image: none;
+    background-color: #191E3D;
+    color: #FFCA0D;
+}
+
+tr:nth-child(2n) {
+    background-color:#FAFAFC !important;
+}
+
+#ut-style-grid .k-grid tbody .k-grid-delete {
+    min-width: 0;
+    width: 90px;
+    height: 30px;
+    padding: 4px;
+}
+
+#ut-style-grid .k-grid .k-grid-toolbar .k-grid-add .k-icon,
+#ut-style-grid .k-grid tbody .k-grid-edit .k-icon,
+#ut-style-grid .k-grid tbody .k-grid-update .k-icon,
+#ut-style-grid .k-grid tbody .k-grid-cancel .k-icon,
+#ut-style-grid .k-grid tbody .k-grid-delete .k-icon {
+    margin: 0;
+}
+
+#ut-style-grid .k-grid tbody .k-grid-cancel,
+#ut-style-grid .k-grid tbody .k-grid-edit,
+#ut-style-grid .k-grid tbody .k-grid-update {
+    min-width: 0;
+    width: 100px;
+    height: 30px;
+    padding: 4px;
+}
+
+#ut-style-grid .k-grid tbody .k-grid-cancel {
+    min-width: 0;
+    width: 90px;
+    height: 30px;
+    padding: 4px;
+}
+
+#ut-style-grid .k-grid .k-grid-toolbar .k-grid-add {
+    min-width: 0;
+    width: 180px;
+    height: 30px;
+    padding: 4px;
+}
+
+#ut-style-grid .k-grid-edit-row > td > .k-textbox {
+    height: 35px;
+}
+
+#ut-style-grid .k-grid-header th.k-header {
+    border-style: hidden;
+}
+
+#ut-style-grid .k-grid td {
+    border-width: 1px 0 0 0;
+}
+
+/*OPTION*/
+#ut-style-grid .k-grid-content {
+    height: 385px !important;
+}
+
+/*#ut-style-grid .k-grid-pager {
+    background-color: #ffffff;
+    border-color: #fbfbfb;
+    color: #ffca0d;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #d3d5e0;
+    margin: auto;
+    margin-top: 10px;
+    border-radius: 50px;
+    padding: 5px 1px 5px 1px;
+}*/
+
+/*#ut-style-grid .k-pager-wrap {
+    width: 20%;
+    display: flex;
+}
+
+#ut-style-grid .k-pager-refresh {
+    display: none;
+}
+
+#ut-style-grid .k-pager-info {
+    display: none;
+}*/
+    /*--------------------------------------------------------------
+# STYLE UT CALENDAR TAG
+
+    *Must include id=ut-style-grid in html tag, before table
+    example
+        <div id="ut-calendar-tag">
+            ... Your code calendar
+        </div>
+--------------------------------------------------------------*/
+    #ut-calendar-tag .event {
+    color: #FFCA0D;
+    font-weight: bold;
+}
+
+#ut-calendar-tag .k-calendar td.k-selected .k-link .inEvent {
+    border-color: #FFCA0D;
+    background-color: #FFCA0D;
+    color: #1C1C28;
+    font-weight: 600;
+}
+
+#ut-calendar-tag .k-calendar .k-header {
+    background-color: #1C1C28;
+}
+
+#ut-calendar-tag .k-calendar td.k-selected .k-link,
+#ut-calendar-tag .k-calendar td.k-hover .k-link {
+    border-color: #1C1C28;
+    background-color: #1C1C28;
+    color: #FFCA0D;
+    font-weight: 800;
+}
+
+#ut-calendar-tag .k-calendar .k-today .k-link {
+    color: #2e2e2e;
+    box-shadow: none;
+    border: none;
+}
+
+
+/*--------------------------------------------------------------
+#########  #########  #########  #########  #########  #########  
+--------------------------------------------------------------*/
+
+/*--------------------------------------------------------------
+# STYLE UT LIST
+
+    *Must include id=ut-style-list in html tag
+    example
+        <div id="ut-style-list">
+            ... Your code list
+        </div>
+--------------------------------------------------------------*/
+
+#ut-style-list .card {
+    width: 100%;
+    background: #FFFFFF;
+    /*box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.04), 0px 4px 8px rgba(0, 0, 0, 0.06);*/
+    border-radius: 10px;
+    border: none;
+    box-shadow: 0 0 1px rgba(0,0,0,.125),0 1px 3px rgba(0,0,0,.2);
+    margin-top: 16px;
+    margin-bottom: 16px;
+    z-index: 99;
+}
+
+#ut-style-list .card:hover {
+    border-radius: 10px;
+    border: 2px solid #FFCA0D !important;
+    box-shadow: none !important;
+}
+
+#ut-style-list .k-listview-content {
+    padding: 12px !important;
+}
+
+#ut-style-list .k-listview-bordered {
+    border-width: 0px !important;
+}
+
+#ut-style-list .k-pager-wrap {
+    background-color: #e8e8e8;
+    border-color: #fbfbfb;
+    color: #1C1C28;
+}
+
+#ut-style-list .k-link .k-state-selected {
+    color: #1C1C28;
+}
+
+#ut-style-list .k-pager-wrap .k-disabled,
+#ut-style-list .k-pager-wrap .k-pager-nav,
+#ut-style-list .k-pager-wrap .k-pager-first,
+#ut-style-list .k-pager-wrap .k-pager-last,
+#ut-style-list .k-pager-wrap .k-link > .k-icon {
+    color: #FFCA0D;
+    border-color: transparent;
+}
+
+#ut-style-list .k-pager-numbers {
+    color: #1C1C28;
+    border-color: transparent;
+}
+
+#ut-style-list .k-pager-wrap .k-link.k-selected,
+#ut-style-list .k-pager-wrap .k-link:hover {
+    background-image: none;
+    background-color: #191E3D;
+    color: #FFCA0D;
+}
+
+#ut-style-list .k-pager-wrap .k-link:focus {
+    box-shadow: none;
+}
+
+/*--------------------------------------------------------------
+#########  #########  #########  #########  #########  #########  
+--------------------------------------------------------------*/
+
+/*--------------------------------------------------------------
+# STYLE UT DROPDOWN LIST
+
+    *Must include id=ut-style-dropdown in html tag
+    example
+        <div id="ut-style-dropdown">
+            ... Your code dropdown
+        </div>
+--------------------------------------------------------------*/
+
+#ut-style-dropdownlist .k-picker,
+#ut-style-dropdownlist2 .k-picker {
+    background-color: #fff;
+}
+
+#ut-style-dropdownlist .k-picker:hover,
+#ut-style-dropdownlist2 .k-picker:hover {
+    border-color: #28293D;
+}
+
+#ut-style-dropdownlist .k-input-value-text,
+#ut-style-dropdownlist .k-picker .k-input-button,
+#ut-style-dropdownlist2 .k-input-value-text,
+#ut-style-dropdownlist2 .k-picker .k-input-button {
+    color: #28293D;
+}
+
+#ut-style-dropdownlist .k-animation-container,
+#ut-style-dropdownlist2 .k-animation-container {
+    top: auto !important;
+    left: auto !important;
+}
+
+#ut-style-dropdownlist .k-group,
+#ut-style-dropdownlist2 .k-group {
+    background-color: #cbcbcb;
+}
+
+#ut-style-dropdownlist .k-list-item:hover,
+#ut-style-dropdownlist2 .k-list-item:hover {
+    background-color: #cbcbcb;
+    color: #28293D;
+}
+
+#ut-style-dropdownlist .k-list-optionlabel:hover,
+#ut-style-dropdownlist2 .k-list-optionlabel:hover {
+    background-color: #cbcbcb;
+    color: #28293D;
+}
+
+#ut-style-dropdownlist .k-selected,
+#ut-style-dropdownlist2 .k-selected {
+    box-shadow: #28293D 1px solid;
+}
+
+
+/*--------------------------------------------------------------
+#########  #########  #########  #########  #########  #########  
+--------------------------------------------------------------*/
+
+/*--------------------------------------------------------------
+# STYLE UT UPLOAD
+
+    *Must include id=ut-style-list in html tag
+    example
+        <div id="ut-style-upload">
+            ... Your code list
+        </div>
+--------------------------------------------------------------*/
+
+/*oke*/
+.file-icon {
+    display: inline-block;
+    float: left;
+    width: 48px;
+    height: 48px;
+    margin-left: 10px;
+    margin-top: 13.5px;
+}
+
+.img-file {
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    background-image: url(../icons/icon-image.png)
+}
+
+.doc-file {
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    background-image: url(../icons/icon-image.png)
+}
+
+.pdf-file {
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    background-image: url(../icons/icon-pdf.png)
+}
+
+.xls-file {
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    background-image: url(../icons/icon-pdf.png)
+}
+
+.zip-file {
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    background-image: url(../icons/icon-pdf.png)
+}
+
+.default-file {
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    background-image: url(../icons/icon-image.png)
+}
+
+#ut-style-upload .file-heading {
+    font-family: Arial;
+    font-size: 1.1em;
+    display: inline-block;
+    float: left;
+    width: 60%;
+    margin: 0 0 0 20px;
+    height: 25px;
+    -ms-text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+#ut-style-upload .file-name-heading {
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+#ut-style-upload .file-size-heading {
+    font-weight: normal;
+    font-style: italic;
+}
+
+li.k-file div.file-wrapper {
+    position: relative;
+    height: 75px;
+    width: 100%;
+}
+
+#ut-style-upload .k-action-buttons {
+    display: none !important;
+}
+
+#ut-style-upload .custom-area-upload {
+    padding: 0rem !important;
+    border-style: none !important;
+    background-color: transparent !important;
+    border: 1px solid transparent !important;
+}
+
+
+/*--------------------------------------------------------------
+# OTHERS
+--------------------------------------------------------------*/
+.k-listview-bordered {
+    border-width: 0px !important;
+}
+
+.StyleDisabled {
+    background-color: #f7f7f7;
+}
+
+.k-button.k-state-active {
+    background-color: #fff !important;
+    color: #1c273c !important;
+    font-weight: 600 !important;
+    letter-spacing: -.1px !important;
+    font-family: 'Poppins-SemiBold' !important;
+    font-size: 15px !important;
+    border-bottom: 4px solid #FFCA0D !important;
+    border-radius: 2px !important;
+    padding: 4px 8px !important;
+    line-height: 1.428 !important;
+}
+
+.k-toolbar {
+    background-color: #e8e8e8 !important;
+}
+
+
+.k-file .k-upload-status .k-button {
+    color: #1C1C28 !important;
+}
+
+.k-list-container {
+    background-color: #FFF !important;
+    border-color: #FFF !important;
+    color: #1C1C28 !important;
+}
+
+.k-dropdown-wrap .k-input, .k-numeric-wrap .k-input, .k-picker-wrap .k-input {
+    height: 32px !important;
+}
+
+.doubleLine {
+    display: block;
+}
+
+.nama {
+    font-weight: bold;
+}
+
+.antigent, .pcr {
+    width: 70px;
+    text-align: center;
+}
+
+.status {
+    width: 100px;
+    font-weight: bold;
+}
+
+.action {
+    width: 30px;
+}
+
+tr:nth-child(even) {
+    background-color: #F5F5F5;
+}
+
+.dropdown-toggle::after {
+    display: none;
+}
+
+.k-button-solid-base {
+    border-color: #191E3D;
+    color: #FFCA0D;
+    background-color: #191E3D;
+}
+
+.k-button-solid-base:hover {
+    border-color: #FFCA0D;
+    color: #191E3D;
+    background-color: #FFCA0D;
+}

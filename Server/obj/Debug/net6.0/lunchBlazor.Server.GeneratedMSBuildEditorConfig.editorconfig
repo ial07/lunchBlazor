@@ -16,6 +16,6 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = D:\Program\lunchBlazor\lunchBlazor\server
 build_property._RazorSourceGeneratorDebug = 
 
-[D:/Program/lunchBlazor/lunchBlazor/server/Pages/Error.cshtml]
+[d:/Program/lunchBlazor/lunchBlazor/Server/Pages/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 

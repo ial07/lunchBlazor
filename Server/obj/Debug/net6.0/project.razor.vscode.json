@@ -5864,103 +5864,40 @@
         }
       },
       {
-        "HashCode": -165427866,
+        "HashCode": 1082552256,
         "Kind": "Components.Component",
-        "Name": "lunchBlazor.Client.Shared.SurveyPrompt",
+        "Name": "lunchBlazor.Client.Pages.Components",
         "AssemblyName": "lunchBlazor.Client",
-        "DisplayName": "lunchBlazor.Client.Shared.SurveyPrompt",
+        "DisplayName": "lunchBlazor.Client.Pages.Components",
         "CaseSensitive": true,
         "TagMatchingRules": [
           {
-            "TagName": "SurveyPrompt"
-          }
-        ],
-        "BoundAttributes": [
-          {
-            "Kind": "Components.Component",
-            "Name": "Title",
-            "TypeName": "System.String",
-            "DisplayName": "string lunchBlazor.Client.Shared.SurveyPrompt.Title",
-            "Metadata": {
-              "Common.PropertyName": "Title",
-              "Common.GloballyQualifiedTypeName": "global::System.String"
-            }
+            "TagName": "Components"
           }
         ],
         "Metadata": {
-          "Common.TypeName": "lunchBlazor.Client.Shared.SurveyPrompt",
-          "Common.TypeNameIdentifier": "SurveyPrompt",
-          "Common.TypeNamespace": "lunchBlazor.Client.Shared",
+          "Common.TypeName": "lunchBlazor.Client.Pages.Components",
+          "Common.TypeNameIdentifier": "Components",
+          "Common.TypeNamespace": "lunchBlazor.Client.Pages",
           "Runtime.Name": "Components.IComponent"
         }
       },
       {
-        "HashCode": -1751312999,
+        "HashCode": 846501666,
         "Kind": "Components.Component",
-        "Name": "lunchBlazor.Client.Shared.SurveyPrompt",
+        "Name": "lunchBlazor.Client.Pages.Components",
         "AssemblyName": "lunchBlazor.Client",
-        "DisplayName": "lunchBlazor.Client.Shared.SurveyPrompt",
+        "DisplayName": "lunchBlazor.Client.Pages.Components",
         "CaseSensitive": true,
         "TagMatchingRules": [
           {
-            "TagName": "lunchBlazor.Client.Shared.SurveyPrompt"
-          }
-        ],
-        "BoundAttributes": [
-          {
-            "Kind": "Components.Component",
-            "Name": "Title",
-            "TypeName": "System.String",
-            "DisplayName": "string lunchBlazor.Client.Shared.SurveyPrompt.Title",
-            "Metadata": {
-              "Common.PropertyName": "Title",
-              "Common.GloballyQualifiedTypeName": "global::System.String"
-            }
+            "TagName": "lunchBlazor.Client.Pages.Components"
           }
         ],
         "Metadata": {
-          "Common.TypeName": "lunchBlazor.Client.Shared.SurveyPrompt",
-          "Common.TypeNameIdentifier": "SurveyPrompt",
-          "Common.TypeNamespace": "lunchBlazor.Client.Shared",
-          "Components.NameMatch": "Components.FullyQualifiedNameMatch",
-          "Runtime.Name": "Components.IComponent"
-        }
-      },
-      {
-        "HashCode": 496139952,
-        "Kind": "Components.Component",
-        "Name": "lunchBlazor.Client.Shared.NavMenu",
-        "AssemblyName": "lunchBlazor.Client",
-        "DisplayName": "lunchBlazor.Client.Shared.NavMenu",
-        "CaseSensitive": true,
-        "TagMatchingRules": [
-          {
-            "TagName": "NavMenu"
-          }
-        ],
-        "Metadata": {
-          "Common.TypeName": "lunchBlazor.Client.Shared.NavMenu",
-          "Common.TypeNameIdentifier": "NavMenu",
-          "Common.TypeNamespace": "lunchBlazor.Client.Shared",
-          "Runtime.Name": "Components.IComponent"
-        }
-      },
-      {
-        "HashCode": -1038429906,
-        "Kind": "Components.Component",
-        "Name": "lunchBlazor.Client.Shared.NavMenu",
-        "AssemblyName": "lunchBlazor.Client",
-        "DisplayName": "lunchBlazor.Client.Shared.NavMenu",
-        "CaseSensitive": true,
-        "TagMatchingRules": [
-          {
-            "TagName": "lunchBlazor.Client.Shared.NavMenu"
-          }
-        ],
-        "Metadata": {
-          "Common.TypeName": "lunchBlazor.Client.Shared.NavMenu",
-          "Common.TypeNameIdentifier": "NavMenu",
-          "Common.TypeNamespace": "lunchBlazor.Client.Shared",
+          "Common.TypeName": "lunchBlazor.Client.Pages.Components",
+          "Common.TypeNameIdentifier": "Components",
+          "Common.TypeNamespace": "lunchBlazor.Client.Pages",
           "Components.NameMatch": "Components.FullyQualifiedNameMatch",
           "Runtime.Name": "Components.IComponent"
         }
@@ -6078,7 +6015,7 @@
         }
       },
       {
-        "HashCode": -1146120057,
+        "HashCode": -1859714982,
         "Kind": "Components.Component",
         "Name": "lunchBlazor.Client.Shared.Components.Sidebar",
         "AssemblyName": "lunchBlazor.Client",
@@ -6089,6 +6026,18 @@
             "TagName": "Sidebar"
           }
         ],
+        "BoundAttributes": [
+          {
+            "Kind": "Components.Component",
+            "Name": "IsMinimize",
+            "TypeName": "System.Boolean",
+            "DisplayName": "bool lunchBlazor.Client.Shared.Components.Sidebar.IsMinimize",
+            "Metadata": {
+              "Common.PropertyName": "IsMinimize",
+              "Common.GloballyQualifiedTypeName": "global::System.Boolean"
+            }
+          }
+        ],
         "Metadata": {
           "Common.TypeName": "lunchBlazor.Client.Shared.Components.Sidebar",
           "Common.TypeNameIdentifier": "Sidebar",
@@ -6097,7 +6046,7 @@
         }
       },
       {
-        "HashCode": 1338120314,
+        "HashCode": -1661811063,
         "Kind": "Components.Component",
         "Name": "lunchBlazor.Client.Shared.Components.Sidebar",
         "AssemblyName": "lunchBlazor.Client",
@@ -6108,6 +6057,18 @@
             "TagName": "lunchBlazor.Client.Shared.Components.Sidebar"
           }
         ],
+        "BoundAttributes": [
+          {
+            "Kind": "Components.Component",
+            "Name": "IsMinimize",
+            "TypeName": "System.Boolean",
+            "DisplayName": "bool lunchBlazor.Client.Shared.Components.Sidebar.IsMinimize",
+            "Metadata": {
+              "Common.PropertyName": "IsMinimize",
+              "Common.GloballyQualifiedTypeName": "global::System.Boolean"
+            }
+          }
+        ],
         "Metadata": {
           "Common.TypeName": "lunchBlazor.Client.Shared.Components.Sidebar",
           "Common.TypeNameIdentifier": "Sidebar",
@@ -6117,7 +6078,7 @@
         }
       },
       {
-        "HashCode": -1659629082,
+        "HashCode": -862815809,
         "Kind": "Components.Component",
         "Name": "lunchBlazor.Client.Shared.Components.Header",
         "AssemblyName": "lunchBlazor.Client",
@@ -6128,6 +6089,29 @@
             "TagName": "Header"
           }
         ],
+        "BoundAttributes": [
+          {
+            "Kind": "Components.Component",
+            "Name": "MinimizeSidebar",
+            "TypeName": "Microsoft.AspNetCore.Components.EventCallback",
+            "DisplayName": "Microsoft.AspNetCore.Components.EventCallback lunchBlazor.Client.Shared.Components.Header.MinimizeSidebar",
+            "Metadata": {
+              "Common.PropertyName": "MinimizeSidebar",
+              "Common.GloballyQualifiedTypeName": "global::Microsoft.AspNetCore.Components.EventCallback",
+              "Components.EventCallback": "True"
+            }
+          },
+          {
+            "Kind": "Components.Component",
+            "Name": "IsMinimize",
+            "TypeName": "System.Boolean",
+            "DisplayName": "bool lunchBlazor.Client.Shared.Components.Header.IsMinimize",
+            "Metadata": {
+              "Common.PropertyName": "IsMinimize",
+              "Common.GloballyQualifiedTypeName": "global::System.Boolean"
+            }
+          }
+        ],
         "Metadata": {
           "Common.TypeName": "lunchBlazor.Client.Shared.Components.Header",
           "Common.TypeNameIdentifier": "Header",
@@ -6136,7 +6120,7 @@
         }
       },
       {
-        "HashCode": -2058097112,
+        "HashCode": 586271654,
         "Kind": "Components.Component",
         "Name": "lunchBlazor.Client.Shared.Components.Header",
         "AssemblyName": "lunchBlazor.Client",
@@ -6145,6 +6129,29 @@
         "TagMatchingRules": [
           {
             "TagName": "lunchBlazor.Client.Shared.Components.Header"
+          }
+        ],
+        "BoundAttributes": [
+          {
+            "Kind": "Components.Component",
+            "Name": "MinimizeSidebar",
+            "TypeName": "Microsoft.AspNetCore.Components.EventCallback",
+            "DisplayName": "Microsoft.AspNetCore.Components.EventCallback lunchBlazor.Client.Shared.Components.Header.MinimizeSidebar",
+            "Metadata": {
+              "Common.PropertyName": "MinimizeSidebar",
+              "Common.GloballyQualifiedTypeName": "global::Microsoft.AspNetCore.Components.EventCallback",
+              "Components.EventCallback": "True"
+            }
+          },
+          {
+            "Kind": "Components.Component",
+            "Name": "IsMinimize",
+            "TypeName": "System.Boolean",
+            "DisplayName": "bool lunchBlazor.Client.Shared.Components.Header.IsMinimize",
+            "Metadata": {
+              "Common.PropertyName": "IsMinimize",
+              "Common.GloballyQualifiedTypeName": "global::System.Boolean"
+            }
           }
         ],
         "Metadata": {
@@ -6156,7 +6163,7 @@
         }
       },
       {
-        "HashCode": 1539486692,
+        "HashCode": -1921620208,
         "Kind": "Components.Component",
         "Name": "lunchBlazor.Client.Shared.Components.Footer",
         "AssemblyName": "lunchBlazor.Client",
@@ -6167,6 +6174,18 @@
             "TagName": "Footer"
           }
         ],
+        "BoundAttributes": [
+          {
+            "Kind": "Components.Component",
+            "Name": "IsMinimize",
+            "TypeName": "System.Boolean",
+            "DisplayName": "bool lunchBlazor.Client.Shared.Components.Footer.IsMinimize",
+            "Metadata": {
+              "Common.PropertyName": "IsMinimize",
+              "Common.GloballyQualifiedTypeName": "global::System.Boolean"
+            }
+          }
+        ],
         "Metadata": {
           "Common.TypeName": "lunchBlazor.Client.Shared.Components.Footer",
           "Common.TypeNameIdentifier": "Footer",
@@ -6175,7 +6194,7 @@
         }
       },
       {
-        "HashCode": -1238260004,
+        "HashCode": 1241538689,
         "Kind": "Components.Component",
         "Name": "lunchBlazor.Client.Shared.Components.Footer",
         "AssemblyName": "lunchBlazor.Client",
@@ -6186,10 +6205,452 @@
             "TagName": "lunchBlazor.Client.Shared.Components.Footer"
           }
         ],
+        "BoundAttributes": [
+          {
+            "Kind": "Components.Component",
+            "Name": "IsMinimize",
+            "TypeName": "System.Boolean",
+            "DisplayName": "bool lunchBlazor.Client.Shared.Components.Footer.IsMinimize",
+            "Metadata": {
+              "Common.PropertyName": "IsMinimize",
+              "Common.GloballyQualifiedTypeName": "global::System.Boolean"
+            }
+          }
+        ],
         "Metadata": {
           "Common.TypeName": "lunchBlazor.Client.Shared.Components.Footer",
           "Common.TypeNameIdentifier": "Footer",
           "Common.TypeNamespace": "lunchBlazor.Client.Shared.Components",
+          "Components.NameMatch": "Components.FullyQualifiedNameMatch",
+          "Runtime.Name": "Components.IComponent"
+        }
+      },
+      {
+        "HashCode": -1045558580,
+        "Kind": "Components.Component",
+        "Name": "lunchBlazor.Client.Shared.Widget.Button",
+        "AssemblyName": "lunchBlazor.Client",
+        "DisplayName": "lunchBlazor.Client.Shared.Widget.Button",
+        "CaseSensitive": true,
+        "TagMatchingRules": [
+          {
+            "TagName": "Button"
+          }
+        ],
+        "BoundAttributes": [
+          {
+            "Kind": "Components.Component",
+            "Name": "type",
+            "TypeName": "System.String",
+            "DisplayName": "string lunchBlazor.Client.Shared.Widget.Button.type",
+            "Metadata": {
+              "Common.PropertyName": "type",
+              "Common.GloballyQualifiedTypeName": "global::System.String"
+            }
+          },
+          {
+            "Kind": "Components.Component",
+            "Name": "Label",
+            "TypeName": "System.String",
+            "DisplayName": "string lunchBlazor.Client.Shared.Widget.Button.Label",
+            "Metadata": {
+              "Common.PropertyName": "Label",
+              "Common.GloballyQualifiedTypeName": "global::System.String"
+            }
+          },
+          {
+            "Kind": "Components.Component",
+            "Name": "LabelColor",
+            "TypeName": "System.String",
+            "DisplayName": "string lunchBlazor.Client.Shared.Widget.Button.LabelColor",
+            "Metadata": {
+              "Common.PropertyName": "LabelColor",
+              "Common.GloballyQualifiedTypeName": "global::System.String"
+            }
+          },
+          {
+            "Kind": "Components.Component",
+            "Name": "btnClass",
+            "TypeName": "System.String",
+            "DisplayName": "string lunchBlazor.Client.Shared.Widget.Button.btnClass",
+            "Metadata": {
+              "Common.PropertyName": "btnClass",
+              "Common.GloballyQualifiedTypeName": "global::System.String"
+            }
+          },
+          {
+            "Kind": "Components.Component",
+            "Name": "btnBlock",
+            "TypeName": "System.Boolean",
+            "DisplayName": "bool lunchBlazor.Client.Shared.Widget.Button.btnBlock",
+            "Metadata": {
+              "Common.PropertyName": "btnBlock",
+              "Common.GloballyQualifiedTypeName": "global::System.Boolean"
+            }
+          },
+          {
+            "Kind": "Components.Component",
+            "Name": "rounded",
+            "TypeName": "System.Boolean",
+            "DisplayName": "bool lunchBlazor.Client.Shared.Widget.Button.rounded",
+            "Metadata": {
+              "Common.PropertyName": "rounded",
+              "Common.GloballyQualifiedTypeName": "global::System.Boolean"
+            }
+          },
+          {
+            "Kind": "Components.Component",
+            "Name": "bold",
+            "TypeName": "System.Boolean",
+            "DisplayName": "bool lunchBlazor.Client.Shared.Widget.Button.bold",
+            "Metadata": {
+              "Common.PropertyName": "bold",
+              "Common.GloballyQualifiedTypeName": "global::System.Boolean"
+            }
+          },
+          {
+            "Kind": "Components.Component",
+            "Name": "IsBtnIcon",
+            "TypeName": "System.Boolean",
+            "DisplayName": "bool lunchBlazor.Client.Shared.Widget.Button.IsBtnIcon",
+            "Metadata": {
+              "Common.PropertyName": "IsBtnIcon",
+              "Common.GloballyQualifiedTypeName": "global::System.Boolean"
+            }
+          },
+          {
+            "Kind": "Components.Component",
+            "Name": "IsBtnIconLabel",
+            "TypeName": "System.Boolean",
+            "DisplayName": "bool lunchBlazor.Client.Shared.Widget.Button.IsBtnIconLabel",
+            "Documentation": "<member name=\"P:lunchBlazor.Client.Shared.Widget.Button.IsBtnIconLabel\">\r\n    add icon on the button\r\n</member>\r\n",
+            "Metadata": {
+              "Common.PropertyName": "IsBtnIconLabel",
+              "Common.GloballyQualifiedTypeName": "global::System.Boolean"
+            }
+          },
+          {
+            "Kind": "Components.Component",
+            "Name": "BtnIcon",
+            "TypeName": "System.String",
+            "DisplayName": "string lunchBlazor.Client.Shared.Widget.Button.BtnIcon",
+            "Documentation": "<member name=\"P:lunchBlazor.Client.Shared.Widget.Button.BtnIcon\">\r\n    check button icon is btn-label or not\r\n</member>\r\n",
+            "Metadata": {
+              "Common.PropertyName": "BtnIcon",
+              "Common.GloballyQualifiedTypeName": "global::System.String"
+            }
+          }
+        ],
+        "Metadata": {
+          "Common.TypeName": "lunchBlazor.Client.Shared.Widget.Button",
+          "Common.TypeNameIdentifier": "Button",
+          "Common.TypeNamespace": "lunchBlazor.Client.Shared.Widget",
+          "Runtime.Name": "Components.IComponent"
+        }
+      },
+      {
+        "HashCode": -416605383,
+        "Kind": "Components.Component",
+        "Name": "lunchBlazor.Client.Shared.Widget.Button",
+        "AssemblyName": "lunchBlazor.Client",
+        "DisplayName": "lunchBlazor.Client.Shared.Widget.Button",
+        "CaseSensitive": true,
+        "TagMatchingRules": [
+          {
+            "TagName": "lunchBlazor.Client.Shared.Widget.Button"
+          }
+        ],
+        "BoundAttributes": [
+          {
+            "Kind": "Components.Component",
+            "Name": "type",
+            "TypeName": "System.String",
+            "DisplayName": "string lunchBlazor.Client.Shared.Widget.Button.type",
+            "Metadata": {
+              "Common.PropertyName": "type",
+              "Common.GloballyQualifiedTypeName": "global::System.String"
+            }
+          },
+          {
+            "Kind": "Components.Component",
+            "Name": "Label",
+            "TypeName": "System.String",
+            "DisplayName": "string lunchBlazor.Client.Shared.Widget.Button.Label",
+            "Metadata": {
+              "Common.PropertyName": "Label",
+              "Common.GloballyQualifiedTypeName": "global::System.String"
+            }
+          },
+          {
+            "Kind": "Components.Component",
+            "Name": "LabelColor",
+            "TypeName": "System.String",
+            "DisplayName": "string lunchBlazor.Client.Shared.Widget.Button.LabelColor",
+            "Metadata": {
+              "Common.PropertyName": "LabelColor",
+              "Common.GloballyQualifiedTypeName": "global::System.String"
+            }
+          },
+          {
+            "Kind": "Components.Component",
+            "Name": "btnClass",
+            "TypeName": "System.String",
+            "DisplayName": "string lunchBlazor.Client.Shared.Widget.Button.btnClass",
+            "Metadata": {
+              "Common.PropertyName": "btnClass",
+              "Common.GloballyQualifiedTypeName": "global::System.String"
+            }
+          },
+          {
+            "Kind": "Components.Component",
+            "Name": "btnBlock",
+            "TypeName": "System.Boolean",
+            "DisplayName": "bool lunchBlazor.Client.Shared.Widget.Button.btnBlock",
+            "Metadata": {
+              "Common.PropertyName": "btnBlock",
+              "Common.GloballyQualifiedTypeName": "global::System.Boolean"
+            }
+          },
+          {
+            "Kind": "Components.Component",
+            "Name": "rounded",
+            "TypeName": "System.Boolean",
+            "DisplayName": "bool lunchBlazor.Client.Shared.Widget.Button.rounded",
+            "Metadata": {
+              "Common.PropertyName": "rounded",
+              "Common.GloballyQualifiedTypeName": "global::System.Boolean"
+            }
+          },
+          {
+            "Kind": "Components.Component",
+            "Name": "bold",
+            "TypeName": "System.Boolean",
+            "DisplayName": "bool lunchBlazor.Client.Shared.Widget.Button.bold",
+            "Metadata": {
+              "Common.PropertyName": "bold",
+              "Common.GloballyQualifiedTypeName": "global::System.Boolean"
+            }
+          },
+          {
+            "Kind": "Components.Component",
+            "Name": "IsBtnIcon",
+            "TypeName": "System.Boolean",
+            "DisplayName": "bool lunchBlazor.Client.Shared.Widget.Button.IsBtnIcon",
+            "Metadata": {
+              "Common.PropertyName": "IsBtnIcon",
+              "Common.GloballyQualifiedTypeName": "global::System.Boolean"
+            }
+          },
+          {
+            "Kind": "Components.Component",
+            "Name": "IsBtnIconLabel",
+            "TypeName": "System.Boolean",
+            "DisplayName": "bool lunchBlazor.Client.Shared.Widget.Button.IsBtnIconLabel",
+            "Documentation": "<member name=\"P:lunchBlazor.Client.Shared.Widget.Button.IsBtnIconLabel\">\r\n    add icon on the button\r\n</member>\r\n",
+            "Metadata": {
+              "Common.PropertyName": "IsBtnIconLabel",
+              "Common.GloballyQualifiedTypeName": "global::System.Boolean"
+            }
+          },
+          {
+            "Kind": "Components.Component",
+            "Name": "BtnIcon",
+            "TypeName": "System.String",
+            "DisplayName": "string lunchBlazor.Client.Shared.Widget.Button.BtnIcon",
+            "Documentation": "<member name=\"P:lunchBlazor.Client.Shared.Widget.Button.BtnIcon\">\r\n    check button icon is btn-label or not\r\n</member>\r\n",
+            "Metadata": {
+              "Common.PropertyName": "BtnIcon",
+              "Common.GloballyQualifiedTypeName": "global::System.String"
+            }
+          }
+        ],
+        "Metadata": {
+          "Common.TypeName": "lunchBlazor.Client.Shared.Widget.Button",
+          "Common.TypeNameIdentifier": "Button",
+          "Common.TypeNamespace": "lunchBlazor.Client.Shared.Widget",
+          "Components.NameMatch": "Components.FullyQualifiedNameMatch",
+          "Runtime.Name": "Components.IComponent"
+        }
+      },
+      {
+        "HashCode": 721892920,
+        "Kind": "Components.Component",
+        "Name": "lunchBlazor.Client.Shared.Widget.Input",
+        "AssemblyName": "lunchBlazor.Client",
+        "DisplayName": "lunchBlazor.Client.Shared.Widget.Input",
+        "CaseSensitive": true,
+        "TagMatchingRules": [
+          {
+            "TagName": "Input"
+          }
+        ],
+        "BoundAttributes": [
+          {
+            "Kind": "Components.Component",
+            "Name": "type",
+            "TypeName": "System.String",
+            "DisplayName": "string lunchBlazor.Client.Shared.Widget.Input.type",
+            "Metadata": {
+              "Common.PropertyName": "type",
+              "Common.GloballyQualifiedTypeName": "global::System.String"
+            }
+          },
+          {
+            "Kind": "Components.Component",
+            "Name": "label",
+            "TypeName": "System.String",
+            "DisplayName": "string lunchBlazor.Client.Shared.Widget.Input.label",
+            "Metadata": {
+              "Common.PropertyName": "label",
+              "Common.GloballyQualifiedTypeName": "global::System.String"
+            }
+          },
+          {
+            "Kind": "Components.Component",
+            "Name": "value",
+            "TypeName": "System.String",
+            "DisplayName": "string lunchBlazor.Client.Shared.Widget.Input.value",
+            "Metadata": {
+              "Common.PropertyName": "value",
+              "Common.GloballyQualifiedTypeName": "global::System.String"
+            }
+          },
+          {
+            "Kind": "Components.Component",
+            "Name": "errorText",
+            "TypeName": "System.String",
+            "DisplayName": "string lunchBlazor.Client.Shared.Widget.Input.errorText",
+            "Metadata": {
+              "Common.PropertyName": "errorText",
+              "Common.GloballyQualifiedTypeName": "global::System.String"
+            }
+          },
+          {
+            "Kind": "Components.Component",
+            "Name": "placeholder",
+            "TypeName": "System.String",
+            "DisplayName": "string lunchBlazor.Client.Shared.Widget.Input.placeholder",
+            "Metadata": {
+              "Common.PropertyName": "placeholder",
+              "Common.GloballyQualifiedTypeName": "global::System.String"
+            }
+          },
+          {
+            "Kind": "Components.Component",
+            "Name": "bold",
+            "TypeName": "System.Boolean",
+            "DisplayName": "bool lunchBlazor.Client.Shared.Widget.Input.bold",
+            "Metadata": {
+              "Common.PropertyName": "bold",
+              "Common.GloballyQualifiedTypeName": "global::System.Boolean"
+            }
+          },
+          {
+            "Kind": "Components.Component",
+            "Name": "disabled",
+            "TypeName": "System.Boolean",
+            "DisplayName": "bool lunchBlazor.Client.Shared.Widget.Input.disabled",
+            "Metadata": {
+              "Common.PropertyName": "disabled",
+              "Common.GloballyQualifiedTypeName": "global::System.Boolean"
+            }
+          }
+        ],
+        "Metadata": {
+          "Common.TypeName": "lunchBlazor.Client.Shared.Widget.Input",
+          "Common.TypeNameIdentifier": "Input",
+          "Common.TypeNamespace": "lunchBlazor.Client.Shared.Widget",
+          "Runtime.Name": "Components.IComponent"
+        }
+      },
+      {
+        "HashCode": -806637790,
+        "Kind": "Components.Component",
+        "Name": "lunchBlazor.Client.Shared.Widget.Input",
+        "AssemblyName": "lunchBlazor.Client",
+        "DisplayName": "lunchBlazor.Client.Shared.Widget.Input",
+        "CaseSensitive": true,
+        "TagMatchingRules": [
+          {
+            "TagName": "lunchBlazor.Client.Shared.Widget.Input"
+          }
+        ],
+        "BoundAttributes": [
+          {
+            "Kind": "Components.Component",
+            "Name": "type",
+            "TypeName": "System.String",
+            "DisplayName": "string lunchBlazor.Client.Shared.Widget.Input.type",
+            "Metadata": {
+              "Common.PropertyName": "type",
+              "Common.GloballyQualifiedTypeName": "global::System.String"
+            }
+          },
+          {
+            "Kind": "Components.Component",
+            "Name": "label",
+            "TypeName": "System.String",
+            "DisplayName": "string lunchBlazor.Client.Shared.Widget.Input.label",
+            "Metadata": {
+              "Common.PropertyName": "label",
+              "Common.GloballyQualifiedTypeName": "global::System.String"
+            }
+          },
+          {
+            "Kind": "Components.Component",
+            "Name": "value",
+            "TypeName": "System.String",
+            "DisplayName": "string lunchBlazor.Client.Shared.Widget.Input.value",
+            "Metadata": {
+              "Common.PropertyName": "value",
+              "Common.GloballyQualifiedTypeName": "global::System.String"
+            }
+          },
+          {
+            "Kind": "Components.Component",
+            "Name": "errorText",
+            "TypeName": "System.String",
+            "DisplayName": "string lunchBlazor.Client.Shared.Widget.Input.errorText",
+            "Metadata": {
+              "Common.PropertyName": "errorText",
+              "Common.GloballyQualifiedTypeName": "global::System.String"
+            }
+          },
+          {
+            "Kind": "Components.Component",
+            "Name": "placeholder",
+            "TypeName": "System.String",
+            "DisplayName": "string lunchBlazor.Client.Shared.Widget.Input.placeholder",
+            "Metadata": {
+              "Common.PropertyName": "placeholder",
+              "Common.GloballyQualifiedTypeName": "global::System.String"
+            }
+          },
+          {
+            "Kind": "Components.Component",
+            "Name": "bold",
+            "TypeName": "System.Boolean",
+            "DisplayName": "bool lunchBlazor.Client.Shared.Widget.Input.bold",
+            "Metadata": {
+              "Common.PropertyName": "bold",
+              "Common.GloballyQualifiedTypeName": "global::System.Boolean"
+            }
+          },
+          {
+            "Kind": "Components.Component",
+            "Name": "disabled",
+            "TypeName": "System.Boolean",
+            "DisplayName": "bool lunchBlazor.Client.Shared.Widget.Input.disabled",
+            "Metadata": {
+              "Common.PropertyName": "disabled",
+              "Common.GloballyQualifiedTypeName": "global::System.Boolean"
+            }
+          }
+        ],
+        "Metadata": {
+          "Common.TypeName": "lunchBlazor.Client.Shared.Widget.Input",
+          "Common.TypeNameIdentifier": "Input",
+          "Common.TypeNamespace": "lunchBlazor.Client.Shared.Widget",
           "Components.NameMatch": "Components.FullyQualifiedNameMatch",
           "Runtime.Name": "Components.IComponent"
         }

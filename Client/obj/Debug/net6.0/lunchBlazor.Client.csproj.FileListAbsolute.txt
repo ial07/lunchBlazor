@@ -818,7 +818,6 @@ D:\Program\lunchBlazor\lunchBlazor\Client\obj\Debug\net6.0\staticwebassets.pack.
 D:\Program\lunchBlazor\lunchBlazor\Client\obj\Debug\net6.0\staticwebassets.build.json
 D:\Program\lunchBlazor\lunchBlazor\Client\obj\Debug\net6.0\staticwebassets.development.json
 D:\Program\lunchBlazor\lunchBlazor\Client\obj\Debug\net6.0\scopedcss\Shared\MainLayout.razor.rz.scp.css
-D:\Program\lunchBlazor\lunchBlazor\Client\obj\Debug\net6.0\scopedcss\Shared\NavMenu.razor.rz.scp.css
 D:\Program\lunchBlazor\lunchBlazor\Client\obj\Debug\net6.0\scopedcss\bundle\lunchBlazor.Client.styles.css
 D:\Program\lunchBlazor\lunchBlazor\Client\obj\Debug\net6.0\scopedcss\projectbundle\lunchBlazor.Client.bundle.scp.css
 D:\Program\lunchBlazor\lunchBlazor\Client\obj\Debug\net6.0\service-worker\service-worker.js

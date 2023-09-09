@@ -1,0 +1,30 @@
+<button type="@type"
+    class="btn btn-@btnClass @LabelColor @(btnBlock?"col-12":"")  @(rounded?"btn-rounded":"") @(bold?"fw-bold":"") @(IsBtnIcon?"waves-effect waves-light":"") @(IsBtnIconLabel ?"btn-label":"")">
+
+    <i class="@(IsBtnIcon ? BtnIcon + (IsBtnIconLabel ? " label-icon" : " d-block font-size-16") : "")"></i>
+    @Label
+</button>
+
+
+@code {
+    [Parameter]
+    public string type { get; set; } = "button";
+    [Parameter]
+    public string Label { get; set; } = "Submit";
+    [Parameter]
+    public string? LabelColor { get; set; }
+    [Parameter]
+    public string btnClass { get; set; } = "primary";
+    [Parameter]
+    public bool btnBlock { get; set; } = false;
+    [Parameter]
+    public bool rounded { get; set; } = false;
+    [Parameter]
+    public bool bold { get; set; } = false;
+    [Parameter]
+    public bool IsBtnIcon { get; set; } = false; /// add icon on the button
+    [Parameter]
+    public bool IsBtnIconLabel { get; set; } = false; /// check button icon is btn-label or not
+    [Parameter]
+    public string BtnIcon { get; set; } = "bi bi-download";
+}

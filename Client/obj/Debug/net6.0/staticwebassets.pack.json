@@ -5,6 +5,10 @@
       "PackagePath": "staticwebassets\\_framework\\blazor.webassembly.js"
     },
     {
+      "Id": "D:\\Program\\lunchBlazor\\lunchBlazor\\Client\\obj\\Debug\\net6.0\\build-gz\\4W20gJJT.gz",
+      "PackagePath": "staticwebassets\\_framework\\blazor.webassembly.js.gz"
+    },
+    {
       "Id": "D:\\Program\\lunchBlazor\\lunchBlazor\\Client\\obj\\Debug\\net6.0\\scopedcss\\bundle\\lunchBlazor.Client.styles.css",
       "PackagePath": "staticwebassets\\lunchBlazor.Client.styles.css"
     },
@@ -51,6 +55,14 @@
     {
       "Id": "D:\\Program\\lunchBlazor\\lunchBlazor\\Client\\wwwroot\\assets\\css\\ut-style.css",
       "PackagePath": "staticwebassets\\assets\\css\\ut-style.css"
+    },
+    {
+      "Id": "D:\\Program\\lunchBlazor\\lunchBlazor\\Client\\wwwroot\\assets\\images\\logo.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\logo.jpg"
+    },
+    {
+      "Id": "D:\\Program\\lunchBlazor\\lunchBlazor\\Client\\wwwroot\\assets\\images\\united-tractors.png",
+      "PackagePath": "staticwebassets\\assets\\images\\united-tractors.png"
     },
     {
       "Id": "D:\\Program\\lunchBlazor\\lunchBlazor\\Client\\wwwroot\\assets\\libs\\bootstrap-icons\\font\\bootstrap-icons.css",
@@ -19155,10 +19167,6 @@
     {
       "Id": "D:\\Program\\lunchBlazor\\lunchBlazor\\Client\\wwwroot\\manifest.json",
       "PackagePath": "staticwebassets\\manifest.json"
-    },
-    {
-      "Id": "d:\\Program\\lunchBlazor\\lunchBlazor\\Client\\obj\\Debug\\net6.0\\build-gz\\4W20gJJT.gz",
-      "PackagePath": "staticwebassets\\_framework\\blazor.webassembly.js.gz"
     },
     {
       "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.build.lunchBlazor.Client.props",

@@ -1,7 +1,7 @@
 ﻿self.assetsManifest = {
   "assets": [
     {
-      "hash": "sha256-2opbRbeX0jAKI4kExUfsE0MI98\/j98aB0PkQe01HkWo=",
+      "hash": "sha256-mmcrWJirt3w0\/AHDMt\/mTF531gHO0Z+CRQDwLEW1ixo=",
       "url": "assets\/css\/app.css"
     },
     {
@@ -35,6 +35,14 @@
     {
       "hash": "sha256-ta+mZ\/o7kGUXloEGvZYX1fmkFdnEiMMB3aQp6H+4vnM=",
       "url": "assets\/css\/ut-style.css"
+    },
+    {
+      "hash": "sha256-2fTJOV0oagCIIOvyeVaSEBXwhsRAw1vDYMSDxSTy1u0=",
+      "url": "assets\/images\/logo.jpg"
+    },
+    {
+      "hash": "sha256-DRYwmcDmFFu3Cg52xXB5cGBDHt7hJmGADNhl8+duPww=",
+      "url": "assets\/images\/united-tractors.png"
     },
     {
       "hash": "sha256-dZRvUx65x4IL8xmd7cFttdizYwtNjkXq\/sWUxeypWmc=",
@@ -19141,7 +19149,7 @@
       "url": "manifest.json"
     },
     {
-      "hash": "sha256-FXx7Z7FTrH83gRbWSXhINnDJtc374\/VHEVuSoCLZ3lw=",
+      "hash": "sha256-Qvze7+x9tpk\/5s+kqb4izVDg5PKDfpd26gVH39CsXMU=",
       "url": "lunchBlazor.Client.styles.css"
     },
     {
@@ -19937,11 +19945,11 @@
       "url": "_framework\/lunchBlazor.Shared.pdb"
     },
     {
-      "hash": "sha256-WVqPr2IqvN4RwA9qqDZ8LhY9AQLssDreYH7bTf9mBPQ=",
+      "hash": "sha256-sVNYY69eZUqKG2GF5gGDQha5aLnzHbswAcLTvo5u\/GY=",
       "url": "_framework\/lunchBlazor.Client.dll"
     },
     {
-      "hash": "sha256-PXYb9rBW9tbEpQyAIhbuycp\/MQz4YyuI+QMrTmxkn\/0=",
+      "hash": "sha256-fIokCyFl3pGf6aFnZVK5WarzCD6zfjavdhmk5tFOk1g=",
       "url": "_framework\/lunchBlazor.Client.pdb"
     },
     {
@@ -19949,9 +19957,9 @@
       "url": "_framework\/blazor.webassembly.js"
     },
     {
-      "hash": "sha256-GDc3cWTSNZ88vOmwKcwcEx\/egH2ozpbzl\/XBa57ncBw=",
+      "hash": "sha256-HEO8GFbiEUYuzsK6YQ6cWzSd5DTpDHJMfIbLpwX69WM=",
       "url": "_framework\/blazor.boot.json"
     }
   ],
-  "version": "Nk5Hiuxz"
+  "version": "oVr9\/G5P"
 };

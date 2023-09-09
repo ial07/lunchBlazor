@@ -197,14 +197,14 @@
       "netstandard.dll": "sha256-CgGkoZQx73t3qchcsu85kgBcgrjNEOiudArOwKNb18k=",
       "System.Private.CoreLib.dll": "sha256-6nUSjiT7okMlkN897OnDypwppYuK7JxTahOClXkAuwE=",
       "lunchBlazor.Shared.dll": "sha256-Y5t2QMgzKdXFwlRwGW1RlpjM12AwUy4iZZjdSHTcWQw=",
-      "lunchBlazor.Client.dll": "sha256-awQp1CayXg7fIYtvzQ4gCX0a\/H6SFuttKkqbvVTuecg="
+      "lunchBlazor.Client.dll": "sha256-5\/q5x3C7g0dPQmN8Iv9hTQ1YY+sZo9q+AMOcG7fYdDk="
     },
     "extensions": null,
     "lazyAssembly": null,
     "libraryInitializers": null,
     "pdb": {
       "lunchBlazor.Shared.pdb": "sha256-+p4AzMoYA1q1cKgeQ+TVBN\/Hc8HRM5ICE3CZbg0+8DI=",
-      "lunchBlazor.Client.pdb": "sha256-NhwD8s+tpT34idQDle2EK8lS8a0WWR0an99N5wB3rjI="
+      "lunchBlazor.Client.pdb": "sha256-6Ybs5DxctoJ1Bm2iPVvzzVohDA4+3fQ\/6whMeDPnF6E="
     },
     "runtime": {
       "dotnet.6.0.16.nhli4rqt4k.js": "sha256-GT2gK+GjOisRXJY+9yh6H8s6K\/KDIsaFMFIgWvAnttY=",

@@ -1,10 +1,31 @@
-<footer class="footer">
+<footer class="footer @(IsMinimize ? "minimize" : "")">
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-6">
-                @* <script>document.write(new Date().getFullYear())</script> *@
+                @currentDate.ToString("yyyy")
                 Â© PT. United Tractors.
             </div>
         </div>
     </div>
 </footer>
+
+
+@code {
+    [Parameter]
+    public bool IsMinimize { get; set; }
+
+    public DateTime currentDate { get; set; } = DateTime.Now;
+}
+
+
+<style>
+    .footer {
+        transition: left 0.3s ease-in-out, width 0.3s ease-in-out;
+    }
+
+    .footer .minimize {
+        left: 70px !important;
+        width: calc(100% - 70px);
+        /* Reduce the width to accommodate the margin */
+    }
+</style>

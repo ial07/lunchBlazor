@@ -1,0 +1,83 @@
+@page "/components"
+
+<PageTitle>Components</PageTitle>
+
+
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center
+                    justify-content-between">
+            <h4 class="mb-sm-0 font-size-18">Components</h4>
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+
+
+<div class="row">
+    <div class="card mb-5">
+        <div class="card-header fw-bold">Buttons</div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-3 mb-3">
+                    <Button btnClass="outline-primary" LabelColor="text-danger" bold />
+                 </div>
+                 <div class="col-3">
+                     <Button btnClass="secondary" btnBlock />
+                 </div>
+                 <div class="col-3">
+                     <Button btnClass="warning" btnBlock Label="This Label" rounded />
+                 </div>
+                 <div class="col-3">
+                     <Button btnClass="info" btnBlock Label="This Label" LabelColor="text-dark" />
+                 </div>
+                 <div class="col-6">
+                     <Button btnBlock btnClass="danger" bold IsBtnIcon BtnIcon="bi bi-check-all" IsBtnIconLabel />
+                 </div>
+                 <div class="col-3">
+                     <Button btnBlock Label="Download" bold IsBtnIcon />
+                 </div>
+                 <div class="col-3">
+                     <Button btnClass="outline-success" btnBlock Label="Oke" bold IsBtnIcon />
+                 </div>
+             </div>
+         </div>
+     </div>
+
+     <div class="card mb-5">
+         <div class="card-header fw-bold">Input</div>
+         <div class="card-body">
+             <div class="row">
+                 <div class="col-6">
+                     <Input placeholder="Input Without Label" />
+                 </div>
+                 <div class="col-6">
+                     <Input label="This Input" />
+                 </div>
+                 <div class="col-6">
+                     <Input label="Input Bold" bold />
+                 </div>
+                 <div class="col-6">
+                     <Input label="Input With Placeholder" placeholder="this placeholder" />
+                 </div>
+                 <div class="col-6">
+                     <Input label="Input With Value" placeholder="this placeholder" value="Value" />
+                 </div>
+                 <div class="col-6">
+                     <Input label="Input With error" bold placeholder="this placeholder" value="Value"
+                         errorText="Error Text is here." />
+                 </div>
+                 <div class="col-3">
+                     <Input label="Input Disable" bold placeholder="this placeholder" value="Value" disabled />
+                 </div>
+             </div>
+         </div>
+     </div>
+
+ </div>
+ <!-- end row -->
+
+ @code {
+
+}

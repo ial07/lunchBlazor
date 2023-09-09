@@ -1,0 +1,27 @@
+<div class="form-group">
+    <label class="form-label @(errorText != ""? "text-danger":"") @(bold?"fw-bold":"")">@label</label>
+    <input type="@type" class="form-control @(errorText != ""? "is-invalid":"")" value="@value"
+        placeholder="@placeholder" disabled="@disabled">
+    <div class="col-auto">
+        <span id="passwordHelpInline" class="form-text text-danger">
+            @errorText
+        </span>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public string type { get; set; } = "text";
+    [Parameter]
+    public string? label { get; set; }
+    [Parameter]
+    public string? value { get; set; }
+    [Parameter]
+    public string errorText { get; set; } = "";
+    [Parameter]
+    public string? placeholder { get; set; }
+    [Parameter]
+    public bool bold { get; set; } = false;
+    [Parameter]
+    public bool disabled { get; set; } = false;
+}

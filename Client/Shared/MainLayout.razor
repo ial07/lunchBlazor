@@ -1,23 +1,23 @@
 ﻿@inherits LayoutComponentBase
 
-<div class="sidebar-enable">
+<div class="sidebar-enable" data-sidebar-size="@(IsMinimize ? "sm" : "lg")">
 
 
     <!-- Begin page -->
     <div id="layout-wrapper">
 
         <!-- ========== Header ========== -->
-        <Header />
+        <Header MinimizeSidebar="MinimizeSidebar" IsMinimize=IsMinimize />
         <!-- Header End -->
 
         <!-- ========== Left Sidebar Start ========== -->
-        <Sidebar />
+        <Sidebar IsMinimize=IsMinimize />
         <!-- Left Sidebar End -->
 
         <!-- ============================================================== -->
         <!-- Start right Content here -->
         <!-- ============================================================== -->
-        <div class="main-content" id="miniaresult">
+        <div class="main-content @(IsMinimize ? "minimize" : "")">
             <div class="page-content">
                 <div class="container-fluid">
                     @Body
@@ -37,3 +37,25 @@
     <!-- Right bar overlay-->
     <div class="rightbar-overlay"></div>
 </div>
+
+@code {
+    private bool IsMinimize = false;
+
+    private void MinimizeSidebar()
+    {
+        IsMinimize = !IsMinimize;
+    }
+}
+
+
+<style>
+    .main-content {
+        transition: margin-left 0.3s ease-in-out, width 0.3s ease-in-out;
+    }
+
+    .main-content.minimize {
+        margin-left: 70px;
+        width: calc(100% - 70px);
+        /* Reduce the width to accommodate the margin */
+    }
+</style>

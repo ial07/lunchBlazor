@@ -1712,7 +1712,7 @@ progress {
   border-color: #e6cac9; }
 
 .table-light {
-  --bs-table-bg: #e9e9ef;
+  --bs-table-bg: #ffffff;
   --bs-table-striped-bg: #dddde3;
   --bs-table-striped-color: #000;
   --bs-table-active-bg: #d2d2d7;

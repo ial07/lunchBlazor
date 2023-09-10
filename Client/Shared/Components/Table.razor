@@ -1,0 +1,158 @@
+<div class="fw-bold mb-3" style="font-size: 20px;">@label</div>
+@if (table.Headers == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div style="max-height: 500px; overflow: auto; overflow-y: scroll;">
+        <table class="table table-striped" style="table-layout: fixed;">
+            <thead class="table-dark text-primary" style="position: sticky; top: 0; z-index: 1;">
+                <tr>
+                    @foreach (var header in table.Headers)
+                    {
+                        <th>@header</th>
+                    }
+                    <th class="text-end"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int rowIndex = 0; rowIndex < table.Data.Count; rowIndex++)
+                {
+                    <tr>
+                        @for (int cellIndex = 1; cellIndex < table.Data[rowIndex].Count; cellIndex++)
+                        {
+                            <td>
+                                @if (table.Data[rowIndex][cellIndex] is MarkupString html)
+                                {
+                                    @html
+                                }
+                                else
+                                {
+                                    @table.Data[rowIndex][cellIndex]
+                                }
+                            </td>
+                        }
+                        <td class="text-end">
+                            <div class="dropdown">
+                                <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="bi bi-three-dots-vertical"></i>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li>
+                                        <a class="dropdown-item d-flex justify-content-between"
+                                            href="@($"url/{table.Data[rowIndex][0]}")">Edit <i class="bi bi-pencil"></i></a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item d-flex justify-content-between" href="#">Delete <i
+                                                class="bi bi-trash"></i></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+            <tfoot class="bg-white" style="position: sticky; bottom: -1px;">
+                <tr>
+                    <td colspan="@(table.Headers.Count +1)">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                show @(table.Data.Count()) data
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <button @onclick="HandleClickPrevious" class="btn btn-primary" id="btnPrev"
+                                    disabled="@IsPreviousButtonDisabled">
+                                    <i class="bi bi-chevron-left text-white"></i>
+                                </button>
+                                <div class="page-info">
+                                    @(page) of @(totalPages)
+                                </div>
+                                <button @onclick="HandleClickNext" class="btn btn-primary" disabled="@IsNextButtonDisabled"
+                                    id="btnNext">
+                                    <i class="bi bi-chevron-right text-white"></i>
+                                </button>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                show
+                                <select name="pageSize" class="form-select mx-1" @bind="pageSize"
+                                    @oninput="HandlePageSizeChange">
+                                    <option value="5">5</option>
+                                    <option value="10">10</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                </select>
+                                data
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    @* <div class="row">
+<div class="col-4 d-flex justify-content-start">
+show @(table.Data.Count()) data
+</div>
+<div class="col-4 d-flex justify-content-center">
+<button @onclick="HandleClickPrevious" disabled="@IsPreviousButtonDisabled">Previous</button>
+@(page) of @(totalPages)
+<button @onclick="HandleClickNext" disabled="@IsNextButtonDisabled">Next</button>
+</div>
+<div class="col-4 d-flex justify-content-end">
+oke
+</div>
+</div> *@
+}
+
+
+@code {
+    [Parameter]
+    public string? label { get; set; }
+    [Parameter]
+    public TableModelViewModel table { get; set; }
+    [Parameter]
+    public Func<Task> HandleClickPrevious { get; set; }
+    [Parameter]
+    public Func<Task> HandleClickNext { get; set; }
+    [Parameter]
+    public Func<ChangeEventArgs, Task> HandlePageSizeChange { get; set; }
+    [Parameter]
+    public int? page { get; set; }
+    [Parameter]
+    public int? pageSize { get; set; }
+    [Parameter]
+    public int? totalCountData { get; set; }
+    public int? totalPages => (totalCountData + pageSize - 1) / pageSize;
+    private bool IsPreviousButtonDisabled => page == 1;
+    private bool IsNextButtonDisabled => (page * pageSize) >= totalCountData;
+
+}
+
+
+<style>
+    #btnPrev {
+        border-radius: 10px 0 0 10px;
+    }
+
+    #btnNext {
+        border-radius: 0 10px 10px 0;
+    }
+
+    .page-info {
+        box-shadow: 1px 0 1px 1px rgba(0, 0, 0, 0.1);
+        /* Customize the shadow here */
+        padding: 8px;
+        /* Add some padding for spacing */
+    }
+
+    .dropdown-toggle {
+        background-color: transparent !important;
+        border: none;
+        box-shadow: none;
+        padding: 0;
+        margin: 0;
+        color: inherit;
+    }
+</style>

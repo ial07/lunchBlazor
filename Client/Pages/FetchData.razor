@@ -1,7 +1,7 @@
 ﻿@page "/fetchdata"
 @using lunchBlazor.Shared
 @inject HttpClient Http
-@inject IBannerService BannerService
+@inject BannerService BannerService
 
 <PageTitle>Weather forecast</PageTitle>
 
@@ -9,23 +9,70 @@
 
 <p>This component demonstrates fetching data from the server.</p>
 
-@if (BannerService.Banners == null)
-{
-    <p><em>Loading...</em></p>
-}
-else
-{
-    @foreach (var banner in BannerService.Banners)
-    {
-        <div>
-            <h6>@banner.Name</h6>
-        </div>
-    }
-}
+<Table table=@table label="Label" HandleClickPrevious="Previous" HandleClickNext="Next"
+    HandlePageSizeChange="HandlePageSizeChange" page="BannerService.Banners.page"
+    pageSize="BannerService.Banners.pageSize" totalCountData="BannerService.Banners.totalCountData" />
+
 
 @code {
+    private int page = 1;
+    private int pageSize = 5;
+    private TableModelViewModel table = new TableModelViewModel();
+    private List<Banner> bannerItems = new List<Banner>();
+
+
+    private async Task Next()
+    {
+        page++; // Increment the page
+        await LoadBanner(page, pageSize); // Call LoadBanner with the updated page
+    }
+    private async Task Previous()
+    {
+        page--; // Increment the page
+        await LoadBanner(page, pageSize); // Call LoadBanner with the updated page
+    }
+
+    private async Task HandlePageSizeChange(ChangeEventArgs e)
+    {
+        if (int.TryParse(e.Value.ToString(), out int selectedPageSize))
+        {
+            pageSize = selectedPageSize;
+            await LoadBanner(page, pageSize); // Reload data when pageSize changes
+        } // Call LoadBanner with the updated page
+    }
+
     protected override async Task OnInitializedAsync()
     {
-        await BannerService.LoadBanner();
+        await LoadBanner(page, pageSize);
     }
+
+    private async Task LoadBanner(int page, int pageSize)
+    {
+        await BannerService.LoadBanner(page, pageSize);
+
+        bannerItems = BannerService.Banners.Items;
+
+        table.Data = new List<List<object>>();
+
+        foreach (var item in bannerItems)
+        {
+            var rowData = new List<object>
+{
+item.Id.ToString(),
+item.Name,
+new MarkupString($"<img src='{item.Image}' width='20px' height='20px' alt='Banner Image' />"),
+new MarkupString($"<div style='color:red;'>{item.IsActive.ToString()}</div>"),
+};
+
+            table.Data.Add(rowData);
+        }
+
+        table.Headers = new List<string>
+{
+"Name",
+"Image",
+"IsActive"
+};
+    }
+
 }

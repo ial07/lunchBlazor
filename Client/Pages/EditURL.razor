@@ -1,0 +1,55 @@
+﻿@page "/url/{Id}"
+@inject SweetAlertService Swal
+
+<PageTitle>Edit URL</PageTitle>
+
+<div class="row">
+    <div class="col-12 card bg-primary rounded p-4">
+        <div class="title-user d-flex">Please give a property URL on the table to edit your data!</div>
+        <div class="subtitle-user">
+            &lt;table url=(this name url)&gt;
+        </div>
+    </div>
+
+    <button @onclick="Show">Click</button>
+</div>
+
+@code {
+    [Parameter]
+    public string Id { get; set; }
+
+    private async Task Show()
+    {
+        var result = await Swal.FireAsync(new SweetAlertOptions
+            {
+                Title = "Confirmation",
+                Text = "Are you sure you want to delete this item?",
+                ShowCancelButton = true,
+                ConfirmButtonText = "Yes, delete it",
+            });
+
+        if (result.IsConfirmed)
+        {
+            // Handle the confirmation here
+            // You can add your logic to delete the item
+        }
+    }
+}
+
+<style scoped>
+    .title-user {
+        color: white;
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    .title-user .username {
+        font-weight: bold;
+        margin-left: 5px;
+    }
+
+    .subtitle-user {
+        color: white;
+        font-size: 16px;
+    }
+</style>

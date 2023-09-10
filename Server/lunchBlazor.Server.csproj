@@ -5,14 +5,17 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="6.0.16"/>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.21"/>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.21"/>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.21"/>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.21"/>
+    <PackageReference Include="CurrieTechnologies.Razor.SweetAlert2" Version="5.5.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="6.0.21" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.21" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.21" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.21" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.21" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+    <PackageReference Include="Sieve" Version="2.5.5" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Client\lunchBlazor.Client.csproj"/>
-    <ProjectReference Include="..\Shared\lunchBlazor.Shared.csproj"/>
+    <ProjectReference Include="..\Client\lunchBlazor.Client.csproj" />
+    <ProjectReference Include="..\Shared\lunchBlazor.Shared.csproj" />
   </ItemGroup>
 </Project>

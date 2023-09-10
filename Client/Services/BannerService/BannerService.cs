@@ -1,21 +1,23 @@
 using System.Net.Http.Json;
 using lunchBlazor.Shared.Models;
+using lunchBlazor.Shared.ViewModels;
 
 namespace lunchBlazor.Client.Services.BannerService
 {
-    public class BannerService : IBannerService
+    public class BannerService
     {
         private readonly HttpClient _http;
-        public List<Banner> Banners { get; set; } = new List<Banner>();
+        public GetDatasViewModel<Banner> Banners { get; set; } = new GetDatasViewModel<Banner>();
 
         public BannerService(HttpClient http)
         {
             _http = http;
         }
 
-        public async Task LoadBanner()
+        public async Task LoadBanner(int page, int pageSize)
         {
-            Banners = await _http.GetFromJsonAsync<List<Banner>>("api/Banner");
+            Banners = await _http.GetFromJsonAsync<GetDatasViewModel<Banner>>($"api/Banner?Page={page}&PageSize={pageSize}");
+
         }
     }
 }

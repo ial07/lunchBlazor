@@ -14,7 +14,7 @@ namespace lunchBlazor.Client.Services.BannerService
             _http = http;
         }
 
-        public async Task LoadBanner(Banner post, int page, int pageSize)
+        public async Task LoadBanner(int page, int pageSize)
         {
             Banners = await _http.GetFromJsonAsync<GetDatasViewModel<Banner>>($"api/Banner?Page={page}&PageSize={pageSize}");
 

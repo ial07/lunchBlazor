@@ -38,7 +38,7 @@ namespace test_blazor.Server.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> PostDevisi([FromBody] CreateDevisiInput items)
+        public async Task<IActionResult> PostDevisi([FromBody] CreateMpp items)
         {
             try
             {
@@ -61,7 +61,7 @@ namespace test_blazor.Server.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateDevisi([FromRoute] Guid id, [FromBody] UpdateDevisiInput items)
+        public async Task<IActionResult> UpdateDevisi([FromRoute] Guid id, [FromBody] CreateMpp items)
         {
             try
             {

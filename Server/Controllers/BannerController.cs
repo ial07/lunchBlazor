@@ -24,7 +24,7 @@ namespace test_blazor.Server.Controllers
         {
             var banners = _AppDbContext.Banner.AsQueryable();
             var result = _SieveProcessor.Apply(model, banners);
-            var Banners = await PageList<Banner>.CreateAsync(
+            var Banners = await PageList<Banner>.ShowDataAsync(
                 banners,
                 result,
                 model.Page,

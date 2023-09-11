@@ -41,7 +41,7 @@ else
                                 <ul class="dropdown-menu dropdown-menu-end">
                                     <li>
                                         <a class="dropdown-item d-flex justify-content-between"
-                                            href="@($"url/{table.Data[rowIndex][0]}")">Edit <i class="bi bi-pencil"></i></a>
+                                            href="@($"{url}/{table.Data[rowIndex][0]}")">Edit <i class="bi bi-pencil"></i></a>
                                     </li>
                                     <li>
                                         <a class="dropdown-item d-flex justify-content-between" href="#">Delete <i
@@ -110,6 +110,8 @@ oke
 @code {
     [Parameter]
     public string? label { get; set; }
+    [Parameter]
+    public string url { get; set; } = "url";
     [Parameter]
     public TableModelViewModel table { get; set; }
     [Parameter]

@@ -21,7 +21,7 @@ namespace lunchBlazor.Shared.Helper
         public int TotalCountData { get; set; }
         // public bool HasNextPage => Page * PageSize < TotalCountData;
         // public bool HasPrevious => PageSize > 1;
-        public static async Task<PageList<T>> CreateAsync(IQueryable<T> allT, IQueryable<T> result, int? page, int? pageSize)
+        public static async Task<PageList<T>> ShowDataAsync(IQueryable<T> allT, IQueryable<T> result, int? page, int? pageSize)
         {
             int totalCountData = await allT.AsQueryable().CountAsync();
             return new PageList<T>(result, page, pageSize, totalCountData);

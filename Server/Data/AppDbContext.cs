@@ -20,7 +20,6 @@ namespace lunchBlazor.Server.Data
 
         }
 
-        public DbSet<Banner> Banner { get; set; }
         /// <Master>
         public DbSet<Departemen> Departemen { get; set; }
         public DbSet<Devisi> Devisi { get; set; }
@@ -30,6 +29,7 @@ namespace lunchBlazor.Server.Data
         public DbSet<Lokasi> Lokasi { get; set; }
         public DbSet<Posisi> Posisi { get; set; }
         public DbSet<SumberPemenuhan> SumberPemenuhan { get; set; }
+        public DbSet<Status> Status { get; set; }
         /// <Main>
         public DbSet<MppForm> MppForm { get; set; }
         public DbSet<MppChildForm> MppChildForm { get; set; }

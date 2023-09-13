@@ -5,26 +5,26 @@ using Microsoft.EntityFrameworkCore;
 using Sieve.Models;
 using Sieve.Services;
 
-namespace RepositoryPattern.Services.MppChildFormService
+namespace RepositoryPattern.Services.StatusService
 {
-    public class MppChildFormService : IMppChildFormService
+    public class StatusService : IStatusService
     {
         private readonly AppDbContext _AppDbContext;
         private readonly SieveProcessor _SieveProcessor;
 
-        public MppChildFormService(AppDbContext dbContext, SieveProcessor sieveProcessor)
+        public StatusService(AppDbContext dbContext, SieveProcessor sieveProcessor)
         {
             _AppDbContext = dbContext;
             _SieveProcessor = sieveProcessor;
         }
 
-        public async Task<List<MppChildForm>> Get(SieveModel model)
+        public async Task<List<Status>> Get(SieveModel model)
         {
             try
             {
-                var departemen = _AppDbContext.MppChildForm.Where(d => (bool)d.IsActive).AsQueryable();
+                var departemen = _AppDbContext.Status.Where(d => (bool)d.IsActive).AsQueryable();
                 var result = _SieveProcessor.Apply(model, departemen);
-                var departemenList = await PageList<MppChildForm>.ShowDataAsync(
+                var departemenList = await PageList<Status>.ShowDataAsync(
                     departemen,
                     result,
                     model.Page,
@@ -39,11 +39,11 @@ namespace RepositoryPattern.Services.MppChildFormService
             }
         }
 
-        public async Task<MppChildForm> Post(CreateMppChild items)
+        public async Task<Status> Post(CreateDevisiInput items)
         {
             try
             {
-                var roleData = new MppChildForm()
+                var roleData = new Status()
                 {
                     Id = Guid.NewGuid(),
                     Name = items.Name,
@@ -51,7 +51,7 @@ namespace RepositoryPattern.Services.MppChildFormService
                     CreatedAt = DateTime.Now
                 };
 
-                _AppDbContext.MppChildForm.Add(roleData);
+                _AppDbContext.Status.Add(roleData);
                 await _AppDbContext.SaveChangesAsync();
                 return roleData;
             }
@@ -61,11 +61,11 @@ namespace RepositoryPattern.Services.MppChildFormService
             }
         }
 
-        public async Task<MppChildForm> Put(Guid id, CreateMppChild items)
+        public async Task<Status> Put(Guid id, UpdateDevisiInput items)
         {
             try
             {
-                var roleData = await _AppDbContext.MppChildForm.FindAsync(id);
+                var roleData = await _AppDbContext.Status.FindAsync(id);
                 if (roleData == null)
                 {
                     throw new("Opss Id not found");
@@ -74,7 +74,7 @@ namespace RepositoryPattern.Services.MppChildFormService
                 roleData.Name = items.Name;
                 roleData.IsActive = items.IsActive;
 
-                _AppDbContext.MppChildForm.Update(roleData);
+                _AppDbContext.Status.Update(roleData);
                 await _AppDbContext.SaveChangesAsync();
                 return roleData;
             }
@@ -84,17 +84,17 @@ namespace RepositoryPattern.Services.MppChildFormService
             }
         }
 
-        public async Task<MppChildForm> Delete(Guid id)
+        public async Task<Status> Delete(Guid id)
         {
             try
             {
-                var roleData = await _AppDbContext.MppChildForm.FindAsync(id);
+                var roleData = await _AppDbContext.Status.FindAsync(id);
                 if (roleData == null)
                 {
                     throw new("Opss Id not found");
                 }
                 roleData.IsActive = false;
-                _AppDbContext.MppChildForm.Update(roleData);
+                _AppDbContext.Status.Update(roleData);
                 await _AppDbContext.SaveChangesAsync();
                 return roleData;
             }

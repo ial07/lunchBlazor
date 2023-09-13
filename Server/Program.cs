@@ -9,6 +9,7 @@ using RepositoryPattern.Services.LokasiService;
 using RepositoryPattern.Services.MppChildFormService;
 using RepositoryPattern.Services.MppFormService;
 using RepositoryPattern.Services.PosisiService;
+using RepositoryPattern.Services.StatusService;
 using RepositoryPattern.Services.SumberPemenuhanService;
 using Sieve.Services;
 
@@ -31,6 +32,8 @@ builder.Services.AddScoped<IJenisPermintaanService, JenisPermintaanService>();
 builder.Services.AddScoped<ILokasiService, LokasiService>();
 builder.Services.AddScoped<IPosisiService, PosisiService>();
 builder.Services.AddScoped<ISumberPemenuhanService, SumberPemenuhanService>();
+builder.Services.AddScoped<IStatusService, StatusService>();
+
 
 builder.Services.AddScoped<IMppFormService, MppFormService>();
 builder.Services.AddScoped<IMppChildFormService, MppChildFormService>();

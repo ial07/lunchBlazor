@@ -1,6 +1,16 @@
 using lunchBlazor.Server.Data;
-using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
+using RepositoryPattern.Services.DepartemenService;
+using RepositoryPattern.Services.DevisiService;
+using RepositoryPattern.Services.GolonganService;
+using RepositoryPattern.Services.JenisMppService;
+using RepositoryPattern.Services.JenisPermintaanService;
+using RepositoryPattern.Services.LokasiService;
+using RepositoryPattern.Services.MppChildFormService;
+using RepositoryPattern.Services.MppFormService;
+using RepositoryPattern.Services.PosisiService;
+using RepositoryPattern.Services.StatusService;
+using RepositoryPattern.Services.SumberPemenuhanService;
 using Sieve.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +24,19 @@ builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(buil
 builder.Services.AddSwaggerGen();
 // builder.Services.AddSingleton<AppDbContext>();
 builder.Services.AddSingleton<SieveProcessor>();
+builder.Services.AddScoped<IDepartemenService, DepartemenService>();
+builder.Services.AddScoped<IDevisiService, DevisiService>();
+builder.Services.AddScoped<IGolonganService, GolonganService>();
+builder.Services.AddScoped<IJenisMppService, JenisMppService>();
+builder.Services.AddScoped<IJenisPermintaanService, JenisPermintaanService>();
+builder.Services.AddScoped<ILokasiService, LokasiService>();
+builder.Services.AddScoped<IPosisiService, PosisiService>();
+builder.Services.AddScoped<ISumberPemenuhanService, SumberPemenuhanService>();
+builder.Services.AddScoped<IStatusService, StatusService>();
+
+
+builder.Services.AddScoped<IMppFormService, MppFormService>();
+builder.Services.AddScoped<IMppChildFormService, MppChildFormService>();
 
 var app = builder.Build();
 

@@ -37,6 +37,7 @@ namespace lunchBlazor.Shared.Models
         public string? PersyaratanFisik { get; set; }
         public string? CatatanTambahan { get; set; }
         public string? Keterangan { get; set; }
+        public bool? IsActive { get; set; }
 
     }
 }

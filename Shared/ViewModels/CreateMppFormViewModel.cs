@@ -35,5 +35,7 @@ public class CreateMpp
     [Required]
     public bool IsDraft { get; set; }
     [Required]
+    public Guid StatusId { get; set; }
+    [Required]
     public bool IsActive { get; set; }
 }

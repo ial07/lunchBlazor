@@ -25,6 +25,9 @@ namespace lunchBlazor.Shared.Models
         [Sieve(CanFilter = true, CanSort = true)] public bool? IsApprovalDirectorHC { get; set; }
         [Sieve(CanFilter = true, CanSort = true)] public bool? IsActive { get; set; }
         [Sieve(CanFilter = true, CanSort = true)] public bool? IsDraft { get; set; }
+
+        public Status? Status { get; set; }
+        [Sieve(CanFilter = true, CanSort = true)] public Guid? StatusId { get; set; }
         public List<MppChildForm>? MppChildForm { get; set; }
 
     }

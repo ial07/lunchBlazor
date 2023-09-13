@@ -1,7 +1,12 @@
 <button type="@type"
-    class="btn btn-@btnClass @LabelColor @(btnBlock?"col-12":"")  @(rounded?"btn-rounded":"") @(bold?"fw-bold":"") @(IsBtnIcon?"waves-effect waves-light":"") @(IsBtnIconLabel ?"btn-label":"")">
+    class="btn @btnClass @LabelColor @(btnBlock?"col-12":"")  @(rounded?"btn-rounded":"") @(bold?"fw-bold":"") @(IsBtnIcon?"waves-effect waves-light":"") @(IsBtnIconLabel ?"btn-label":"")"
+    @onclick="HandleClick" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" role="tab"
+    aria-controls="v-pills-profile" aria-selected="false">
 
-    <i class="@(IsBtnIcon ? BtnIcon + (IsBtnIconLabel ? " label-icon" : " d-block font-size-16") : "")"></i>
+    <i
+        class="
+    @(IsBtnIcon ? $"{BtnIcon} {(IsBtnIconLabel ? "label-icon" : "")}{(IsBtnIconBlock ? "d-block font-size-16" : "mx-2 font-size-16")}" : "")"></i>
+
     @Label
 </button>
 
@@ -14,7 +19,7 @@
     [Parameter]
     public string? LabelColor { get; set; }
     [Parameter]
-    public string btnClass { get; set; } = "primary";
+    public string btnClass { get; set; } = "btn-primary";
     [Parameter]
     public bool btnBlock { get; set; } = false;
     [Parameter]
@@ -24,7 +29,19 @@
     [Parameter]
     public bool IsBtnIcon { get; set; } = false; /// add icon on the button
     [Parameter]
+    public bool IsBtnIconBlock { get; set; } = false;
+    [Parameter]
     public bool IsBtnIconLabel { get; set; } = false; /// check button icon is btn-label or not
     [Parameter]
-    public string BtnIcon { get; set; } = "bi bi-download";
+    public string BtnIcon { get; set; } = "bi-plus-square-fill";
+
+    // Define an event callback for the onClick event
+    [Parameter]
+    public EventCallback<MouseEventArgs> onClick { get; set; }
+
+    private async Task HandleClick(MouseEventArgs e)
+    {
+        // Call the event callback when the button is clicked
+        await onClick.InvokeAsync(e);
+    }
 }

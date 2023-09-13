@@ -1,0 +1,71 @@
+<div class="@bgCard" style="border-radius: 10px;">
+    <div class="d-flex align-items-center text-@textColor px-3 py-2">
+        <i class="bi @iconCardHeader mx-2 font-size-18"></i>
+        @labelCard
+    </div>
+    <div class="card-body">
+        <div class="d-flex justify-content-between fw-bold align-items-center">
+            <div>
+                <i class="bi @iconCardBody text-@textColor"></i>
+                @textformLeft
+            </div>
+            <div>@textformRight</div>
+        </div>
+        <div class="py-3 font-size-18 fw-bold">Div : @divisionLocation</div>
+        <div class="row">
+            <div class="col-6 fw-bold">
+                <div>Permintaan :</div>
+                <div class="d-flex align-items-center">
+                    <div class="me-2 bg-@textColor p-1 rounded">A1</div>
+                    <div class="font-size-16 me-5">@demandA1</div>
+                    <div class="me-2 bg-@textColor p-1 rounded">B1</div>
+                    <div class="font-size-16">@demandB1</div>
+                </div>
+            </div>
+            <div class="col-6 fw-bold">
+                <div>Disetujui :</div>
+                <div class="d-flex align-items-center">
+                    <div class="me-2 bg-@textColor p-1 rounded">A1</div>
+                    <div class="font-size-16 me-5">@acceptedA1</div>
+                    <div class="me-2 bg-@textColor p-1 rounded">B1</div>
+                    <div class="font-size-16">@acceptedB1</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public string labelCard { get; set; } = "Label";
+    [Parameter]
+    public string textColor { get; set; } = "primary";
+    [Parameter]
+    public string bgCard { get; set; } = "bg-secondary";
+    [Parameter]
+    public string iconCardHeader { get; set; } = "bi-clock-history";
+    [Parameter]
+    public string iconCardBody { get; set; } = "bi-file-earmark-text-fill";
+    [Parameter]
+    public string textformLeft { get; set; } = "XX-02/XX.XXXX/XX";
+    [Parameter]
+    public string textformRight { get; set; } = "MPP 2020 - Normal";
+    [Parameter]
+    public string divisionLocation { get; set; } = "CST - Head Office";
+    [Parameter]
+    public string demandA1 { get; set; } = "3";
+    [Parameter]
+    public string demandB1 { get; set; } = "6";
+    [Parameter]
+    public string acceptedA1 { get; set; } = "2";
+    [Parameter]
+    public string acceptedB1 { get; set; } = "4";
+}
+
+<style>
+    .card-body {
+        background-color: white;
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+        transition: 0.3s;
+    }
+</style>

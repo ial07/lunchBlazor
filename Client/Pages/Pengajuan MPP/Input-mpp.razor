@@ -1,0 +1,61 @@
+@page "/pengajuan-mpp/input-mpp"
+@inject NavigationManager Navigation
+
+<PageTitle>Pengajuan MPP</PageTitle>
+
+
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center">
+            <a href="/pengajuan-mpp" class="mb-sm-0 font-size-16 text-muted">Man Power Planning</a>
+            <i class="bi bi-chevron-right text-primary mx-2" style="-webkit-text-stroke-width: 1px;"></i>
+            <h4 class="mb-sm-0 font-size-16">Input MPP</h4>
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+
+
+<div class="row p-3 mt-2">
+    <div class="fw-bold mb-3 font-size-16">Detail Pengajuan MPP</div>
+    <div class="col-3">
+        <label class="fw-bold">NRP Pemohon</label>
+        <div class="ms-1">Auto_fill_NRP_User</div>
+    </div>
+    <div class="col-3">
+        <label class="fw-bold">Nama Pemohon</label>
+        <div class="ms-1">Auto_fill_NRP_User</div>
+    </div>
+    <div class="col-3">
+        <label class="fw-bold">Divisi</label>
+        <div class="ms-1">Auto_fill_NRP_User</div>
+    </div>
+    <div class="col-3">
+        <label class="fw-bold">Lokasi</label>
+        <div class="ms-1">Auto_fill_NRP_User</div>
+    </div>
+    <div class="col-3 mt-4">
+        <SelectComponent label="Jenis MPP" isBold placeholder="pilih jenis..." listItems="jenisMpp" />
+     </div>
+     <div class="col-3 mt-4">
+         <SelectComponent label="Tahun MPP" isBold placeholder="pilih tahun..." listItems="tahunMpp" />
+     </div>
+ </div>
+
+ <div class="row">
+     <div class="d-flex justify-content-between">
+         <div class="fw-bold mb-3 font-size-16">Pengajuan MPP A1</div>
+         <Button Label="Tambah Posisi" btnClass="btn-info" IsBtnIcon onClick="HandleButtonClickAddA1" />
+     </div>
+ </div>
+
+ @code {
+    private List<string> jenisMpp = new List<string> { "MPP 1", "MPP 2", "MPP 3" };
+    private List<string> tahunMpp = new List<string> { "2020", "2021", "2022" };
+
+    private async Task HandleButtonClickAddA1(MouseEventArgs e)
+    {
+        Navigation.NavigateTo("/pengajuan-mpp/tambah-a1");
+    }
+}

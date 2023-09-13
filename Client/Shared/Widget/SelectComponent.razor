@@ -1,0 +1,57 @@
+<div class="form-group">
+    <label class="@(isBold ? " fw-bold" : "")">@label</label>
+    <select class="form-select" @bind="@value">
+        <option value="">@placeholder</option>
+        @if (listItems.Any() || listItems.Count > 0)
+        {
+            foreach (var item in listItems)
+            {
+                <option value="@item">@item</option>
+            }
+        }
+        else
+        {
+            <option value="">Insert Items</option>
+        }
+    </select>
+</div>
+
+@code {
+    [Parameter]
+    public string? label { get; set; }
+    [Parameter]
+    public string placeholder { get; set; } = "Choose Items";
+    [Parameter]
+    public List<string>? listItems { get; set; }
+    [Parameter]
+    public string? value { get; set; }
+    [Parameter]
+    public bool isBold { get; set; } = false;
+}
+
+
+<style scoped>
+    /* Remove the border and change the color of the button arrow */
+    select.form-select {
+        border: none;
+        border-bottom: 1px solid #dfdcdc;
+        background-color: transparent;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        color: #8F90A6;
+    }
+
+    /* Style the arrow icon */
+    select.form-select::after {
+        content: '\25BC';
+        /* Unicode code for a downward arrow */
+        color: #FFCA0D;
+        /* Change the color of the arrow icon */
+        position: absolute;
+        right: 0.75rem;
+        /* Adjust the position as needed */
+        top: 50%;
+        transform: translateY(-50%);
+    }
+</style>

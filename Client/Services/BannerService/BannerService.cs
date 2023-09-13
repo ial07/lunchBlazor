@@ -1,6 +1,7 @@
 using System.Net.Http.Json;
 using lunchBlazor.Shared.Models;
 using lunchBlazor.Shared.ViewModels;
+using Sieve.Models;
 
 namespace lunchBlazor.Client.Services.BannerService
 {
@@ -14,10 +15,9 @@ namespace lunchBlazor.Client.Services.BannerService
             _http = http;
         }
 
-        public async Task LoadBanner(int page, int pageSize)
+        public async Task LoadBanner(SieveModel sieveModel)
         {
-            Banners = await _http.GetFromJsonAsync<GetDatasViewModel<Banner>>($"api/Banner?Page={page}&PageSize={pageSize}");
-
+            Banners = await _http.GetFromJsonAsync<GetDatasViewModel<Banner>>($"api/Banner?Page={sieveModel.Page}&PageSize={sieveModel.PageSize}");
         }
 
     }

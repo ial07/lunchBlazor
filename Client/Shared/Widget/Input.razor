@@ -1,9 +1,9 @@
 <div class="form-group">
     <label class="form-label @(errorText != ""? "text-danger":"") @(bold?"fw-bold":"")">@label</label>
-    <input type="@type" class="form-control @(errorText != ""? "is-invalid":"")" value="@value"
+    <input type="@type" class="form-control @(errorText != ""? "is-invalid":"")" @bind-value="@value"
         placeholder="@placeholder" disabled="@disabled">
     <div class="col-auto">
-        <span id="passwordHelpInline" class="form-text text-danger">
+        <span class="form-text text-danger">
             @errorText
         </span>
     </div>

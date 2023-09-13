@@ -1,4 +1,5 @@
 ﻿@page "/pengajuan-mpp"
+@inject NavigationManager Navigation
 
 <PageTitle>Pengajuan MPP</PageTitle>
 
@@ -8,17 +9,45 @@
     <div class="col-12">
         <div class="page-title-box d-sm-flex align-items-center
                     justify-content-between">
-            <h4 class="mb-sm-0 font-size-18">Pengajuan MPP</h4>
-        </div>
-    </div>
-</div>
-<!-- end page title -->
+            <h4 class="mb-sm-0 font-size-24">Man Power Planning</h4>
+            <div class="d-flex align-items-center">
+                <div class="d-flex align-items-center">
+                    <i class="bi bi-list-task mx-1 font-size-18 text-primary"
+                        style="-webkit-text-stroke-width: 1px;"></i>
+                    <div class="">
+                        List View
+                    </div>
+                </div>
+                <div class="d-flex mx-5">
+                    <i class="bi bi-caret-left-fill text-primary"></i>
+                    <div class="mx-3">2022</div>
+                    <i class="bi bi-caret-right-fill text-primary"></i>
+                </div>
+                <Button bold Label="MPP Baru" btnClass="btn-info" IsBtnIcon onClick="HandleButtonClickAdd" />
+             </div>
+         </div>
+     </div>
+ </div>
+ <!-- end page title -->
 
 
-<div class="row">
-</div>
-<!-- end row -->
+ <div class="row">
+     <div class="col-4">
+         <CardPlan labelCard="Dilanjutkan ke Sect. OPCC" />
+     </div>
+     <div class="col-4">
+         <CardPlan labelCard="Disimpan Sebagai Draft" iconCardHeader="bi-pencil-square" />
+     </div>
+     <div class="col-4">
+         <CardPlan labelCard="Pengajuan MPP Ditolak" iconCardHeader="bi-x-circle" />
+     </div>
+ </div>
+ <!-- end row -->
 
-@code {
+ @code {
+    private async Task HandleButtonClickAdd(MouseEventArgs e)
+    {
+        Navigation.NavigateTo("/pengajuan-mpp/input-mpp");
+    }
 
 }

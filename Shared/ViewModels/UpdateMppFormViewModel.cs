@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-public class CreateMpp
+public class UpdateMpp
 {
     [Required]
     public string Name { get; set; }

@@ -5,34 +5,16 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace lunchBlazor.Server.Migrations
 {
-    public partial class initData : Migration
+    public partial class initDatas : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
-                name: "Banner",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Image = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsActive = table.Column<bool>(type: "bit", nullable: true),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    isDeleted = table.Column<bool>(type: "bit", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Banner", x => x.Id);
-                });
-
             migrationBuilder.CreateTable(
                 name: "Departemen",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Image = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -65,7 +47,6 @@ namespace lunchBlazor.Server.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Image = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -74,6 +55,24 @@ namespace lunchBlazor.Server.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Golongan", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "HistoryMpp",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Notes = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    MppId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: true),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    isDeleted = table.Column<bool>(type: "bit", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_HistoryMpp", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -114,7 +113,6 @@ namespace lunchBlazor.Server.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Image = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -131,7 +129,6 @@ namespace lunchBlazor.Server.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Image = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -140,6 +137,23 @@ namespace lunchBlazor.Server.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Posisi", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Status",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Image = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: true),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    isDeleted = table.Column<bool>(type: "bit", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Status", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -163,12 +177,14 @@ namespace lunchBlazor.Server.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    NoMpp = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     NrpPemohon = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     NamaPemohon = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     KategoriLokasiId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     DevisiId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     JenisMppId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    StatusId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     TahunMpp = table.Column<DateTime>(type: "datetime2", nullable: true),
                     IsApprovalADH = table.Column<bool>(type: "bit", nullable: true),
                     IsApprovalBM = table.Column<bool>(type: "bit", nullable: true),
@@ -180,6 +196,7 @@ namespace lunchBlazor.Server.Migrations
                     IsApprovalDirectorHC = table.Column<bool>(type: "bit", nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: true),
                     IsDraft = table.Column<bool>(type: "bit", nullable: true),
+                    Keterangan = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     isDeleted = table.Column<bool>(type: "bit", nullable: true)
@@ -201,6 +218,11 @@ namespace lunchBlazor.Server.Migrations
                         name: "FK_MppForm_Lokasi_KategoriLokasiId",
                         column: x => x.KategoriLokasiId,
                         principalTable: "Lokasi",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_MppForm_Status_StatusId",
+                        column: x => x.StatusId,
+                        principalTable: "Status",
                         principalColumn: "Id");
                 });
 
@@ -237,6 +259,7 @@ namespace lunchBlazor.Server.Migrations
                     PersyaratanFisik = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CatatanTambahan = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Keterangan = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     isDeleted = table.Column<bool>(type: "bit", nullable: true)
@@ -350,12 +373,17 @@ namespace lunchBlazor.Server.Migrations
                 name: "IX_MppForm_KategoriLokasiId",
                 table: "MppForm",
                 column: "KategoriLokasiId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MppForm_StatusId",
+                table: "MppForm",
+                column: "StatusId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Banner");
+                name: "HistoryMpp");
 
             migrationBuilder.DropTable(
                 name: "MppChildForm");
@@ -386,6 +414,9 @@ namespace lunchBlazor.Server.Migrations
 
             migrationBuilder.DropTable(
                 name: "Lokasi");
+
+            migrationBuilder.DropTable(
+                name: "Status");
         }
     }
 }

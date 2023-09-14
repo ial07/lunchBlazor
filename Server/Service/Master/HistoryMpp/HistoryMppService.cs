@@ -5,26 +5,26 @@ using Microsoft.EntityFrameworkCore;
 using Sieve.Models;
 using Sieve.Services;
 
-namespace RepositoryPattern.Services.StatusService
+namespace RepositoryPattern.Services.HistoryMppService
 {
-    public class StatusService : IStatusService
+    public class HistoryMppService : IHistoryMppService
     {
         private readonly AppDbContext _AppDbContext;
         private readonly SieveProcessor _SieveProcessor;
 
-        public StatusService(AppDbContext dbContext, SieveProcessor sieveProcessor)
+        public HistoryMppService(AppDbContext dbContext, SieveProcessor sieveProcessor)
         {
             _AppDbContext = dbContext;
             _SieveProcessor = sieveProcessor;
         }
 
-        public async Task<List<Status>> Get(SieveModel model)
+        public async Task<List<HistoryMpp>> Get(SieveModel model)
         {
             try
             {
-                var departemen = _AppDbContext.Status.Where(d => (bool)d.IsActive).AsQueryable();
+                var departemen = _AppDbContext.HistoryMpp.Where(d => (bool)d.IsActive).AsQueryable();
                 var result = _SieveProcessor.Apply(model, departemen);
-                var departemenList = await PageList<Status>.ShowDataAsync(
+                var departemenList = await PageList<HistoryMpp>.ShowDataAsync(
                     departemen,
                     result,
                     model.Page,
@@ -39,20 +39,22 @@ namespace RepositoryPattern.Services.StatusService
             }
         }
 
-        public async Task<Status> Post(CreateDevisiInput items)
+        public async Task<HistoryMpp> Post(CreateHistoryMpp items)
         {
             try
             {
-                var roleData = new Status()
+                var roleData = new HistoryMpp()
                 {
                     Id = Guid.NewGuid(),
-                    Name = items.Name,
-                    Image = items.Image,
+                    Notes = items.Notes,
+                    UserId = items.UserId,
+                    MppId = items.MppId,
+
                     IsActive = items.IsActive,
                     CreatedAt = DateTime.Now
                 };
 
-                _AppDbContext.Status.Add(roleData);
+                _AppDbContext.HistoryMpp.Add(roleData);
                 await _AppDbContext.SaveChangesAsync();
                 return roleData;
             }
@@ -62,20 +64,19 @@ namespace RepositoryPattern.Services.StatusService
             }
         }
 
-        public async Task<Status> Put(Guid id, UpdateDevisiInput items)
+        public async Task<HistoryMpp> Put(Guid id, CreateHistoryMpp items)
         {
             try
             {
-                var roleData = await _AppDbContext.Status.FindAsync(id);
+                var roleData = await _AppDbContext.HistoryMpp.FindAsync(id);
                 if (roleData == null)
                 {
                     throw new("Opss Id not found");
                 }
 
-                roleData.Name = items.Name;
+                roleData.Notes = items.Notes;
                 roleData.IsActive = items.IsActive;
-                roleData.Image = items.Image;
-                _AppDbContext.Status.Update(roleData);
+                _AppDbContext.HistoryMpp.Update(roleData);
                 await _AppDbContext.SaveChangesAsync();
                 return roleData;
             }
@@ -85,17 +86,17 @@ namespace RepositoryPattern.Services.StatusService
             }
         }
 
-        public async Task<Status> Delete(Guid id)
+        public async Task<HistoryMpp> Delete(Guid id)
         {
             try
             {
-                var roleData = await _AppDbContext.Status.FindAsync(id);
+                var roleData = await _AppDbContext.HistoryMpp.FindAsync(id);
                 if (roleData == null)
                 {
                     throw new("Opss Id not found");
                 }
                 roleData.IsActive = false;
-                _AppDbContext.Status.Update(roleData);
+                _AppDbContext.HistoryMpp.Update(roleData);
                 await _AppDbContext.SaveChangesAsync();
                 return roleData;
             }

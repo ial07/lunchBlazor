@@ -6,20 +6,20 @@ namespace test_blazor.Server.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class MppFormController : ControllerBase
+    public class HistoryMppController : ControllerBase
     {
-        private readonly IMppFormService _IMppFormService;
-        public MppFormController(IMppFormService service)
+        private readonly IHistoryMppService _IHistoryMppService;
+        public HistoryMppController(IHistoryMppService service)
         {
-            _IMppFormService = service;
+            _IHistoryMppService = service;
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<MppForm>>> Get([FromQuery] SieveModel model)
+        public async Task<ActionResult<List<HistoryMpp>>> Get([FromQuery] SieveModel model)
         {
             try
             {
-                var dataList = await _IMppFormService.Get(model);
+                var dataList = await _IHistoryMppService.Get(model);
                 return Ok(dataList);
             }
             catch (Exception ex)
@@ -29,11 +29,11 @@ namespace test_blazor.Server.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<List<MppForm>>> Post([FromBody] CreateMpp items)
+        public async Task<ActionResult<List<HistoryMpp>>> Post([FromBody] CreateHistoryMpp items)
         {
             try
             {
-                var dataList = await _IMppFormService.Post(items);
+                var dataList = await _IHistoryMppService.Post(items);
                 return Ok(dataList);
             }
             catch (Exception ex)
@@ -43,11 +43,11 @@ namespace test_blazor.Server.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateMppForm([FromRoute] Guid id, [FromBody] UpdateMpp items)
+        public async Task<IActionResult> UpdateHistoryMpp([FromRoute] Guid id, [FromBody] CreateHistoryMpp items)
         {
             try
             {
-                var dataList = await _IMppFormService.Put(id, items);
+                var dataList = await _IHistoryMppService.Put(id, items);
                 return Ok(dataList);
             }
             catch (Exception ex)
@@ -57,11 +57,11 @@ namespace test_blazor.Server.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> SoftDeleteMppForm([FromRoute] Guid id)
+        public async Task<IActionResult> SoftDeleteHistoryMpp([FromRoute] Guid id)
         {
             try
             {
-                var dataList = await _IMppFormService.Delete(id);
+                var dataList = await _IHistoryMppService.Delete(id);
                 return Ok(dataList);
             }
             catch (Exception ex)

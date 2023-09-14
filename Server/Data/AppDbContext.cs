@@ -33,6 +33,8 @@ namespace lunchBlazor.Server.Data
         /// <Main>
         public DbSet<MppForm> MppForm { get; set; }
         public DbSet<MppChildForm> MppChildForm { get; set; }
+        public DbSet<HistoryMpp> HistoryMpp { get; set; }
+
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -46,11 +46,26 @@ namespace RepositoryPattern.Services.MppFormService
                 var roleData = new MppForm()
                 {
                     Id = Guid.NewGuid(),
-                    Name = items.Name,
+                    NoMpp = items.NoMpp,
+                    NrpPemohon = items.NrpPemohon,
+                    NamaPemohon = items.NamaPemohon,
+                    KategoriLokasiId = items.KategoriLokasiId,
+                    DevisiId = items.DevisiId,
+                    JenisMppId = items.JenisMppId,
+                    StatusId = items.StatusId,
+                    TahunMpp = items.TahunMpp,
+                    IsApprovalADH = items.IsApprovalADH,
+                    IsApprovalHCBP = items.IsApprovalHCBP,
+                    IsApprovalBM = false,
+                    IsApprovalDivHead = false,
+                    IsApprovalPICA1B1 = false,
+                    IsApprovalOPCC = false,
+                    IsApprovalGMHC = false,
+                    IsApprovalDirectorHC = false,
                     IsActive = items.IsActive,
-                    CreatedAt = DateTime.Now
+                    IsDraft = items.IsDraft,
+                    CreatedAt = DateTime.Now,
                 };
-
                 _AppDbContext.MppForm.Add(roleData);
                 await _AppDbContext.SaveChangesAsync();
                 return roleData;
@@ -61,7 +76,7 @@ namespace RepositoryPattern.Services.MppFormService
             }
         }
 
-        public async Task<MppForm> Put(Guid id, CreateMpp items)
+        public async Task<MppForm> Put(Guid id, UpdateMpp items)
         {
             try
             {

@@ -1,3 +1,47 @@
 <div class="row">
-    <div>Pemenuhan MPP</div>
-</div>
+    <div class="col-12">
+        <div class="fw-bold">
+            Detail Status Pemenuhan
+        </div>
+        <div class="border-title"></div>
+    </div>
+    <div class="col-12 mt-3">
+        <SelectComponent label="Jenis Permintaan" isBold placeholder="Pilih jenis Permintaan" listItems=listPosisi />
+     </div>
+     <div class="col-6">
+         <SelectComponent label="Golongan" isBold placeholder="Pilih golongan" listItems=listPosisi />
+     </div>
+     <div class="col-6">
+         <SelectComponent label="Target Pemenuhan" isBold placeholder="Pilih Bulan dan Tahun" listItems=listPosisi />
+     </div>
+     <div class="col-6">
+         <Input label="Divisi Tujuan" placeholder="Nama Divisi" />
+     </div>
+     <div class="col-6">
+         <SelectComponent label="Dapartemen Tujuan" isBold placeholder="Pilih nama dept." listItems=listPosisi />
+     </div>
+     <div class="col-12">
+         <Input label="Lokasi Penempatan" placeholder="HO/Cab/Site" />
+     </div>
+     <div class="col-6">
+         <Input label="Jumlah MP Saat ini" placeholder="6 Orang" />
+     </div>
+     <div class="col-6">
+         <Input label="Jumlah Permintaan" placeholder="Orang" />
+     </div>
+     <div class="col-12">
+         <div class="form-group">
+             <label class="form-label">Alasan Pengajuan</label>
+             <textarea class="form-control"></textarea>
+         </div>
+     </div>
+     <div class="d-flex justify-content-end mt-3">
+         <Button Label="Selanjutnya" btnClass="btn-outline-info" type="button" onClick="onSwitch" />
+     </div>
+ </div>
+
+ @code {
+    private List<string> listPosisi = new List<string> { "Posisi 1", "Posisi 2" };
+    [Parameter]
+    public EventCallback<MouseEventArgs> onSwitch { get; set; }
+}

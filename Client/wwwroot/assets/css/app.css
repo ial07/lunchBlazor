@@ -4328,3 +4328,11 @@ body[data-layout-mode=dark] .pricing-tab-box .nav-link {
   border-color: #3b403d; }
   body[data-layout-mode=dark] .pricing-tab-box .nav-link.active {
     border-color: #FFCA0D; }
+
+.border-title {
+        width: 100%;
+        background: #FFCA0D;
+        padding: 2px;
+        margin-top: 5px;
+        border-radius: 2px;
+}

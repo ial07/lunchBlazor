@@ -1,8 +1,7 @@
 ﻿@page "/fetchdata"
 @using lunchBlazor.Shared
 @inject HttpClient Http
-@inject BannerService BannerService
-@inject SieveModel SieveModel
+@inject DepartemenService DepartemenService
 
 <PageTitle>Weather forecast</PageTitle>
 
@@ -12,7 +11,7 @@
 
 <Table table=@table label="Label" HandleClickPrevious="Previous" HandleClickNext="Next"
     HandlePageSizeChange="HandlePageSizeChange" mySieveModel="mySieveModel"
-    totalCountData="BannerService.Banners.totalCountData" />
+    totalCountData="DepartemenService.Departemens.totalCountData" />
 
 
 @code {
@@ -22,18 +21,18 @@
             PageSize = 5,
         };
     private TableModelViewModel table = new TableModelViewModel();
-    private List<Banner> bannerItems = new List<Banner>();
+    private List<Departemen> departemenItems = new List<Departemen>();
 
 
     private async Task Next()
     {
         mySieveModel.Page++; // Increment the page
-        await LoadBanner(mySieveModel); // Call LoadBanner with the updated page
+        await LoadDepartemen(mySieveModel); // Call LoadDepartemen with the updated page
     }
     private async Task Previous()
     {
         mySieveModel.Page--; // Increment the page
-        await LoadBanner(mySieveModel); // Call LoadBanner with the updated page
+        await LoadDepartemen(mySieveModel); // Call LoadDepartemen with the updated page
     }
 
     private async Task HandlePageSizeChange(ChangeEventArgs e)
@@ -41,30 +40,29 @@
         if (int.TryParse(e.Value.ToString(), out int selectedPageSize))
         {
             mySieveModel.PageSize = selectedPageSize;
-            await LoadBanner(mySieveModel); // Reload data when pageSize changes
-        } // Call LoadBanner with the updated page
+            await LoadDepartemen(mySieveModel); // Reload data when pageSize changes
+        } // Call LoadDepartemen with the updated page
     }
 
     protected override async Task OnInitializedAsync()
     {
-        await LoadBanner(mySieveModel);
+        await LoadDepartemen(mySieveModel);
     }
 
-    private async Task LoadBanner(SieveModel sieveModel)
+    private async Task LoadDepartemen(SieveModel sieveModel)
     {
-        await BannerService.LoadBanner(sieveModel);
+        await DepartemenService.LoadDepartemen(sieveModel);
 
-        bannerItems = BannerService.Banners.Items;
+        departemenItems = DepartemenService.Departemens.Items;
 
         table.Data = new List<List<object>>();
 
-        foreach (var item in bannerItems)
+        foreach (var item in departemenItems)
         {
             var rowData = new List<object>
 {
 item.Id.ToString(),
 item.Name,
-new MarkupString($"<img src='{item.Image}' width='20px' height='20px' alt='Banner Image' />"),
 new MarkupString($"<div style='color:blue;'>{item.IsActive.ToString()}</div>"),
 };
 
@@ -74,7 +72,6 @@ new MarkupString($"<div style='color:blue;'>{item.IsActive.ToString()}</div>"),
         table.Headers = new List<string>
 {
 "Name",
-"Image",
 "IsActive"
 };
     }

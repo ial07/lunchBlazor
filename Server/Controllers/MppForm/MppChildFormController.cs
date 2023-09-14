@@ -29,7 +29,7 @@ namespace test_blazor.Server.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<List<MppChildForm>>> Post([FromBody] CreateMpp items)
+        public async Task<ActionResult<List<MppChildForm>>> Post([FromBody] CreateMppChild items)
         {
             try
             {
@@ -43,7 +43,7 @@ namespace test_blazor.Server.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateMppChildForm([FromRoute] Guid id, [FromBody] CreateMpp items)
+        public async Task<IActionResult> UpdateMppChildForm([FromRoute] Guid id, [FromBody] CreateMppChild items)
         {
             try
             {

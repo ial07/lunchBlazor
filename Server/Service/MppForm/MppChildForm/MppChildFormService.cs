@@ -18,7 +18,7 @@ namespace RepositoryPattern.Services.MppChildFormService
             _SieveProcessor = sieveProcessor;
         }
 
-        public async Task<List<MppChildForm>> Get(SieveModel model)
+        public async Task<PageList<MppChildForm>> Get(SieveModel model)
         {
             try
             {
@@ -30,7 +30,7 @@ namespace RepositoryPattern.Services.MppChildFormService
                     model.Page,
                     model.PageSize
                 );
-                return await departemenList.Items.ToListAsync();
+                return departemenList;
             }
 
             catch (Exception ex)

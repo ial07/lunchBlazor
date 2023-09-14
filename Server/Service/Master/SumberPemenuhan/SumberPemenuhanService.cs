@@ -18,7 +18,7 @@ namespace RepositoryPattern.Services.SumberPemenuhanService
             _SieveProcessor = sieveProcessor;
         }
 
-        public async Task<List<SumberPemenuhan>> Get(SieveModel model)
+        public async Task<PageList<SumberPemenuhan>> Get(SieveModel model)
         {
             try
             {
@@ -30,7 +30,7 @@ namespace RepositoryPattern.Services.SumberPemenuhanService
                     model.Page,
                     model.PageSize
                 );
-                return await departemenList.Items.ToListAsync();
+                return departemenList;
             }
 
             catch (Exception ex)

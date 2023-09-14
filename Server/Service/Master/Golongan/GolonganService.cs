@@ -18,7 +18,7 @@ namespace RepositoryPattern.Services.GolonganService
             _SieveProcessor = sieveProcessor;
         }
 
-        public async Task<List<Golongan>> Get(SieveModel model)
+        public async Task<PageList<Golongan>> Get(SieveModel model)
         {
             try
             {
@@ -30,7 +30,7 @@ namespace RepositoryPattern.Services.GolonganService
                     model.Page,
                     model.PageSize
                 );
-                return await departemenList.Items.ToListAsync();
+                return departemenList;
             }
 
             catch (Exception ex)

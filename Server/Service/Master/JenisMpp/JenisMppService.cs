@@ -18,7 +18,7 @@ namespace RepositoryPattern.Services.JenisMppService
             _SieveProcessor = sieveProcessor;
         }
 
-        public async Task<List<JenisMpp>> Get(SieveModel model)
+        public async Task<PageList<JenisMpp>> Get(SieveModel model)
         {
             try
             {
@@ -30,7 +30,7 @@ namespace RepositoryPattern.Services.JenisMppService
                     model.Page,
                     model.PageSize
                 );
-                return await departemenList.Items.ToListAsync();
+                return departemenList;
             }
 
             catch (Exception ex)

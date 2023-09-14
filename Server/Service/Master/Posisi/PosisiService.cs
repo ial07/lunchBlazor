@@ -18,7 +18,7 @@ namespace RepositoryPattern.Services.PosisiService
             _SieveProcessor = sieveProcessor;
         }
 
-        public async Task<List<Posisi>> Get(SieveModel model)
+        public async Task<PageList<Posisi>> Get(SieveModel model)
         {
             try
             {
@@ -30,7 +30,7 @@ namespace RepositoryPattern.Services.PosisiService
                     model.Page,
                     model.PageSize
                 );
-                return await departemenList.Items.ToListAsync();
+                return departemenList;
             }
 
             catch (Exception ex)

@@ -18,7 +18,7 @@ namespace RepositoryPattern.Services.StatusService
             _SieveProcessor = sieveProcessor;
         }
 
-        public async Task<List<Status>> Get(SieveModel model)
+        public async Task<PageList<Status>> Get(SieveModel model)
         {
             try
             {
@@ -30,7 +30,7 @@ namespace RepositoryPattern.Services.StatusService
                     model.Page,
                     model.PageSize
                 );
-                return await departemenList.Items.ToListAsync();
+                return departemenList;
             }
 
             catch (Exception ex)

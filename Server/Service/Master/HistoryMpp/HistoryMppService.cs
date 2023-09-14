@@ -18,7 +18,7 @@ namespace RepositoryPattern.Services.HistoryMppService
             _SieveProcessor = sieveProcessor;
         }
 
-        public async Task<List<HistoryMpp>> Get(SieveModel model)
+        public async Task<PageList<HistoryMpp>> Get(SieveModel model)
         {
             try
             {
@@ -30,7 +30,7 @@ namespace RepositoryPattern.Services.HistoryMppService
                     model.Page,
                     model.PageSize
                 );
-                return await departemenList.Items.ToListAsync();
+                return departemenList;
             }
 
             catch (Exception ex)

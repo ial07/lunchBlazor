@@ -18,7 +18,7 @@ namespace RepositoryPattern.Services.LokasiService
             _SieveProcessor = sieveProcessor;
         }
 
-        public async Task<List<Lokasi>> Get(SieveModel model)
+        public async Task<PageList<Lokasi>> Get(SieveModel model)
         {
             try
             {
@@ -30,7 +30,7 @@ namespace RepositoryPattern.Services.LokasiService
                     model.Page,
                     model.PageSize
                 );
-                return await departemenList.Items.ToListAsync();
+                return departemenList;
             }
 
             catch (Exception ex)

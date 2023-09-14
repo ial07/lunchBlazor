@@ -19,7 +19,7 @@ namespace RepositoryPattern.Services.DepartemenService
             _SieveProcessor = sieveProcessor;
         }
 
-        public async Task<List<Departemen>> Get(SieveModel model)
+        public async Task<PageList<Departemen>> Get(SieveModel model)
         {
             try
             {
@@ -31,7 +31,7 @@ namespace RepositoryPattern.Services.DepartemenService
                     model.Page,
                     model.PageSize
                 );
-                return await departemenList.Items.ToListAsync();
+                return departemenList;
             }
 
             catch (Exception ex)

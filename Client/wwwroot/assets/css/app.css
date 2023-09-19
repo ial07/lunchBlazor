@@ -4336,3 +4336,7 @@ body[data-layout-mode=dark] .pricing-tab-box .nav-link {
         margin-top: 5px;
         border-radius: 2px;
 }
+
+.dropdown-item{
+  cursor: pointer;
+}

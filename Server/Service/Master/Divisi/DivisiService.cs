@@ -5,26 +5,26 @@ using Microsoft.EntityFrameworkCore;
 using Sieve.Models;
 using Sieve.Services;
 
-namespace RepositoryPattern.Services.DevisiService
+namespace RepositoryPattern.Services.DivisiService
 {
-    public class DevisiService : IDevisiService
+    public class DivisiService : IDivisiService
     {
         private readonly AppDbContext _AppDbContext;
         private readonly SieveProcessor _SieveProcessor;
 
-        public DevisiService(AppDbContext dbContext, SieveProcessor sieveProcessor)
+        public DivisiService(AppDbContext dbContext, SieveProcessor sieveProcessor)
         {
             _AppDbContext = dbContext;
             _SieveProcessor = sieveProcessor;
         }
 
-        public async Task<PageList<Devisi>> Get(SieveModel model)
+        public async Task<PageList<Divisi>> Get(SieveModel model)
         {
             try
             {
-                var departemen = _AppDbContext.Devisi.Where(d => (bool)d.IsActive).AsQueryable();
+                var departemen = _AppDbContext.Divisi.Where(d => (bool)d.IsActive).AsQueryable();
                 var result = _SieveProcessor.Apply(model, departemen);
-                var departemenList = await PageList<Devisi>.ShowDataAsync(
+                var departemenList = await PageList<Divisi>.ShowDataAsync(
                     departemen,
                     result,
                     model.Page,
@@ -39,11 +39,11 @@ namespace RepositoryPattern.Services.DevisiService
             }
         }
 
-        public async Task<Devisi> Post(CreateDevisiInput items)
+        public async Task<Divisi> Post(CreateDevisiInput items)
         {
             try
             {
-                var roleData = new Devisi()
+                var roleData = new Divisi()
                 {
                     Id = Guid.NewGuid(),
                     Name = items.Name,
@@ -51,7 +51,7 @@ namespace RepositoryPattern.Services.DevisiService
                     CreatedAt = DateTime.Now
                 };
 
-                _AppDbContext.Devisi.Add(roleData);
+                _AppDbContext.Divisi.Add(roleData);
                 await _AppDbContext.SaveChangesAsync();
                 return roleData;
             }
@@ -61,11 +61,11 @@ namespace RepositoryPattern.Services.DevisiService
             }
         }
 
-        public async Task<Devisi> Put(Guid id, UpdateDevisiInput items)
+        public async Task<Divisi> Put(Guid id, UpdateDevisiInput items)
         {
             try
             {
-                var roleData = await _AppDbContext.Devisi.FindAsync(id);
+                var roleData = await _AppDbContext.Divisi.FindAsync(id);
                 if (roleData == null)
                 {
                     throw new("Opss Id not found");
@@ -74,7 +74,7 @@ namespace RepositoryPattern.Services.DevisiService
                 roleData.Name = items.Name;
                 roleData.IsActive = items.IsActive;
 
-                _AppDbContext.Devisi.Update(roleData);
+                _AppDbContext.Divisi.Update(roleData);
                 await _AppDbContext.SaveChangesAsync();
                 return roleData;
             }
@@ -84,17 +84,17 @@ namespace RepositoryPattern.Services.DevisiService
             }
         }
 
-        public async Task<Devisi> Delete(Guid id)
+        public async Task<Divisi> Delete(Guid id)
         {
             try
             {
-                var roleData = await _AppDbContext.Devisi.FindAsync(id);
+                var roleData = await _AppDbContext.Divisi.FindAsync(id);
                 if (roleData == null)
                 {
                     throw new("Opss Id not found");
                 }
                 roleData.IsActive = false;
-                _AppDbContext.Devisi.Update(roleData);
+                _AppDbContext.Divisi.Update(roleData);
                 await _AppDbContext.SaveChangesAsync();
                 return roleData;
             }

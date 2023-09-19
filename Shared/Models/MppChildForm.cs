@@ -13,9 +13,9 @@ namespace lunchBlazor.Shared.Models
         public Departemen? Departemen { get; set; }
         public Golongan? Golongan { get; set; }
         public DateTime? TargetPemenuhan { get; set; }
-        public Devisi? DevisiTujuan { get; set; }
+        public Divisi? DevisiTujuan { get; set; }
         public Lokasi? Lokasi { get; set; }
-        public Devisi? Devisi { get; set; }
+        public Divisi? Devisi { get; set; }
         public int? JumlahMp { get; set; }
         public int? JumlahPermintaan { get; set; }
         public string? AlasanPengajuan { get; set; }

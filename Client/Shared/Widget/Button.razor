@@ -1,15 +1,12 @@
 <button type="@type"
-    class="btn @btnClass @LabelColor @(btnBlock?"col-12":"")  @(rounded?"btn-rounded":"") @(bold?"fw-bold":"") @(IsBtnIcon?"waves-effect waves-light":"") @(IsBtnIconLabel ?"btn-label":"")"
-    @onclick="HandleClick" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" role="tab"
-    aria-controls="v-pills-profile" aria-selected="false">
+    class="btn @btnClass @LabelColor @(btnBlock?"col-12":"") @(rounded?"btn-rounded":"") @(bold?"fw-bold":"") @(IsBtnIcon?"waves-effect waves-light":"") @(IsBtnIconLabel ?"btn-label":"")"
+    @onclick="HandleClick" @attributes="HtmlAttributes">
 
     <i
-        class="
-    @(IsBtnIcon ? $"{BtnIcon} {(IsBtnIconLabel ? "label-icon" : "")}{(IsBtnIconBlock ? "d-block font-size-16" : "mx-2 font-size-16")}" : "")"></i>
+        class="@(IsBtnIcon ? $"{BtnIcon} {(IsBtnIconLabel ? "label-icon" : "")}{(IsBtnIconBlock ? "d-block font-size-16" : "mx-2 font-size-16")}" : "")"></i>
 
     @Label
 </button>
-
 
 @code {
     [Parameter]
@@ -27,11 +24,11 @@
     [Parameter]
     public bool bold { get; set; } = false;
     [Parameter]
-    public bool IsBtnIcon { get; set; } = false; /// add icon on the button
+    public bool IsBtnIcon { get; set; } = false;
     [Parameter]
     public bool IsBtnIconBlock { get; set; } = false;
     [Parameter]
-    public bool IsBtnIconLabel { get; set; } = false; /// check button icon is btn-label or not
+    public bool IsBtnIconLabel { get; set; } = false;
     [Parameter]
     public string BtnIcon { get; set; } = "bi-plus-square-fill";
 
@@ -39,9 +36,11 @@
     [Parameter]
     public EventCallback<MouseEventArgs> onClick { get; set; }
 
+    [Parameter(CaptureUnmatchedValues = true)]
+    public IDictionary<string, object> HtmlAttributes { get; set; }
+
     private async Task HandleClick(MouseEventArgs e)
     {
-        // Call the event callback when the button is clicked
         await onClick.InvokeAsync(e);
     }
 }

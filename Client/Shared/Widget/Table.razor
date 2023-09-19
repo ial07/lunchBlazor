@@ -1,5 +1,5 @@
 <div class="fw-bold mb-3" style="font-size: 20px;">@label</div>
-@if (table.Headers == null)
+@if (table.Data == null)
 {
     <p><em>Loading...</em></p>
 }
@@ -9,6 +9,7 @@ else
         <table class="table table-striped" style="table-layout: fixed;">
             <thead class="table-dark text-primary" style="position: sticky; top: 0; z-index: 1;">
                 <tr>
+                    <th>#</th>
                     @foreach (var header in table.Headers)
                     {
                         <th>@header</th>
@@ -17,9 +18,15 @@ else
                 </tr>
             </thead>
             <tbody>
+                @if (table.Data.Count == 0)
+                {
+                    <td colspan="@(table.Headers.Count()+2)">Data Not Found</td>
+                }
                 @for (int rowIndex = 0; rowIndex < table.Data.Count; rowIndex++)
                 {
+                    int localRowIndex = rowIndex;
                     <tr>
+                        <td>@(rowIndex + 1)</td>
                         @for (int cellIndex = 1; cellIndex < table.Data[rowIndex].Count; cellIndex++)
                         {
                             <td>
@@ -40,11 +47,22 @@ else
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-end">
                                     <li>
-                                        <a class="dropdown-item d-flex justify-content-between"
-                                            href="@($"{url}/{table.Data[rowIndex][0]}")">Edit <i class="bi bi-pencil"></i></a>
+                                        @if (!IsModalEdit)
+                                        {
+
+                                            <a class="dropdown-item d-flex justify-content-between"
+                                                href="@($"{url}/{table.Data[rowIndex][0]}")">Edit <i class="bi bi-pencil"></i></a>
+                                        }
+                                        else
+                                        {
+                                            <a href="#" class="dropdown-item d-flex justify-content-between" data-bs-toggle="modal"
+                                                data-bs-target="#@modalEditNameId" @onclick="()=>EditItem(localRowIndex)">Edit
+                                                <i class="bi bi-pencil"></i></a>
+                                        }
                                     </li>
                                     <li>
-                                        <a class="dropdown-item d-flex justify-content-between" href="#">
+                                        <a class="dropdown-item d-flex justify-content-between"
+                                            @onclick="()=>DeleteItem(localRowIndex)">
                                             Delete <i class="bi bi-trash"></i>
                                         </a>
                                     </li>
@@ -57,7 +75,7 @@ else
 
             <tfoot class="bg-white" style="position: sticky; bottom: -1px;">
                 <tr>
-                    <td colspan="@(table.Headers.Count +1)">
+                    <td colspan="@(table.Headers.Count +2)">
                         <div class="d-flex justify-content-between align-items-center">
                             <div>
                                 show @(table.Data.Count()) data
@@ -92,27 +110,20 @@ else
             </tfoot>
         </table>
     </div>
-    @* <div class="row">
-<div class="col-4 d-flex justify-content-start">
-show @(table.Data.Count()) data
-</div>
-<div class="col-4 d-flex justify-content-center">
-<button @onclick="HandleClickPrevious" disabled="@IsPreviousButtonDisabled">Previous</button>
-@(page) of @(totalPages)
-<button @onclick="HandleClickNext" disabled="@IsNextButtonDisabled">Next</button>
-</div>
-<div class="col-4 d-flex justify-content-end">
-oke
-</div>
-</div> *@
 }
 
 
 @code {
+    [CascadingParameter]
+    public AppState AppliationState { get; set; }
     [Parameter]
     public string? label { get; set; }
     [Parameter]
     public string url { get; set; } = "url";
+    [Parameter]
+    public bool IsModalEdit { get; set; } = false;
+    [Parameter]
+    public string modalEditNameId { get; set; } = "exampleModal";
     [Parameter]
     public TableModelViewModel table { get; set; }
     [Parameter]
@@ -121,9 +132,23 @@ oke
     public Func<Task> HandleClickNext { get; set; }
     [Parameter]
     public Func<ChangeEventArgs, Task> HandlePageSizeChange { get; set; }
+
+    [Parameter]
+    public Action<string> HandleEditBtn { get; set; }
+    private void EditItem(int rowIndex)
+    {
+        HandleEditBtn?.Invoke(table.Data[rowIndex][0].ToString());
+        // Console.WriteLine($"Col {table.Data[rowIndex][0]}, Row Index: {rowIndex}");
+    }
+    [Parameter]
+    public Action<string> HandleDeleteBtn { get; set; }
+    private void DeleteItem(int rowIndex)
+    {
+        HandleDeleteBtn?.Invoke(table.Data[rowIndex][0].ToString());
+        // Console.WriteLine($"Col {table.Data[rowIndex][0]}, Row Index: {rowIndex}");
+    }
     [Parameter]
     public SieveModel? mySieveModel { get; set; }
-
     [Parameter]
     public int? totalCountData { get; set; }
     public int? totalPages => (totalCountData + mySieveModel.PageSize - 1) / mySieveModel.PageSize;

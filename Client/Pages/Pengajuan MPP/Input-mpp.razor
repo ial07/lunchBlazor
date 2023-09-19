@@ -36,21 +36,38 @@
         <div class="ms-1">Auto_fill_NRP_User</div>
     </div>
     <div class="col-3 mt-4">
-        <SelectComponent label="Jenis MPP" isBold placeholder="pilih jenis..." listItems="jenisMpp" />
-     </div>
-     <div class="col-3 mt-4">
-         <SelectComponent label="Tahun MPP" isBold placeholder="pilih tahun..." listItems="tahunMpp" />
-     </div>
- </div>
+        <SelectComponent label="Select an Item" listItems="listItems" />
+    </div>
+    <div class="col-3 mt-4">
+        @* <SelectComponent label="Tahun MPP" isBold placeholder="pilih tahun..." listItems="tahunMpp" /> *@
+    </div>
+</div>
 
- <div class="row">
-     <div class="d-flex justify-content-between">
-         <div class="fw-bold mb-3 font-size-16">Pengajuan MPP A1</div>
-         <Button Label="Tambah Posisi" btnClass="btn-info" IsBtnIcon onClick="HandleButtonClickAddA1" />
+<div class="row">
+    <div class="d-flex justify-content-between">
+        <div class="fw-bold mb-3 font-size-16">Pengajuan MPP A1</div>
+        <Button Label="Tambah Posisi" btnClass="btn-info" IsBtnIcon onClick="HandleButtonClickAddA1" />
      </div>
  </div>
 
  @code {
+    private List<Departemen> departemenList;
+
+    private List<dynamic> listItems;
+    protected override void OnInitialized()
+    {
+        // Initialize departemenList
+        departemenList = new List<Departemen>
+{
+new Departemen { Id = Guid.NewGuid(), Name = "Department 1", IsActive = true },
+new Departemen { Id = Guid.NewGuid(), Name = "Department 2", IsActive = false },
+// Add more items as needed
+};
+
+        listItems = departemenList
+        .Select(departemen => (dynamic)new { Id = departemen.Id, Value = departemen.Name })
+        .ToList();
+    }
     private List<string> jenisMpp = new List<string> { "MPP 1", "MPP 2", "MPP 3" };
     private List<string> tahunMpp = new List<string> { "2020", "2021", "2022" };
 

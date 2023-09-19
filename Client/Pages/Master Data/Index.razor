@@ -1,21 +1,61 @@
 @page "/master-data"
+@inject NavigationManager Navigation
 
-<PageTitle>Master Data</PageTitle>
+<PageTitle>Pengajuan MPP</PageTitle>
+
 
 <!-- start page title -->
 <div class="row">
     <div class="col-12">
-        <div class="page-title-box d-sm-flex align-items-center
-                    justify-content-between">
-            <h4 class="mb-sm-0 font-size-24">Master Data</h4>
+        <div class="page-title-box d-sm-flex align-items-center">
+            <a href="/master-data" class="mb-sm-0 font-size-16 text-muted">Master Data</a>
         </div>
     </div>
 </div>
 <!-- end page title -->
-<div class="row">
-    <div>Isi</div>
+
+
+<div class="d-flex align-items-start">
+    <div class="nav flex-column nav-pills me-3 align-items-start" id="v-pills-tab" role="tablist"
+        aria-orientation="vertical">
+        <button class="nav-link @(activeTab == "departemen" ? "active" : "")" @onclick="SwitchToDepartemenTab">
+            <i class="bi bi-info-circle-fill me-2"></i>
+            Departemen
+        </button>
+        <button class="nav-link @(activeTab == "divisi" ? "active" : "")" @onclick="SwitchToDivisiTab">
+            <i class="bi bi-clipboard-check-fill me-2"></i>
+            Divisi
+        </button>
+    </div>
+    <div class="tab-content col-8" id="v-pills-tabContent">
+        <div class="tab-pane @(activeTab == "departemen" ? "show active" : "fade")">
+            <View_departemen />
+        </div>
+        <div class="tab-pane @(activeTab == "divisi" ? "show active" : "fade")">
+            <View_divisi />
+        </div>
+    </div>
 </div>
+<!-- end row -->
 
 @code {
+    private string activeTab = "departemen";
+
+    private void SwitchToDepartemenTab()
+    {
+        activeTab = "departemen";
+    }
+
+    private void SwitchToDivisiTab()
+    {
+        activeTab = "divisi";
+    }
+
+    private void SwitchToKualifikasiTab()
+    {
+        activeTab = "kualifikasi";
+    }
+
+
 
 }

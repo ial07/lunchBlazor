@@ -12,8 +12,8 @@ using lunchBlazor.Server.Data;
 namespace lunchBlazor.Server.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230914085226_initDatas")]
-    partial class initDatas
+    [Migration("20230919012207_initial_migrate")]
+    partial class initial_migrate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -33,10 +33,11 @@ namespace lunchBlazor.Server.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool?>("IsActive")
+                    b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("UpdatedAt")
@@ -50,7 +51,7 @@ namespace lunchBlazor.Server.Migrations
                     b.ToTable("Departemen");
                 });
 
-            modelBuilder.Entity("lunchBlazor.Shared.Models.Devisi", b =>
+            modelBuilder.Entity("lunchBlazor.Shared.Models.Divisi", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -73,7 +74,7 @@ namespace lunchBlazor.Server.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Devisi");
+                    b.ToTable("Divisi");
                 });
 
             modelBuilder.Entity("lunchBlazor.Shared.Models.Golongan", b =>
@@ -349,6 +350,9 @@ namespace lunchBlazor.Server.Migrations
                     b.Property<Guid?>("DevisiId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("DivisiId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<bool?>("IsActive")
                         .HasColumnType("bit");
 
@@ -414,7 +418,7 @@ namespace lunchBlazor.Server.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DevisiId");
+                    b.HasIndex("DivisiId");
 
                     b.HasIndex("JenisMppId");
 
@@ -512,11 +516,11 @@ namespace lunchBlazor.Server.Migrations
                         .WithMany()
                         .HasForeignKey("DepartemenId");
 
-                    b.HasOne("lunchBlazor.Shared.Models.Devisi", "Devisi")
+                    b.HasOne("lunchBlazor.Shared.Models.Divisi", "Devisi")
                         .WithMany()
                         .HasForeignKey("DevisiId");
 
-                    b.HasOne("lunchBlazor.Shared.Models.Devisi", "DevisiTujuan")
+                    b.HasOne("lunchBlazor.Shared.Models.Divisi", "DevisiTujuan")
                         .WithMany()
                         .HasForeignKey("DevisiTujuanId");
 
@@ -565,9 +569,9 @@ namespace lunchBlazor.Server.Migrations
 
             modelBuilder.Entity("lunchBlazor.Shared.Models.MppForm", b =>
                 {
-                    b.HasOne("lunchBlazor.Shared.Models.Devisi", "Devisi")
+                    b.HasOne("lunchBlazor.Shared.Models.Divisi", "Divisi")
                         .WithMany()
-                        .HasForeignKey("DevisiId");
+                        .HasForeignKey("DivisiId");
 
                     b.HasOne("lunchBlazor.Shared.Models.JenisMpp", "JenisMpp")
                         .WithMany()
@@ -581,7 +585,7 @@ namespace lunchBlazor.Server.Migrations
                         .WithMany()
                         .HasForeignKey("StatusId");
 
-                    b.Navigation("Devisi");
+                    b.Navigation("Divisi");
 
                     b.Navigation("JenisMpp");
 

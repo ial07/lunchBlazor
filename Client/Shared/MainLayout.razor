@@ -1,42 +1,48 @@
 ﻿@inherits LayoutComponentBase
 
+
 <div class="sidebar-enable" data-sidebar-size="@(IsMinimize ? "sm" : "lg")">
 
+    <CascadingValue Value="@ApplicationState">
+        <!-- Begin page -->
+        <div id="layout-wrapper">
 
-    <!-- Begin page -->
-    <div id="layout-wrapper">
+            <!-- ========== Header ========== -->
+            <Header MinimizeSidebar="MinimizeSidebar" IsMinimize=IsMinimize />
+            <!-- Header End -->
 
-        <!-- ========== Header ========== -->
-        <Header MinimizeSidebar="MinimizeSidebar" IsMinimize=IsMinimize />
-        <!-- Header End -->
+            <!-- ========== Left Sidebar Start ========== -->
+            <Sidebar IsMinimize=IsMinimize />
+            <!-- Left Sidebar End -->
 
-        <!-- ========== Left Sidebar Start ========== -->
-        <Sidebar IsMinimize=IsMinimize />
-        <!-- Left Sidebar End -->
-
-        <!-- ============================================================== -->
-        <!-- Start right Content here -->
-        <!-- ============================================================== -->
-        <div class="main-content @(IsMinimize ? "minimize" : "")">
-            <div class="page-content">
-                <div class="container-fluid">
-                    @Body
+            <!-- ============================================================== -->
+            <!-- Start right Content here -->
+            <!-- ============================================================== -->
+            <div class="main-content @(IsMinimize ? "minimize" : "")">
+                <div class="page-content">
+                    <div class="container-fluid">
+                        @Body
+                    </div>
                 </div>
             </div>
+
+
+
+            <!-- ========== Footer ========== -->
+            <Footer />
+            <!-- ========== Footer End ========== -->
+
+
+
         </div>
-
-        <!-- ========== Footer ========== -->
-        <Footer />
-        <!-- ========== Footer End ========== -->
-
-        <!-- end main content-->
-
-    </div>
-    <!-- END layout-wrapper -->
-
+        <!-- END layout-wrapper -->
+    </CascadingValue>
     <!-- Right bar overlay-->
     <div class="rightbar-overlay"></div>
 </div>
+
+
+
 
 @code {
     private bool IsMinimize = false;
@@ -45,6 +51,8 @@
     {
         IsMinimize = !IsMinimize;
     }
+
+    public AppState ApplicationState { get; set; } = new AppState();
 }
 
 

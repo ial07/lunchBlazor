@@ -1,0 +1,170 @@
+@inject DivisiService DivisiService
+@inject IModalService modal
+@inject SweetAlertService Swal
+@inject IJSRuntime JSRuntime
+
+<div class="row">
+    <div class="col-12">
+        <div class="fw-bold">
+            Divisi
+        </div>
+        <div class="border-title"></div>
+    </div>
+
+    <div class="col-12 mt-4">
+        <div class="d-flex justify-content-end">
+            <Button type="button" Label="Tambah" bold data-bs-toggle="modal" data-bs-target="#formDivisi"
+                 onClick="HandleAddDivisi" />
+         </div>
+         <div>
+             <Table table=@table HandleClickPrevious=" Previous" HandleClickNext="Next"
+                 HandlePageSizeChange="HandlePageSizeChange" mySieveModel="mySieveModel"
+                 totalCountData="DivisiService.Divisies.totalCountData" HandleEditBtn="HandleEditBtnDivisi" IsModalEdit
+                 modalEditNameId="formDivisi" HandleDeleteBtn="HandleDeleteDivisi" />
+         </div>
+     </div>
+ </div>
+
+ <Form_divisi Id="@AppliationState.Id" formData="@formData" OnFormSubmit="HandleFormSubmission" />
+
+ @code {
+
+    private Divisi formData = new Divisi();
+    private async void HandleEditBtnDivisi(string id)
+    {
+        AppliationState.Id = id;
+        if (AppliationState.Id is not null)
+        {
+            mySieveModel.Filters = $"Id=={AppliationState.Id}";
+            await DivisiService.GetDepartemenById(mySieveModel);
+            formData = DivisiService.Divisi;
+        }
+        StateHasChanged();
+    }
+
+    private void HandleAddDivisi()
+    {
+        AppliationState.Id = null;
+        formData = new Divisi();
+        StateHasChanged();
+    }
+
+    [CascadingParameter]
+    public AppState AppliationState { get; set; }
+    private SieveModel mySieveModel = new SieveModel
+        {
+            Page = 1,
+            PageSize = 5,
+        };
+    private TableModelViewModel table = new TableModelViewModel();
+    private List<Divisi> departemenItems = new List<Divisi>();
+
+
+    private async Task HandleFormSubmission(Divisi formData)
+    {
+        mySieveModel.Filters = "";
+        if (AppliationState.Id is null)
+        {
+            var result = await DivisiService.CreateDepartemen(formData);
+            if (result.ReasonPhrase == "OK")
+            {
+                JSRuntime.InvokeVoidAsync("clickElementById", "closeButton");
+                //await LoadDepartemen(mySieveModel);
+            }
+        }
+        else
+        {
+            var result = await DivisiService.UpdateDepartemen(AppliationState.Id, formData);
+            if (result.ReasonPhrase == "OK")
+            {
+                JSRuntime.InvokeVoidAsync("clickElementById", "closeButton");
+            }
+        }
+        await LoadDepartemen(mySieveModel);
+        StateHasChanged();
+    }
+
+    private async void HandleDeleteDivisi(string id)
+    {
+        Console.WriteLine($"Deletteee option clicked for item with value: {id}");
+        var result = await Swal.FireAsync(new SweetAlertOptions
+            {
+                Title = "Are you sure to delete this item?",
+                ShowCancelButton = true,
+                ConfirmButtonText = "Yes!",
+                Icon = "warning",
+            });
+        var confirm = !string.IsNullOrEmpty(result.Value);
+
+        if (confirm)
+        {
+            await DivisiService.DeleteDepartemen(id);
+            await LoadDepartemen(mySieveModel);
+            StateHasChanged();
+        }
+    }
+
+    private async Task Next()
+    {
+        mySieveModel.Page++; // Increment the page
+        await LoadDepartemen(mySieveModel); // Call LoadDepartemen with the updated page
+    }
+    private async Task Previous()
+    {
+        mySieveModel.Page--;
+        await LoadDepartemen(mySieveModel);
+    }
+
+    private async Task HandlePageSizeChange(ChangeEventArgs e)
+    {
+        if (int.TryParse(e.Value.ToString(), out int selectedPageSize))
+        {
+            mySieveModel.Page = 1;
+            mySieveModel.PageSize = selectedPageSize;
+            await LoadDepartemen(mySieveModel);
+        }
+    }
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadDepartemen(mySieveModel);
+    }
+
+
+    private async Task LoadDepartemen(SieveModel sieveModel)
+    {
+        try
+        {
+            await DivisiService.LoadDepartemen(sieveModel);
+
+            departemenItems = DivisiService.Divisies.Items;
+
+            table.Data = new List<List<object>>();
+
+            foreach (var item in departemenItems)
+            {
+                var rowData = new List<object>
+{
+item.Id.ToString(),
+item.Name,
+};
+
+                table.Data.Add(rowData);
+            }
+
+            table.Headers = new List<string>
+{
+"Name"
+};
+        }
+        catch (Exception ex)
+        {
+            // Log the exception
+            Console.WriteLine(ex);
+            // Handle the exception as needed (e.g., show an error message to the user)
+        }
+        finally
+        {
+        }
+    }
+
+}

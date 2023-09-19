@@ -27,7 +27,7 @@ namespace lunchBlazor.Shared.Models
         public string? Keterangan { get; set; }
         public List<MppChildForm>? MppChildForm { get; set; }
         public Lokasi? KategoriLokasi { get; set; }
-        public Devisi? Devisi { get; set; }
+        public Divisi? Divisi { get; set; }
         public Status? Status { get; set; }
         public JenisMpp? JenisMpp { get; set; }
 

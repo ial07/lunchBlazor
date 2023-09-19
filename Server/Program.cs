@@ -1,7 +1,7 @@
 using lunchBlazor.Server.Data;
 using Microsoft.EntityFrameworkCore;
 using RepositoryPattern.Services.DepartemenService;
-using RepositoryPattern.Services.DevisiService;
+using RepositoryPattern.Services.DivisiService;
 using RepositoryPattern.Services.GolonganService;
 using RepositoryPattern.Services.JenisMppService;
 using RepositoryPattern.Services.JenisPermintaanService;
@@ -25,7 +25,7 @@ builder.Services.AddSwaggerGen();
 // builder.Services.AddSingleton<AppDbContext>();
 builder.Services.AddSingleton<SieveProcessor>();
 builder.Services.AddScoped<IDepartemenService, DepartemenService>();
-builder.Services.AddScoped<IDevisiService, DevisiService>();
+builder.Services.AddScoped<IDivisiService, DivisiService>();
 builder.Services.AddScoped<IGolonganService, GolonganService>();
 builder.Services.AddScoped<IJenisMppService, JenisMppService>();
 builder.Services.AddScoped<IJenisPermintaanService, JenisPermintaanService>();

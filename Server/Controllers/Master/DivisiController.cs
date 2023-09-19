@@ -6,20 +6,20 @@ namespace test_blazor.Server.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class DevisiController : ControllerBase
+    public class DivisiController : ControllerBase
     {
-        private readonly IDevisiService _IDevisiService;
-        public DevisiController(IDevisiService departemenService)
+        private readonly IDivisiService _IDivisiService;
+        public DivisiController(IDivisiService departemenService)
         {
-            _IDevisiService = departemenService;
+            _IDivisiService = departemenService;
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Devisi>>> Get([FromQuery] SieveModel model)
+        public async Task<ActionResult<List<Divisi>>> Get([FromQuery] SieveModel model)
         {
             try
             {
-                var dataList = await _IDevisiService.Get(model);
+                var dataList = await _IDivisiService.Get(model);
                 return Ok(dataList);
             }
             catch (Exception ex)
@@ -29,11 +29,11 @@ namespace test_blazor.Server.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<List<Devisi>>> Post([FromBody] CreateDevisiInput items)
+        public async Task<ActionResult<List<Divisi>>> Post([FromBody] CreateDevisiInput items)
         {
             try
             {
-                var dataList = await _IDevisiService.Post(items);
+                var dataList = await _IDivisiService.Post(items);
                 return Ok(dataList);
             }
             catch (Exception ex)
@@ -47,7 +47,7 @@ namespace test_blazor.Server.Controllers
         {
             try
             {
-                var dataList = await _IDevisiService.Put(id, items);
+                var dataList = await _IDivisiService.Put(id, items);
                 return Ok(dataList);
             }
             catch (Exception ex)
@@ -61,7 +61,7 @@ namespace test_blazor.Server.Controllers
         {
             try
             {
-                var dataList = await _IDevisiService.Delete(id);
+                var dataList = await _IDivisiService.Delete(id);
                 return Ok(dataList);
             }
             catch (Exception ex)

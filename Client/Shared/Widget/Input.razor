@@ -1,7 +1,8 @@
 <div class="form-group">
     <label class="form-label @(errorText != ""? "text-danger":"") @(bold?"fw-bold":"")">@label</label>
-    <input type="@type" class="form-control @(errorText != ""? "is-invalid":"")" @bind-value="@value"
-        placeholder="@placeholder" disabled="@disabled">
+    <input type="@type" class="form-control @(errorText != "" ? "is-invalid" : "")" @bind-value="@value"
+        placeholder="@placeholder" disabled="@disabled" />
+
     <div class="col-auto">
         <span class="form-text text-danger">
             @errorText
@@ -16,6 +17,8 @@
     public string? label { get; set; }
     [Parameter]
     public string? value { get; set; }
+    [Parameter]
+    public EventCallback<string> valueChanged { get; set; }
     [Parameter]
     public string errorText { get; set; } = "";
     [Parameter]

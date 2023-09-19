@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace lunchBlazor.Server.Migrations
 {
-    public partial class initDatas : Migration
+    public partial class initial_migrate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -14,8 +14,8 @@ namespace lunchBlazor.Server.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsActive = table.Column<bool>(type: "bit", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     isDeleted = table.Column<bool>(type: "bit", nullable: true)
@@ -26,7 +26,7 @@ namespace lunchBlazor.Server.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Devisi",
+                name: "Divisi",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -38,7 +38,7 @@ namespace lunchBlazor.Server.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Devisi", x => x.Id);
+                    table.PrimaryKey("PK_Divisi", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -197,6 +197,7 @@ namespace lunchBlazor.Server.Migrations
                     IsActive = table.Column<bool>(type: "bit", nullable: true),
                     IsDraft = table.Column<bool>(type: "bit", nullable: true),
                     Keterangan = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DivisiId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     isDeleted = table.Column<bool>(type: "bit", nullable: true)
@@ -205,9 +206,9 @@ namespace lunchBlazor.Server.Migrations
                 {
                     table.PrimaryKey("PK_MppForm", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_MppForm_Devisi_DevisiId",
-                        column: x => x.DevisiId,
-                        principalTable: "Devisi",
+                        name: "FK_MppForm_Divisi_DivisiId",
+                        column: x => x.DivisiId,
+                        principalTable: "Divisi",
                         principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_MppForm_JenisMpp_JenisMppId",
@@ -273,14 +274,14 @@ namespace lunchBlazor.Server.Migrations
                         principalTable: "Departemen",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_MppChildForm_Devisi_DevisiId",
+                        name: "FK_MppChildForm_Divisi_DevisiId",
                         column: x => x.DevisiId,
-                        principalTable: "Devisi",
+                        principalTable: "Divisi",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_MppChildForm_Devisi_DevisiTujuanId",
+                        name: "FK_MppChildForm_Divisi_DevisiTujuanId",
                         column: x => x.DevisiTujuanId,
-                        principalTable: "Devisi",
+                        principalTable: "Divisi",
                         principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_MppChildForm_Golongan_GolonganId",
@@ -360,9 +361,9 @@ namespace lunchBlazor.Server.Migrations
                 column: "SumberPemenuhanId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MppForm_DevisiId",
+                name: "IX_MppForm_DivisiId",
                 table: "MppForm",
-                column: "DevisiId");
+                column: "DivisiId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_MppForm_JenisMppId",
@@ -407,7 +408,7 @@ namespace lunchBlazor.Server.Migrations
                 name: "SumberPemenuhan");
 
             migrationBuilder.DropTable(
-                name: "Devisi");
+                name: "Divisi");
 
             migrationBuilder.DropTable(
                 name: "JenisMpp");

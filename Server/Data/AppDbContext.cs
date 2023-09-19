@@ -22,7 +22,7 @@ namespace lunchBlazor.Server.Data
 
         /// <Master>
         public DbSet<Departemen> Departemen { get; set; }
-        public DbSet<Devisi> Devisi { get; set; }
+        public DbSet<Divisi> Divisi { get; set; }
         public DbSet<Golongan> Golongan { get; set; }
         public DbSet<JenisMpp> JenisMpp { get; set; }
         public DbSet<JenisPermintaan> JenisPermintaan { get; set; }

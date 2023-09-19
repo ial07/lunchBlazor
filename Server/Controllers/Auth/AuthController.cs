@@ -5,14 +5,13 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using Newtonsoft.Json;
 using lunchBlazor.Shared.Models;
+using Sieve.Models;
 
 namespace test_blazor.Server.Controllers
 {
     [ApiController]
     public class AuthController : ControllerBase
     {
-
-
         private readonly IAuthService _IAuthService;
         public AuthController(IAuthService authService)
         {

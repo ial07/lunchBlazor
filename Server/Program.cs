@@ -20,6 +20,7 @@ using RepositoryPattern.Services.PendidikanService;
 using RepositoryPattern.Services.PosisiService;
 using RepositoryPattern.Services.StatusService;
 using RepositoryPattern.Services.SumberPemenuhanService;
+using RepositoryPattern.Services.UserService;
 using Sieve.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -45,6 +46,8 @@ builder.Services.AddScoped<IStatusService, StatusService>();
 builder.Services.AddScoped<IPendidikanService, PendidikanService>();
 builder.Services.AddScoped<IJurusanPendidikanService, JurusanPendidikanService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IUserService, UserService>();
+
 
 
 

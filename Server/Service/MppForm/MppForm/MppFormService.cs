@@ -22,6 +22,12 @@ namespace RepositoryPattern.Services.MppFormService
         {
             try
             {
+                await _AppDbContext.Lokasi.Where(x => x.IsActive == true).OrderBy(x => x.CreatedAt).ToListAsync();
+                await _AppDbContext.Divisi.Where(x => x.IsActive == true).OrderBy(x => x.CreatedAt).ToListAsync();
+                await _AppDbContext.JenisMpp.Where(x => x.IsActive == true).OrderBy(x => x.CreatedAt).ToListAsync();
+                await _AppDbContext.Status.Where(x => x.IsActive == true).OrderBy(x => x.CreatedAt).ToListAsync();
+                await _AppDbContext.MppChildForm.Where(x => x.IsActive == true).OrderBy(x => x.CreatedAt).ToListAsync();
+
                 var departemen = _AppDbContext.MppForm.Where(d => (bool)d.IsActive).AsQueryable();
                 var result = _SieveProcessor.Apply(model, departemen);
                 var departemenList = await PageList<MppForm>.ShowDataAsync(

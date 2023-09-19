@@ -47,7 +47,7 @@ namespace RepositoryPattern.Services.MppChildFormService
                 {
                     Id = Guid.NewGuid(),
                     Name = items.Name,
-                    IsActive = items.IsActive,
+                    IsActive = true,
                     CreatedAt = DateTime.Now
                 };
 

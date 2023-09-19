@@ -43,12 +43,17 @@ namespace RepositoryPattern.Services.StatusService
         {
             try
             {
+                var checkData = await _AppDbContext.Status.FirstOrDefaultAsync(x => x.Name == items.Name);
+                if (checkData != null)
+                {
+                    throw new("Data sudah tersedia, silahkan input nama lain");
+                }
                 var roleData = new Status()
                 {
                     Id = Guid.NewGuid(),
                     Name = items.Name,
                     Image = items.Image,
-                    IsActive = items.IsActive,
+                    IsActive = true,
                     CreatedAt = DateTime.Now
                 };
 
@@ -66,12 +71,12 @@ namespace RepositoryPattern.Services.StatusService
         {
             try
             {
-                var roleData = await _AppDbContext.Status.FindAsync(id);
-                if (roleData == null)
+                var checkData = await _AppDbContext.Status.FirstOrDefaultAsync(x => x.Name == items.Name);
+                if (checkData != null)
                 {
-                    throw new("Opss Id not found");
+                    throw new("Data sudah tersedia, silahkan input nama lain");
                 }
-
+                var roleData = await _AppDbContext.Status.FindAsync(id) ?? throw new("Opss Id not found");
                 roleData.Name = items.Name;
                 roleData.IsActive = items.IsActive;
                 roleData.Image = items.Image;

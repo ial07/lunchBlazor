@@ -43,11 +43,16 @@ namespace RepositoryPattern.Services.JenisPermintaanService
         {
             try
             {
+                var checkData = await _AppDbContext.JenisPermintaan.FirstOrDefaultAsync(x => x.Name == items.Name);
+                if (checkData != null)
+                {
+                    throw new("Data sudah tersedia, silahkan input nama lain");
+                }
                 var roleData = new JenisPermintaan()
                 {
                     Id = Guid.NewGuid(),
                     Name = items.Name,
-                    IsActive = items.IsActive,
+                    IsActive = true,
                     CreatedAt = DateTime.Now
                 };
 
@@ -65,6 +70,11 @@ namespace RepositoryPattern.Services.JenisPermintaanService
         {
             try
             {
+                var checkData = await _AppDbContext.JenisPermintaan.FirstOrDefaultAsync(x => x.Name == items.Name);
+                if (checkData != null)
+                {
+                    throw new("Data sudah tersedia, silahkan input nama lain");
+                }
                 var roleData = await _AppDbContext.JenisPermintaan.FindAsync(id);
                 if (roleData == null)
                 {

@@ -62,7 +62,7 @@ namespace RepositoryPattern.Services.MppFormService
                     IsApprovalOPCC = false,
                     IsApprovalGMHC = false,
                     IsApprovalDirectorHC = false,
-                    IsActive = items.IsActive,
+                    IsActive = true,
                     IsDraft = items.IsDraft,
                     CreatedAt = DateTime.Now,
                 };

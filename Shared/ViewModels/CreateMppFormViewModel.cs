@@ -2,14 +2,13 @@ using System.ComponentModel.DataAnnotations;
 
 public class CreateMpp
 {
+    public string? Name { get; set; }
     [Required]
-    public string Name { get; set; }
+    public string? NrpPemohon { get; set; }
     [Required]
-    public string NrpPemohon { get; set; }
+    public string? NoMpp { get; set; }
     [Required]
-    public string NoMpp { get; set; }
-    [Required]
-    public string NamaPemohon { get; set; }
+    public string? NamaPemohon { get; set; }
     [Required]
     public Guid StatusId { get; set; }
     [Required]

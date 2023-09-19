@@ -44,11 +44,16 @@ namespace RepositoryPattern.Services.DepartemenService
         {
             try
             {
+                var checkData = await _AppDbContext.Departemen.FirstOrDefaultAsync(x => x.Name == items.Name);
+                if (checkData != null)
+                {
+                    throw new("Data sudah tersedia, silahkan input nama lain");
+                }
                 var roleData = new Departemen()
                 {
                     Id = Guid.NewGuid(),
                     Name = items.Name,
-                    IsActive = items.IsActive,
+                    IsActive = true,
                     CreatedAt = DateTime.Now
                 };
 
@@ -66,12 +71,12 @@ namespace RepositoryPattern.Services.DepartemenService
         {
             try
             {
-                var roleData = await _AppDbContext.Departemen.FindAsync(id);
-                if (roleData == null)
+                var checkData = await _AppDbContext.Departemen.FirstOrDefaultAsync(x => x.Name == items.Name);
+                if (checkData != null)
                 {
-                    throw new("Opss Id not found");
+                    throw new("Data sudah tersedia, silahkan input nama lain");
                 }
-
+                var roleData = await _AppDbContext.Departemen.FindAsync(id) ?? throw new("Opss Id not found");
                 roleData.Name = items.Name;
                 roleData.IsActive = items.IsActive;
 

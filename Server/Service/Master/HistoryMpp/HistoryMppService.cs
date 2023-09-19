@@ -50,7 +50,7 @@ namespace RepositoryPattern.Services.HistoryMppService
                     UserId = items.UserId,
                     MppId = items.MppId,
 
-                    IsActive = items.IsActive,
+                    IsActive = true,
                     CreatedAt = DateTime.Now
                 };
 

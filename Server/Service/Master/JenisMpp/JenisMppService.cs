@@ -43,11 +43,16 @@ namespace RepositoryPattern.Services.JenisMppService
         {
             try
             {
+                var checkData = await _AppDbContext.JenisMpp.FirstOrDefaultAsync(x => x.Name == items.Name);
+                if (checkData != null)
+                {
+                    throw new("Data sudah tersedia, silahkan input nama lain");
+                }
                 var roleData = new JenisMpp()
                 {
                     Id = Guid.NewGuid(),
                     Name = items.Name,
-                    IsActive = items.IsActive,
+                    IsActive = true,
                     CreatedAt = DateTime.Now
                 };
 
@@ -65,6 +70,11 @@ namespace RepositoryPattern.Services.JenisMppService
         {
             try
             {
+                var checkData = await _AppDbContext.JenisMpp.FirstOrDefaultAsync(x => x.Name == items.Name);
+                if (checkData != null)
+                {
+                    throw new("Data sudah tersedia, silahkan input nama lain");
+                }
                 var roleData = await _AppDbContext.JenisMpp.FindAsync(id);
                 if (roleData == null)
                 {

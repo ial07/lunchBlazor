@@ -43,11 +43,16 @@ namespace RepositoryPattern.Services.SumberPemenuhanService
         {
             try
             {
+                var checkData = await _AppDbContext.SumberPemenuhan.FirstOrDefaultAsync(x => x.Name == items.Name);
+                if (checkData != null)
+                {
+                    throw new("Data sudah tersedia, silahkan input nama lain");
+                }
                 var roleData = new SumberPemenuhan()
                 {
                     Id = Guid.NewGuid(),
                     Name = items.Name,
-                    IsActive = items.IsActive,
+                    IsActive = true,
                     CreatedAt = DateTime.Now
                 };
 
@@ -65,12 +70,13 @@ namespace RepositoryPattern.Services.SumberPemenuhanService
         {
             try
             {
-                var roleData = await _AppDbContext.SumberPemenuhan.FindAsync(id);
-                if (roleData == null)
+                var checkData = await _AppDbContext.SumberPemenuhan.FirstOrDefaultAsync(x => x.Name == items.Name);
+                if (checkData != null)
                 {
-                    throw new("Opss Id not found");
+                    throw new("Data sudah tersedia, silahkan input nama lain");
                 }
 
+                var roleData = await _AppDbContext.SumberPemenuhan.FindAsync(id) ?? throw new("Opss Id not found");
                 roleData.Name = items.Name;
                 roleData.IsActive = items.IsActive;
 

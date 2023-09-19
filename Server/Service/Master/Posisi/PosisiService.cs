@@ -43,11 +43,16 @@ namespace RepositoryPattern.Services.PosisiService
         {
             try
             {
+                var checkData = await _AppDbContext.Posisi.FirstOrDefaultAsync(x => x.Name == items.Name);
+                if (checkData != null)
+                {
+                    throw new("Data sudah tersedia, silahkan input nama lain");
+                }
                 var roleData = new Posisi()
                 {
                     Id = Guid.NewGuid(),
                     Name = items.Name,
-                    IsActive = items.IsActive,
+                    IsActive = true,
                     CreatedAt = DateTime.Now
                 };
 
@@ -65,12 +70,12 @@ namespace RepositoryPattern.Services.PosisiService
         {
             try
             {
-                var roleData = await _AppDbContext.Posisi.FindAsync(id);
-                if (roleData == null)
+                var checkData = await _AppDbContext.Posisi.FirstOrDefaultAsync(x => x.Name == items.Name);
+                if (checkData != null)
                 {
-                    throw new("Opss Id not found");
+                    throw new("Data sudah tersedia, silahkan input nama lain");
                 }
-
+                var roleData = await _AppDbContext.Posisi.FindAsync(id) ?? throw new("Opss Id not found");
                 roleData.Name = items.Name;
                 roleData.IsActive = items.IsActive;
 

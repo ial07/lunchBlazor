@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using RepositoryPattern.Services.AuthService;
 using RepositoryPattern.Services.DepartemenService;
 using RepositoryPattern.Services.DivisiService;
 using RepositoryPattern.Services.GolonganService;
@@ -43,6 +44,8 @@ builder.Services.AddScoped<ISumberPemenuhanService, SumberPemenuhanService>();
 builder.Services.AddScoped<IStatusService, StatusService>();
 builder.Services.AddScoped<IPendidikanService, PendidikanService>();
 builder.Services.AddScoped<IJurusanPendidikanService, JurusanPendidikanService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
+
 
 
 

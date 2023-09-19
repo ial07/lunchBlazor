@@ -5,7 +5,6 @@ using Sieve.Models;
 
 namespace test_blazor.Server.Controllers
 {
-    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class DepartemenController : ControllerBase

@@ -68,7 +68,7 @@
             var result = await DepartemenService.CreateDepartemen(formData);
             if (result.ReasonPhrase == "OK")
             {
-                JSRuntime.InvokeVoidAsync("clickElementById", "closeButton");
+                JSRuntime.InvokeVoidAsync("clickElementById", "closeButtonDepartemen");
                 //await LoadDepartemen(mySieveModel);
             }
         }
@@ -77,7 +77,7 @@
             var result = await DepartemenService.UpdateDepartemen(AppliationState.Id, formData);
             if (result.ReasonPhrase == "OK")
             {
-                JSRuntime.InvokeVoidAsync("clickElementById", "closeButton");
+                JSRuntime.InvokeVoidAsync("clickElementById", "closeButtonDepartemen");
             }
         }
         await LoadDepartemen(mySieveModel);

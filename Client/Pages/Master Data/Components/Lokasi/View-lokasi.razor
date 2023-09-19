@@ -1,4 +1,4 @@
-@inject DivisiService DivisiService
+@inject LokasiService LokasiService
 @inject IModalService modal
 @inject SweetAlertService Swal
 @inject IJSRuntime JSRuntime
@@ -6,46 +6,46 @@
 <div class="row">
     <div class="col-12">
         <div class="fw-bold">
-            Divisi
+            Lokasi
         </div>
         <div class="border-title"></div>
     </div>
 
     <div class="col-12 mt-4">
         <div class="d-flex justify-content-end">
-            <Button type="button" Label="Tambah" bold data-bs-toggle="modal" data-bs-target="#formDivisi"
-                onClick="HandleAddDivisi" />
-        </div>
-        <div>
-            <Table table=@table HandleClickPrevious=" Previous" HandleClickNext="Next"
-                HandlePageSizeChange="HandlePageSizeChange" mySieveModel="mySieveModel"
-                totalCountData="DivisiService.Divisies.totalCountData" HandleEditBtn="HandleEditBtnDivisi" IsModalEdit
-                modalEditNameId="formDivisi" HandleDeleteBtn="HandleDeleteDivisi" />
-        </div>
-    </div>
-</div>
+            <Button type="button" Label="Tambah" bold data-bs-toggle="modal" data-bs-target="#formLokasi"
+                 onClick="HandleAddLokasi" />
+         </div>
+         <div>
+             <Table table=@table HandleClickPrevious="Previous" HandleClickNext="Next"
+                 HandlePageSizeChange="HandlePageSizeChange" mySieveModel="mySieveModel"
+                 totalCountData="LokasiService.Lokasies.totalCountData" HandleEditBtn="HandleEditBtnLokasi" IsModalEdit
+                 modalEditNameId="formLokasi" HandleDeleteBtn="HandleDeleteLokasi" />
+         </div>
+     </div>
+ </div>
 
-<Form_divisi Id="@AppliationState.Id" formData="@formData" OnFormSubmit="HandleFormSubmission" />
+ <Form_lokasi Id="@AppliationState.Id" formData="@formData" OnFormSubmit="HandleFormSubmission" />
 
-@code {
+ @code {
 
-    private Divisi formData = new Divisi();
-    private async void HandleEditBtnDivisi(string id)
+    private Lokasi formData = new Lokasi();
+    private async void HandleEditBtnLokasi(string id)
     {
         AppliationState.Id = id;
         if (AppliationState.Id is not null)
         {
             mySieveModel.Filters = $"Id=={AppliationState.Id}";
-            await DivisiService.GetDivisiById(mySieveModel);
-            formData = DivisiService.Divisi;
+            await LokasiService.GetLokasiById(mySieveModel);
+            formData = LokasiService.Lokasi;
         }
         StateHasChanged();
     }
 
-    private void HandleAddDivisi()
+    private void HandleAddLokasi()
     {
         AppliationState.Id = null;
-        formData = new Divisi();
+        formData = new Lokasi();
         StateHasChanged();
     }
 
@@ -57,34 +57,34 @@
             PageSize = 5,
         };
     private TableModelViewModel table = new TableModelViewModel();
-    private List<Divisi> divisiItems = new List<Divisi>();
+    private List<Lokasi> departemenItems = new List<Lokasi>();
 
 
-    private async Task HandleFormSubmission(Divisi formData)
+    private async Task HandleFormSubmission(Lokasi formData)
     {
         mySieveModel.Filters = "";
         if (AppliationState.Id is null)
         {
-            var result = await DivisiService.CreateDivisi(formData);
+            var result = await LokasiService.CreateLokasi(formData);
             if (result.ReasonPhrase == "OK")
             {
-                JSRuntime.InvokeVoidAsync("clickElementById", "closeButtonDivisi");
-                //await LoadDivisi(mySieveModel);
+                JSRuntime.InvokeVoidAsync("clickElementById", "closeButtonLokasi");
+                //await LoadLokasi(mySieveModel);
             }
         }
         else
         {
-            var result = await DivisiService.UpdateDivisi(AppliationState.Id, formData);
+            var result = await LokasiService.UpdateLokasi(AppliationState.Id, formData);
             if (result.ReasonPhrase == "OK")
             {
-                JSRuntime.InvokeVoidAsync("clickElementById", "closeButtonDivisi");
+                JSRuntime.InvokeVoidAsync("clickElementById", "closeButtonLokasi");
             }
         }
-        await LoadDivisi(mySieveModel);
+        await LoadLokasi(mySieveModel);
         StateHasChanged();
     }
 
-    private async void HandleDeleteDivisi(string id)
+    private async void HandleDeleteLokasi(string id)
     {
         var result = await Swal.FireAsync(new SweetAlertOptions
             {
@@ -97,8 +97,8 @@
 
         if (confirm)
         {
-            await DivisiService.DeleteDivisi(id);
-            await LoadDivisi(mySieveModel);
+            await LokasiService.DeleteLokasi(id);
+            await LoadLokasi(mySieveModel);
             StateHasChanged();
         }
     }
@@ -106,12 +106,12 @@
     private async Task Next()
     {
         mySieveModel.Page++; // Increment the page
-        await LoadDivisi(mySieveModel); // Call LoadDivisi with the updated page
+        await LoadLokasi(mySieveModel); // Call LoadLokasi with the updated page
     }
     private async Task Previous()
     {
         mySieveModel.Page--;
-        await LoadDivisi(mySieveModel);
+        await LoadLokasi(mySieveModel);
     }
 
     private async Task HandlePageSizeChange(ChangeEventArgs e)
@@ -120,26 +120,26 @@
         {
             mySieveModel.Page = 1;
             mySieveModel.PageSize = selectedPageSize;
-            await LoadDivisi(mySieveModel);
+            await LoadLokasi(mySieveModel);
         }
     }
     protected override async Task OnInitializedAsync()
     {
-        await LoadDivisi(mySieveModel);
+        await LoadLokasi(mySieveModel);
     }
 
 
-    private async Task LoadDivisi(SieveModel sieveModel)
+    private async Task LoadLokasi(SieveModel sieveModel)
     {
         try
         {
-            await DivisiService.LoadDivisi(sieveModel);
+            await LokasiService.LoadLokasi(sieveModel);
 
-            divisiItems = DivisiService.Divisies.Items;
+            departemenItems = LokasiService.Lokasies.Items;
 
             table.Data = new List<List<object>>();
 
-            foreach (var item in divisiItems)
+            foreach (var item in departemenItems)
             {
                 var rowData = new List<object>
 {

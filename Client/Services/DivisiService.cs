@@ -17,28 +17,28 @@ namespace lunchBlazor.Client.Services.DivisiService
             _http = http;
         }
 
-        public async Task LoadDepartemen(SieveModel sieveModel)
+        public async Task LoadDivisi(SieveModel sieveModel)
         {
             Divisies = await _http.GetFromJsonAsync<GetDatasViewModel<Divisi>>($"api/Divisi?Filters={sieveModel.Filters}&Page={sieveModel.Page}&PageSize={sieveModel.PageSize}&Sorts=-created");
         }
 
-        public async Task GetDepartemenById(SieveModel sieveModel)
+        public async Task GetDivisiById(SieveModel sieveModel)
         {
             var result = await _http.GetFromJsonAsync<GetDatasViewModel<Divisi>>($"api/Divisi?Filters={sieveModel.Filters}&Page={sieveModel.Page}&PageSize={sieveModel.PageSize}");
             Divisi = result.Items[0];
         }
 
-        public async Task<HttpResponseMessage> CreateDepartemen(Divisi Divisi)
+        public async Task<HttpResponseMessage> CreateDivisi(Divisi Divisi)
         {
             var result = await _http.PostAsJsonAsync("api/Divisi", Divisi);
             return result;
         }
-        public async Task<HttpResponseMessage> UpdateDepartemen(string id, Divisi Divisi)
+        public async Task<HttpResponseMessage> UpdateDivisi(string id, Divisi Divisi)
         {
             var result = await _http.PutAsJsonAsync($"api/Divisi/{id}", Divisi);
             return result;
         }
-        public async Task<HttpResponseMessage> DeleteDepartemen(string id)
+        public async Task<HttpResponseMessage> DeleteDivisi(string id)
         {
             var result = await _http.DeleteAsync($"api/Divisi/{id}");
             return result;

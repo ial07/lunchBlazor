@@ -1,4 +1,4 @@
-@inject DivisiService DivisiService
+@inject JurusanPendidikanService JurusanPendidikanService
 @inject IModalService modal
 @inject SweetAlertService Swal
 @inject IJSRuntime JSRuntime
@@ -6,46 +6,47 @@
 <div class="row">
     <div class="col-12">
         <div class="fw-bold">
-            Divisi
+            Jurusan Pendidikan
         </div>
         <div class="border-title"></div>
     </div>
 
     <div class="col-12 mt-4">
         <div class="d-flex justify-content-end">
-            <Button type="button" Label="Tambah" bold data-bs-toggle="modal" data-bs-target="#formDivisi"
-                onClick="HandleAddDivisi" />
+            <Button type="button" Label="Tambah" bold data-bs-toggle="modal" data-bs-target="#formJurusanPendidikan"
+                onClick="HandleAddJurusanPendidikan" />
         </div>
         <div>
             <Table table=@table HandleClickPrevious=" Previous" HandleClickNext="Next"
                 HandlePageSizeChange="HandlePageSizeChange" mySieveModel="mySieveModel"
-                totalCountData="DivisiService.Divisies.totalCountData" HandleEditBtn="HandleEditBtnDivisi" IsModalEdit
-                modalEditNameId="formDivisi" HandleDeleteBtn="HandleDeleteDivisi" />
+                totalCountData="JurusanPendidikanService.JurusanPendidikans.totalCountData"
+                HandleEditBtn="HandleEditBtnJurusanPendidikan" IsModalEdit modalEditNameId="formJurusanPendidikan"
+                HandleDeleteBtn="HandleDeleteJurusanPendidikan" />
         </div>
     </div>
 </div>
 
-<Form_divisi Id="@AppliationState.Id" formData="@formData" OnFormSubmit="HandleFormSubmission" />
+<Form_jurusan_pendidikan Id="@AppliationState.Id" formData="@formData" OnFormSubmit="HandleFormSubmission" />
 
 @code {
 
-    private Divisi formData = new Divisi();
-    private async void HandleEditBtnDivisi(string id)
+    private JurusanPendidikan formData = new JurusanPendidikan();
+    private async void HandleEditBtnJurusanPendidikan(string id)
     {
         AppliationState.Id = id;
         if (AppliationState.Id is not null)
         {
             mySieveModel.Filters = $"Id=={AppliationState.Id}";
-            await DivisiService.GetDivisiById(mySieveModel);
-            formData = DivisiService.Divisi;
+            await JurusanPendidikanService.GetJurusanPendidikanById(mySieveModel);
+            formData = JurusanPendidikanService.JurusanPendidikan;
         }
         StateHasChanged();
     }
 
-    private void HandleAddDivisi()
+    private void HandleAddJurusanPendidikan()
     {
         AppliationState.Id = null;
-        formData = new Divisi();
+        formData = new JurusanPendidikan();
         StateHasChanged();
     }
 
@@ -57,35 +58,36 @@
             PageSize = 5,
         };
     private TableModelViewModel table = new TableModelViewModel();
-    private List<Divisi> divisiItems = new List<Divisi>();
+    private List<JurusanPendidikan> JurusanPendidikanItems = new List<JurusanPendidikan>();
 
 
-    private async Task HandleFormSubmission(Divisi formData)
+    private async Task HandleFormSubmission(JurusanPendidikan formData)
     {
         mySieveModel.Filters = "";
         if (AppliationState.Id is null)
         {
-            var result = await DivisiService.CreateDivisi(formData);
+            var result = await JurusanPendidikanService.CreateJurusanPendidikan(formData);
             if (result.ReasonPhrase == "OK")
             {
-                JSRuntime.InvokeVoidAsync("clickElementById", "closeButtonDivisi");
-                //await LoadDivisi(mySieveModel);
+                JSRuntime.InvokeVoidAsync("clickElementById", "closeButtonJurusanPendidikan");
+                //await LoadJurusanPendidikan(mySieveModel);
             }
         }
         else
         {
-            var result = await DivisiService.UpdateDivisi(AppliationState.Id, formData);
+            var result = await JurusanPendidikanService.UpdateJurusanPendidikan(AppliationState.Id, formData);
             if (result.ReasonPhrase == "OK")
             {
-                JSRuntime.InvokeVoidAsync("clickElementById", "closeButtonDivisi");
+                JSRuntime.InvokeVoidAsync("clickElementById", "closeButtonJurusanPendidikan");
             }
         }
-        await LoadDivisi(mySieveModel);
+        await LoadJurusanPendidikan(mySieveModel);
         StateHasChanged();
     }
 
-    private async void HandleDeleteDivisi(string id)
+    private async void HandleDeleteJurusanPendidikan(string id)
     {
+        Console.WriteLine($"Deletteee option clicked for item with value: {id}");
         var result = await Swal.FireAsync(new SweetAlertOptions
             {
                 Title = "Are you sure to delete this item?",
@@ -97,8 +99,8 @@
 
         if (confirm)
         {
-            await DivisiService.DeleteDivisi(id);
-            await LoadDivisi(mySieveModel);
+            await JurusanPendidikanService.DeleteJurusanPendidikan(id);
+            await LoadJurusanPendidikan(mySieveModel);
             StateHasChanged();
         }
     }
@@ -106,12 +108,12 @@
     private async Task Next()
     {
         mySieveModel.Page++; // Increment the page
-        await LoadDivisi(mySieveModel); // Call LoadDivisi with the updated page
+        await LoadJurusanPendidikan(mySieveModel); // Call LoadJurusanPendidikan with the updated page
     }
     private async Task Previous()
     {
         mySieveModel.Page--;
-        await LoadDivisi(mySieveModel);
+        await LoadJurusanPendidikan(mySieveModel);
     }
 
     private async Task HandlePageSizeChange(ChangeEventArgs e)
@@ -120,26 +122,26 @@
         {
             mySieveModel.Page = 1;
             mySieveModel.PageSize = selectedPageSize;
-            await LoadDivisi(mySieveModel);
+            await LoadJurusanPendidikan(mySieveModel);
         }
     }
     protected override async Task OnInitializedAsync()
     {
-        await LoadDivisi(mySieveModel);
+        await LoadJurusanPendidikan(mySieveModel);
     }
 
 
-    private async Task LoadDivisi(SieveModel sieveModel)
+    private async Task LoadJurusanPendidikan(SieveModel sieveModel)
     {
         try
         {
-            await DivisiService.LoadDivisi(sieveModel);
+            await JurusanPendidikanService.LoadJurusanPendidikan(sieveModel);
 
-            divisiItems = DivisiService.Divisies.Items;
+            JurusanPendidikanItems = JurusanPendidikanService.JurusanPendidikans.Items;
 
             table.Data = new List<List<object>>();
 
-            foreach (var item in divisiItems)
+            foreach (var item in JurusanPendidikanItems)
             {
                 var rowData = new List<object>
 {

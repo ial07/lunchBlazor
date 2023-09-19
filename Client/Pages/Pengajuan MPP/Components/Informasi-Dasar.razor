@@ -1,3 +1,9 @@
+@inject PosisiService PosisiService
+@inject GolonganService GolonganService
+@inject DivisiService DivisiService
+@inject DepartemenService DepartemenService
+@inject LokasiService LokasiService
+
 <div class="row">
     <div class="col-12">
         <div class="fw-bold">
@@ -6,43 +12,209 @@
         <div class="border-title"></div>
     </div>
     <div class="col-12 mt-3">
-        @* <SelectComponent label="Nama Posisi" isBold placeholder="Pilih nama posisi" listItems=listPosisi /> *@
+        @if (isPosisiLoaded)
+        {
+            <SelectComponent label="Nama Posisi" name="posisi" isBold listItems="listItemsPosisi"
+                 placeholder="Pilih Nama Posisi..." ValueChanged="HandleSelectChange" />
+        }
+        else
+        {
+            <p>Loading...</p>
+        }
     </div>
     <div class="col-6">
-        @* <SelectComponent label="Golongan" isBold placeholder="Pilih golongan" listItems=listPosisi /> *@
+        @if (isGolonganLoaded)
+        {
+            <SelectComponent label="Golongan" isBold listItems="listItemsGolongan" placeholder="Pilih Golongan..." />
+        }
+        else
+        {
+            <p>Loading...</p>
+        }
     </div>
     <div class="col-6">
-        @* <SelectComponent label="Target Pemenuhan" isBold placeholder="Pilih Bulan dan Tahun" listItems=listPosisi />
-        *@
+        <Input label="Target Pemenuhan" bold placeholder="Pilih Bulan dan Tahun" type="date" />
+     </div>
+     <div class="col-6">
+         @if (isDivisiLoaded)
+        {
+            <SelectComponent label="Divisi Tujuan" isBold listItems="listItemsDivisi" placeholder="Pilih Divisi..." />
+        }
+        else
+        {
+            <p>Loading...</p>
+        }
     </div>
     <div class="col-6">
-        <Input label="Divisi Tujuan" placeholder="Nama Divisi" />
-    </div>
-    <div class="col-6">
-        @* <SelectComponent label="Dapartemen Tujuan" isBold placeholder="Pilih nama dept." listItems=listPosisi /> *@
+        @if (isDepartemenLoaded)
+        {
+            <SelectComponent label="Departemen Tujuan" isBold listItems="listItemsDepartemen"
+                 placeholder="Pilih Nama Dept..." />
+        }
+        else
+        {
+            <p>Loading...</p>
+        }
     </div>
     <div class="col-12">
-        <Input label="Lokasi Penempatan" placeholder="HO/Cab/Site" />
+        @if (isLokasiLoaded)
+        {
+            <SelectComponent label="Lokasi Penempatan" isBold listItems="listItemsLokasi" placeholder="HO/Cab/Site" />
+        }
+        else
+        {
+            <p>Loading...</p>
+        }
     </div>
     <div class="col-6">
-        <Input label="Jumlah MP Saat ini" placeholder="6 Orang" />
-    </div>
-    <div class="col-6">
-        <Input label="Jumlah Permintaan" placeholder="Orang" />
-    </div>
-    <div class="col-12">
-        <div class="form-group">
-            <label class="form-label">Alasan Pengajuan</label>
-            <textarea class="form-control"></textarea>
-        </div>
-    </div>
+        <Input label="Jumlah MP Saat ini" bold placeholder="6 Orang" />
+     </div>
+     <div class="col-6">
+         <Input label="Jumlah Permintaan" bold placeholder="Orang" />
+     </div>
+     <div class="col-12">
+         <div class="form-group">
+             <label class="form-label fw-bold">Alasan Pengajuan</label>
+             <textarea class="form-control"></textarea>
+         </div>
+     </div>
+     @if (AppliationState.MppChildForm != null && AppliationState.MppChildForm.PosisiId != null)
+    {
+        <div>@(AppliationState.MppChildForm.PosisiId)</div>
+    }
     <div class="d-flex justify-content-end mt-3">
         <Button Label="Selanjutnya" btnClass="btn-outline-info" type="button" onClick="onSwitch" />
     </div>
 </div>
 
 @code {
-    private List<string> listPosisi = new List<string> { "Posisi 1", "Posisi 2" };
     [Parameter]
     public EventCallback<MouseEventArgs> onSwitch { get; set; }
+    [CascadingParameter]
+    public AppState AppliationState { get; set; }
+
+    private MppChildForm mppChildForm = new MppChildForm();
+
+    private async Task HandleSelectChange(SelectChangedEventArgs args)
+    {
+        string selectedName = args.Name;
+        string selectedValue = args.Value;
+
+
+        if (selectedName == "posisi")
+        {
+            mppChildForm.PosisiId = new Guid(selectedValue);
+            //AppliationState.MppChildForm.PosisiId = new Guid(selectedValue);
+        }
+        AppliationState.MppChildForm = mppChildForm;
+    }
+
+    private SieveModel mySieveModel = new SieveModel
+        {
+            Page = 1,
+            PageSize = 5,
+        };
+
+    /// Posisi
+    private List<Posisi> posisiList;
+    private List<dynamic> listItemsPosisi;
+    private bool isPosisiLoaded = false;
+
+    /// Golongan
+    private List<Golongan> GolonganList;
+    private List<dynamic> listItemsGolongan;
+    private bool isGolonganLoaded = false;
+
+    /// Divisi
+    private List<Divisi> DivisiList;
+    private List<dynamic> listItemsDivisi;
+    private bool isDivisiLoaded = false;
+
+    /// Departemen
+    private List<Departemen> DepartemenList;
+    private List<dynamic> listItemsDepartemen;
+    private bool isDepartemenLoaded = false;
+
+    /// Lokasi
+    private List<Lokasi> LokasiList;
+    private List<dynamic> listItemsLokasi;
+    private bool isLokasiLoaded = false;
+
+    protected async override Task OnInitializedAsync()
+    {
+        await LoadPosisiAsync();
+        await LoadGolonganAsync();
+        await LoadDivisiAsync();
+        await LoadDepartemenAsync();
+        await LoadLokasiAsync();
+    }
+
+    private async Task LoadPosisiAsync()
+    {
+        await PosisiService.LoadPosisi(mySieveModel);
+
+        posisiList = PosisiService.Posisies.Items;
+
+        listItemsPosisi = posisiList
+        .Select(x => (dynamic)new { Id = x.Id, Value = x.Name })
+        .ToList();
+
+        isPosisiLoaded = true;
+
+        StateHasChanged();
+    }
+    private async Task LoadGolonganAsync()
+    {
+        await GolonganService.LoadGolongan(mySieveModel);
+
+        GolonganList = GolonganService.Golongans.Items;
+
+        listItemsGolongan = GolonganList
+        .Select(x => (dynamic)new { Id = x.Id, Value = x.Name })
+        .ToList();
+
+        isGolonganLoaded = true;
+        StateHasChanged();
+    }
+    private async Task LoadDivisiAsync()
+    {
+        await DivisiService.LoadDivisi(mySieveModel);
+
+        DivisiList = DivisiService.Divisies.Items;
+
+        listItemsDivisi = DivisiList
+        .Select(x => (dynamic)new { Id = x.Id, Value = x.Name })
+        .ToList();
+
+        isDivisiLoaded = true;
+        StateHasChanged();
+    }
+
+    private async Task LoadDepartemenAsync()
+    {
+        await DepartemenService.LoadDepartemen(mySieveModel);
+
+        DepartemenList = DepartemenService.Departemens.Items;
+
+        listItemsDepartemen = DepartemenList
+        .Select(x => (dynamic)new { Id = x.Id, Value = x.Name })
+        .ToList();
+
+        isDepartemenLoaded = true;
+        StateHasChanged();
+    }
+    private async Task LoadLokasiAsync()
+    {
+        await LokasiService.LoadLokasi(mySieveModel);
+
+        LokasiList = LokasiService.Lokasies.Items;
+
+        listItemsLokasi = LokasiList
+        .Select(x => (dynamic)new { Id = x.Id, Value = x.Name })
+        .ToList();
+
+        isLokasiLoaded = true;
+        StateHasChanged();
+    }
+
 }

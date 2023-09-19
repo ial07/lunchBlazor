@@ -1,6 +1,6 @@
 <div class="form-group">
     <label class="@(isBold ? " fw-bold" : "")">@label</label>
-    <select class="form-select" @bind="@value">
+    <select class="form-select" name="@name" @bind="@value" @oninput="HandleInputChange">
         <option value="">@placeholder</option>
         @if (listItems.Any() || listItems.Count > 0)
         {
@@ -20,6 +20,8 @@
     [Parameter]
     public string? label { get; set; }
     [Parameter]
+    public string? name { get; set; }
+    [Parameter]
     public string placeholder { get; set; } = "Choose Items";
     [Parameter]
     public List<dynamic>? listItems { get; set; }
@@ -27,7 +29,22 @@
     public string? value { get; set; }
     [Parameter]
     public bool isBold { get; set; } = false;
+    [Parameter]
+    public EventCallback<SelectChangedEventArgs> ValueChanged { get; set; }
 
+    private async Task HandleInputChange(ChangeEventArgs e)
+    {
+        string selectedValue = e.Value?.ToString() ?? string.Empty; // Get the selected value
+
+        var args = new SelectChangedEventArgs
+            {
+                Name = name ?? string.Empty,
+                Value = selectedValue
+            };
+
+        // Invoke the ValueChanged event with the SelectChangedEventArgs instance
+        await ValueChanged.InvokeAsync(args);
+    }
 }
 
 

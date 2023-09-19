@@ -1,8 +1,8 @@
-@inject DepartemenService DepartemenService
+@inject PendidikanService PendidikanService
 @inject NavigationManager NavigationManager
 
 
-<div class="modal fade" id="formDepartemen" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="formPendidikan" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <EditForm Model="formData" OnSubmit="@(()=>OnFormSubmit(formData))">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -10,11 +10,11 @@
                     <h1 class="modal-title fs-5" id="exampleModalLabel">
                         @if (Id == null)
                         {
-                            <text>Create Departemen</text>
+                            <text>Create Pendidikan</text>
                         }
                         else
                         {
-                            <text>Update Departemen</text>
+                            <text>Update Pendidikan</text>
                         }
                     </h1>
 
@@ -22,7 +22,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label class="form-label">Departemen Name</label>
+                        <label class="form-label">Pendidikan Name</label>
                         <InputText @bind-Value="@formData.Name" class="form-control" />
                         <ValidationMessage For="@(()=>formData.Name)" />
                     </div>
@@ -35,7 +35,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
-                        id="closeButtonDepartemen">Close</button>
+                        id="closeButtonPendidikan">Close</button>
                     <button type="submit" class="btn btn-primary">Save changes</button>
                 </div>
                 <DataAnnotationsValidator />
@@ -47,12 +47,12 @@
 
 @code {
     [Parameter]
-    public Func<Departemen, Task> OnFormSubmit { get; set; }
+    public Func<Pendidikan, Task> OnFormSubmit { get; set; }
 
     [Parameter]
     public string? Id { get; set; }
     [Parameter]
-    public Departemen formData { get; set; } = new Departemen();
+    public Pendidikan formData { get; set; } = new Pendidikan();
 
 
 }

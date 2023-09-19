@@ -53,6 +53,9 @@
 <!-- end row -->
 
 @code {
+    [CascadingParameter]
+    public AppState AppliationState { get; set; }
+
     private string activeTab = "informasi";
 
     private void SwitchToInfoTab()

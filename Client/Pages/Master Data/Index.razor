@@ -8,7 +8,7 @@
 <div class="row">
     <div class="col-12">
         <div class="page-title-box d-sm-flex align-items-center">
-            <a href="/master-data" class="mb-sm-0 font-size-16 text-muted">Master Data</a>
+            <h4 class="mb-sm-0 font-size-24">Master Data</h4>
         </div>
     </div>
 </div>
@@ -19,12 +19,51 @@
     <div class="nav flex-column nav-pills me-3 align-items-start" id="v-pills-tab" role="tablist"
         aria-orientation="vertical">
         <button class="nav-link @(activeTab == "departemen" ? "active" : "")" @onclick="SwitchToDepartemenTab">
-            <i class="bi bi-info-circle-fill me-2"></i>
+            <i class="bi bi-database-fill-gear me-2"></i>
             Departemen
         </button>
         <button class="nav-link @(activeTab == "divisi" ? "active" : "")" @onclick="SwitchToDivisiTab">
-            <i class="bi bi-clipboard-check-fill me-2"></i>
+            <i class="bi bi-database-fill-gear me-2"></i>
             Divisi
+        </button>
+        <button class="nav-link @(activeTab == "posisi" ? "active" : "")" @onclick="SwitchToPosisiTab">
+            <i class="bi bi-database-fill-gear me-2"></i>
+            Posisi
+        </button>
+        <button class="nav-link @(activeTab == "golongan" ? "active" : "")" @onclick="SwitchToGolonganTab">
+            <i class="bi bi-database-fill-gear me-2"></i>
+            Golongan
+        </button>
+        <button class="nav-link @(activeTab == "lokasi" ? "active" : "")" @onclick="SwitchToLokasiTab">
+            <i class="bi bi-database-fill-gear me-2"></i>
+            Lokasi
+        </button>
+        <button class="nav-link @(activeTab == "status" ? "active" : "")" @onclick="SwitchToStatusTab">
+            <i class="bi bi-database-fill-gear me-2"></i>
+            Status
+        </button>
+        <button class="nav-link @(activeTab == "jenismpp" ? "active" : "")" @onclick="SwitchToJenisMppTab">
+            <i class="bi bi-database-fill-gear me-2"></i>
+            Jenis MPP
+        </button>
+        <button class="nav-link @(activeTab == "jenispermintaan" ? "active" : "")"
+            @onclick="SwitchToJenisPermintaanTab">
+            <i class="bi bi-database-fill-gear me-2"></i>
+            Jenis Permintaan
+        </button>
+        <button class="nav-link @(activeTab == "pendidikan" ? "active" : "")" @onclick="SwitchToPendidikanTab">
+            <i class="bi bi-database-fill-gear me-2"></i>
+            Pendidikan
+        </button>
+        <button class="nav-link @(activeTab == "jurusanpendidikan" ? "active" : "")"
+            @onclick="SwitchToJurusanPendidikanTab">
+            <i class="bi bi-database-fill-gear me-2"></i>
+            Jurusan Pendidikan
+        </button>
+        <button class="nav-link @(activeTab == "sumberpemenuhan" ? "active" : "")"
+            @onclick="SwitchToSumberPemenuhanTab">
+            <i class="bi bi-database-fill-gear me-2"></i>
+            Sumber Pemenuhan
         </button>
     </div>
     <div class="tab-content col-8" id="v-pills-tabContent">
@@ -33,6 +72,33 @@
         </div>
         <div class="tab-pane @(activeTab == "divisi" ? "show active" : "fade")">
             <View_divisi />
+        </div>
+        <div class="tab-pane @(activeTab == "posisi" ? "show active" : "fade")">
+            <View_posisi />
+        </div>
+        <div class="tab-pane @(activeTab == "golongan" ? "show active" : "fade")">
+            <View_golongan />
+        </div>
+        <div class="tab-pane @(activeTab == "lokasi" ? "show active" : "fade")">
+            <View_lokasi />
+        </div>
+        <div class="tab-pane @(activeTab == "status" ? "show active" : "fade")">
+            <View_status />
+        </div>
+        <div class="tab-pane @(activeTab == "jenismpp" ? "show active" : "fade")">
+            <View_jenis_mpp />
+        </div>
+        <div class="tab-pane @(activeTab == "jenispermintaan" ? "show active" : "fade")">
+            <View_jenis_permintaan />
+        </div>
+        <div class="tab-pane @(activeTab == "pendidikan" ? "show active" : "fade")">
+            <View_pendidikan />
+        </div>
+        <div class="tab-pane @(activeTab == "jurusanpendidikan" ? "show active" : "fade")">
+            <View_jurusan_pendidikan />
+        </div>
+        <div class="tab-pane @(activeTab == "sumberpemenuhan" ? "show active" : "fade")">
+            <View_sumber_pemenuhan />
         </div>
     </div>
 </div>
@@ -51,11 +117,41 @@
         activeTab = "divisi";
     }
 
-    private void SwitchToKualifikasiTab()
+    private void SwitchToPosisiTab()
     {
-        activeTab = "kualifikasi";
+        activeTab = "posisi";
     }
-
-
+    private void SwitchToGolonganTab()
+    {
+        activeTab = "golongan";
+    }
+    private void SwitchToLokasiTab()
+    {
+        activeTab = "lokasi";
+    }
+    private void SwitchToStatusTab()
+    {
+        activeTab = "status";
+    }
+    private void SwitchToJenisMppTab()
+    {
+        activeTab = "jenismpp";
+    }
+    private void SwitchToJenisPermintaanTab()
+    {
+        activeTab = "jenispermintaan";
+    }
+    private void SwitchToPendidikanTab()
+    {
+        activeTab = "pendidikan";
+    }
+    private void SwitchToJurusanPendidikanTab()
+    {
+        activeTab = "jurusanpendidikan";
+    }
+    private void SwitchToSumberPemenuhanTab()
+    {
+        activeTab = "sumberpemenuhan";
+    }
 
 }

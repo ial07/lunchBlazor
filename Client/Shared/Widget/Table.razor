@@ -20,7 +20,7 @@ else
             <tbody>
                 @if (table.Data.Count == 0)
                 {
-                    <td colspan="@(table.Headers.Count()+2)">Data Not Found</td>
+                    <td colspan="@(table.Headers.Count()+2)" class="p-3">Data Not Found</td>
                 }
                 @for (int rowIndex = 0; rowIndex < table.Data.Count; rowIndex++)
                 {

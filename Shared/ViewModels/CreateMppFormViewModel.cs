@@ -10,7 +10,7 @@ public class CreateMpp
     [Required]
     public string? NamaPemohon { get; set; }
     [Required]
-    public Guid StatusId { get; set; }
+    public int StatusId { get; set; }
     [Required]
     public Guid KategoriLokasiId { get; set; }
     [Required]

@@ -43,7 +43,7 @@ namespace test_blazor.Server.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateStatus([FromRoute] Guid id, [FromBody] UpdateDevisiInput items)
+        public async Task<IActionResult> UpdateStatus([FromRoute] int id, [FromBody] UpdateDevisiInput items)
         {
             try
             {
@@ -57,7 +57,7 @@ namespace test_blazor.Server.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> SoftDeleteStatus([FromRoute] Guid id)
+        public async Task<IActionResult> SoftDeleteStatus([FromRoute] int id)
         {
             try
             {

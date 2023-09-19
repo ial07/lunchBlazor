@@ -12,7 +12,7 @@ namespace lunchBlazor.Shared.Models
         [Sieve(CanFilter = true, CanSort = true)] public Guid? KategoriLokasiId { get; set; }
         [Sieve(CanFilter = true, CanSort = true)] public Guid? DevisiId { get; set; }
         [Sieve(CanFilter = true, CanSort = true)] public Guid? JenisMppId { get; set; }
-        [Sieve(CanFilter = true, CanSort = true)] public Guid? StatusId { get; set; }
+        [Sieve(CanFilter = true, CanSort = true)] public int? StatusId { get; set; }
         [Sieve(CanFilter = true, CanSort = true)] public DateTime? TahunMpp { get; set; }
         [Sieve(CanFilter = true, CanSort = true)] public bool? IsApprovalADH { get; set; }
         [Sieve(CanFilter = true, CanSort = true)] public bool? IsApprovalBM { get; set; }

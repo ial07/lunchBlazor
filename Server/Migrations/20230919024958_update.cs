@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace lunchBlazor.Server.Migrations
 {
-    public partial class initial_migrate : Migration
+    public partial class update : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -14,7 +14,7 @@ namespace lunchBlazor.Server.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -108,6 +108,22 @@ namespace lunchBlazor.Server.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "JurusanPendidikan",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    isDeleted = table.Column<bool>(type: "bit", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_JurusanPendidikan", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Lokasi",
                 columns: table => new
                 {
@@ -121,6 +137,22 @@ namespace lunchBlazor.Server.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Lokasi", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Pendidikan",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    isDeleted = table.Column<bool>(type: "bit", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Pendidikan", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -143,7 +175,8 @@ namespace lunchBlazor.Server.Migrations
                 name: "Status",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Image = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: true),
@@ -184,7 +217,7 @@ namespace lunchBlazor.Server.Migrations
                     KategoriLokasiId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     DevisiId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     JenisMppId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    StatusId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    StatusId = table.Column<int>(type: "int", nullable: true),
                     TahunMpp = table.Column<DateTime>(type: "datetime2", nullable: true),
                     IsApprovalADH = table.Column<bool>(type: "bit", nullable: true),
                     IsApprovalBM = table.Column<bool>(type: "bit", nullable: true),
@@ -235,12 +268,12 @@ namespace lunchBlazor.Server.Migrations
                     MppFormId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PosisiId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    DepartemenId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     GolonganId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     TargetPemenuhan = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DevisiTujuanId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    DepartemenId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     LokasiId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    DevisiId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    NamaLokasi = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     JumlahMp = table.Column<int>(type: "int", nullable: true),
                     JumlahPermintaan = table.Column<int>(type: "int", nullable: true),
                     AlasanPengajuan = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -249,12 +282,12 @@ namespace lunchBlazor.Server.Migrations
                     DetailSumberPemenuhan = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PosisiManPower = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DetailPekerjaan = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Lulusan = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    NamaLulusan = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    JenisKelamin = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PendidikanId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    JurusanPendidikanId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    Gender = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Usia = table.Column<int>(type: "int", nullable: true),
                     StatusPernikahan = table.Column<bool>(type: "bit", nullable: true),
-                    StatusPegawai = table.Column<bool>(type: "bit", nullable: true),
+                    StatusPegawai = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PengalamanKerja = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     KeahlianKhusus = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PersyaratanFisik = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -274,11 +307,6 @@ namespace lunchBlazor.Server.Migrations
                         principalTable: "Departemen",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_MppChildForm_Divisi_DevisiId",
-                        column: x => x.DevisiId,
-                        principalTable: "Divisi",
-                        principalColumn: "Id");
-                    table.ForeignKey(
                         name: "FK_MppChildForm_Divisi_DevisiTujuanId",
                         column: x => x.DevisiTujuanId,
                         principalTable: "Divisi",
@@ -294,6 +322,11 @@ namespace lunchBlazor.Server.Migrations
                         principalTable: "JenisPermintaan",
                         principalColumn: "Id");
                     table.ForeignKey(
+                        name: "FK_MppChildForm_JurusanPendidikan_JurusanPendidikanId",
+                        column: x => x.JurusanPendidikanId,
+                        principalTable: "JurusanPendidikan",
+                        principalColumn: "Id");
+                    table.ForeignKey(
                         name: "FK_MppChildForm_Lokasi_LokasiId",
                         column: x => x.LokasiId,
                         principalTable: "Lokasi",
@@ -302,6 +335,11 @@ namespace lunchBlazor.Server.Migrations
                         name: "FK_MppChildForm_MppForm_MppFormId",
                         column: x => x.MppFormId,
                         principalTable: "MppForm",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_MppChildForm_Pendidikan_PendidikanId",
+                        column: x => x.PendidikanId,
+                        principalTable: "Pendidikan",
                         principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_MppChildForm_Posisi_PosisiId",
@@ -321,11 +359,6 @@ namespace lunchBlazor.Server.Migrations
                 column: "DepartemenId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MppChildForm_DevisiId",
-                table: "MppChildForm",
-                column: "DevisiId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_MppChildForm_DevisiTujuanId",
                 table: "MppChildForm",
                 column: "DevisiTujuanId");
@@ -341,6 +374,11 @@ namespace lunchBlazor.Server.Migrations
                 column: "JenisPermintaanId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_MppChildForm_JurusanPendidikanId",
+                table: "MppChildForm",
+                column: "JurusanPendidikanId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_MppChildForm_LokasiId",
                 table: "MppChildForm",
                 column: "LokasiId");
@@ -349,6 +387,11 @@ namespace lunchBlazor.Server.Migrations
                 name: "IX_MppChildForm_MppFormId",
                 table: "MppChildForm",
                 column: "MppFormId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MppChildForm_PendidikanId",
+                table: "MppChildForm",
+                column: "PendidikanId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_MppChildForm_PosisiId",
@@ -399,7 +442,13 @@ namespace lunchBlazor.Server.Migrations
                 name: "JenisPermintaan");
 
             migrationBuilder.DropTable(
+                name: "JurusanPendidikan");
+
+            migrationBuilder.DropTable(
                 name: "MppForm");
+
+            migrationBuilder.DropTable(
+                name: "Pendidikan");
 
             migrationBuilder.DropTable(
                 name: "Posisi");

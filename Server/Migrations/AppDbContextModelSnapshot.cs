@@ -35,7 +35,6 @@ namespace lunchBlazor.Server.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("UpdatedAt")
@@ -198,7 +197,6 @@ namespace lunchBlazor.Server.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("UpdatedAt")
@@ -431,8 +429,8 @@ namespace lunchBlazor.Server.Migrations
                     b.Property<string>("NrpPemohon")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("StatusId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int?>("StatusId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("TahunMpp")
                         .HasColumnType("datetime2");
@@ -469,7 +467,6 @@ namespace lunchBlazor.Server.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("UpdatedAt")
@@ -511,9 +508,11 @@ namespace lunchBlazor.Server.Migrations
 
             modelBuilder.Entity("lunchBlazor.Shared.Models.Status", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");

@@ -12,8 +12,8 @@ using lunchBlazor.Server.Data;
 namespace lunchBlazor.Server.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230919012207_initial_migrate")]
-    partial class initial_migrate
+    [Migration("20230919024958_update")]
+    partial class update
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -37,7 +37,6 @@ namespace lunchBlazor.Server.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("UpdatedAt")
@@ -187,6 +186,32 @@ namespace lunchBlazor.Server.Migrations
                     b.ToTable("JenisPermintaan");
                 });
 
+            modelBuilder.Entity("lunchBlazor.Shared.Models.JurusanPendidikan", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool?>("isDeleted")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("JurusanPendidikan");
+                });
+
             modelBuilder.Entity("lunchBlazor.Shared.Models.Lokasi", b =>
                 {
                     b.Property<Guid>("Id")
@@ -237,20 +262,17 @@ namespace lunchBlazor.Server.Migrations
                     b.Property<string>("DetailSumberPemenuhan")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("DevisiId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<Guid?>("DevisiTujuanId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Gender")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid?>("GolonganId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<bool?>("IsActive")
                         .HasColumnType("bit");
-
-                    b.Property<string>("JenisKelamin")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid?>("JenisPermintaanId")
                         .HasColumnType("uniqueidentifier");
@@ -261,6 +283,9 @@ namespace lunchBlazor.Server.Migrations
                     b.Property<int?>("JumlahPermintaan")
                         .HasColumnType("int");
 
+                    b.Property<Guid?>("JurusanPendidikanId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("KeahlianKhusus")
                         .HasColumnType("nvarchar(max)");
 
@@ -270,17 +295,17 @@ namespace lunchBlazor.Server.Migrations
                     b.Property<Guid?>("LokasiId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Lulusan")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<Guid?>("MppFormId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("NamaLulusan")
+                    b.Property<string>("NamaLokasi")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("PendidikanId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("PengalamanKerja")
                         .HasColumnType("nvarchar(max)");
@@ -294,8 +319,8 @@ namespace lunchBlazor.Server.Migrations
                     b.Property<string>("PosisiManPower")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool?>("StatusPegawai")
-                        .HasColumnType("bit");
+                    b.Property<string>("StatusPegawai")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool?>("StatusPernikahan")
                         .HasColumnType("bit");
@@ -319,17 +344,19 @@ namespace lunchBlazor.Server.Migrations
 
                     b.HasIndex("DepartemenId");
 
-                    b.HasIndex("DevisiId");
-
                     b.HasIndex("DevisiTujuanId");
 
                     b.HasIndex("GolonganId");
 
                     b.HasIndex("JenisPermintaanId");
 
+                    b.HasIndex("JurusanPendidikanId");
+
                     b.HasIndex("LokasiId");
 
                     b.HasIndex("MppFormId");
+
+                    b.HasIndex("PendidikanId");
 
                     b.HasIndex("PosisiId");
 
@@ -404,8 +431,8 @@ namespace lunchBlazor.Server.Migrations
                     b.Property<string>("NrpPemohon")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("StatusId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int?>("StatusId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("TahunMpp")
                         .HasColumnType("datetime2");
@@ -427,6 +454,32 @@ namespace lunchBlazor.Server.Migrations
                     b.HasIndex("StatusId");
 
                     b.ToTable("MppForm");
+                });
+
+            modelBuilder.Entity("lunchBlazor.Shared.Models.Pendidikan", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool?>("isDeleted")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Pendidikan");
                 });
 
             modelBuilder.Entity("lunchBlazor.Shared.Models.Posisi", b =>
@@ -457,9 +510,11 @@ namespace lunchBlazor.Server.Migrations
 
             modelBuilder.Entity("lunchBlazor.Shared.Models.Status", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -516,10 +571,6 @@ namespace lunchBlazor.Server.Migrations
                         .WithMany()
                         .HasForeignKey("DepartemenId");
 
-                    b.HasOne("lunchBlazor.Shared.Models.Divisi", "Devisi")
-                        .WithMany()
-                        .HasForeignKey("DevisiId");
-
                     b.HasOne("lunchBlazor.Shared.Models.Divisi", "DevisiTujuan")
                         .WithMany()
                         .HasForeignKey("DevisiTujuanId");
@@ -532,6 +583,10 @@ namespace lunchBlazor.Server.Migrations
                         .WithMany()
                         .HasForeignKey("JenisPermintaanId");
 
+                    b.HasOne("lunchBlazor.Shared.Models.JurusanPendidikan", "JurusanPendidikan")
+                        .WithMany()
+                        .HasForeignKey("JurusanPendidikanId");
+
                     b.HasOne("lunchBlazor.Shared.Models.Lokasi", "Lokasi")
                         .WithMany()
                         .HasForeignKey("LokasiId");
@@ -539,6 +594,10 @@ namespace lunchBlazor.Server.Migrations
                     b.HasOne("lunchBlazor.Shared.Models.MppForm", "MppForm")
                         .WithMany("MppChildForm")
                         .HasForeignKey("MppFormId");
+
+                    b.HasOne("lunchBlazor.Shared.Models.Pendidikan", "Pendidikan")
+                        .WithMany()
+                        .HasForeignKey("PendidikanId");
 
                     b.HasOne("lunchBlazor.Shared.Models.Posisi", "Posisi")
                         .WithMany()
@@ -550,17 +609,19 @@ namespace lunchBlazor.Server.Migrations
 
                     b.Navigation("Departemen");
 
-                    b.Navigation("Devisi");
-
                     b.Navigation("DevisiTujuan");
 
                     b.Navigation("Golongan");
 
                     b.Navigation("JenisPermintaan");
 
+                    b.Navigation("JurusanPendidikan");
+
                     b.Navigation("Lokasi");
 
                     b.Navigation("MppForm");
+
+                    b.Navigation("Pendidikan");
 
                     b.Navigation("Posisi");
 

@@ -5,7 +5,7 @@ namespace lunchBlazor.Shared.Models
     public class JurusanPendidikan : BaseModel
     {
         [Sieve(CanFilter = true, CanSort = true)] public Guid Id { get; set; }
-        [Sieve(CanFilter = true, CanSort = true)] public string Name { get; set; }
+        [Sieve(CanFilter = true, CanSort = true)] public string? Name { get; set; }
         public bool IsActive { get; set; } = true;
     }
 }

@@ -43,6 +43,17 @@ namespace RepositoryPattern.Services.MppChildFormService
         {
             try
             {
+                var checkMpp = await _AppDbContext.MppForm.FirstOrDefaultAsync(x => x.Id == items.MppFormId) ?? throw new("Mpp form Id tidak ditemukan");
+                var checkPosisi = await _AppDbContext.Posisi.FirstOrDefaultAsync(x => x.Id == items.PosisiId) ?? throw new("Posisi Id tidak ditemukan");
+                var checkGolongan = await _AppDbContext.Golongan.FirstOrDefaultAsync(x => x.Id == items.GolonganId) ?? throw new("Golongan Id tidak ditemukan");
+                var checkDivisi = await _AppDbContext.Divisi.FirstOrDefaultAsync(x => x.Id == items.DevisiTujuanId) ?? throw new("Divisi Id tidak ditemukan");
+                var checkDepartemen = await _AppDbContext.Departemen.FirstOrDefaultAsync(x => x.Id == items.DepartemenId) ?? throw new("Departemen Id tidak ditemukan");
+                var checkLokasi = await _AppDbContext.Lokasi.FirstOrDefaultAsync(x => x.Id == items.LokasiId) ?? throw new("Lokasi Id tidak ditemukan");
+                var checkJenisPermintaan = await _AppDbContext.JenisPermintaan.FirstOrDefaultAsync(x => x.Id == items.JenisPermintaanId) ?? throw new("JenisPermintaan Id tidak ditemukan");
+                var checkSumberPemenuhan = await _AppDbContext.SumberPemenuhan.FirstOrDefaultAsync(x => x.Id == items.SumberPemenuhanId) ?? throw new("SumberPemenuhan Id tidak ditemukan");
+                var checkPendidikan = await _AppDbContext.Pendidikan.FirstOrDefaultAsync(x => x.Id == items.PendidikanId) ?? throw new("Pendidikan Id tidak ditemukan");
+                var checkJurusanPendidikan = await _AppDbContext.JurusanPendidikan.FirstOrDefaultAsync(x => x.Id == items.JurusanPendidikanId) ?? throw new("JurusanPendidikan Id tidak ditemukan");
+
                 var roleData = new MppChildForm()
                 {
                     Id = Guid.NewGuid(),

@@ -14,7 +14,7 @@ public class CreateMpp
     [Required]
     public Guid KategoriLokasiId { get; set; }
     [Required]
-    public Guid DevisiId { get; set; }
+    public Guid DivisiId { get; set; }
     [Required]
     public Guid JenisMppId { get; set; }
     [Required]

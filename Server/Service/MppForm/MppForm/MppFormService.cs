@@ -43,6 +43,10 @@ namespace RepositoryPattern.Services.MppFormService
         {
             try
             {
+                var checkLokasi = await _AppDbContext.Lokasi.FirstOrDefaultAsync(x => x.Id == items.KategoriLokasiId) ?? throw new("Lokasi form Id tidak ditemukan");
+                var checkDivisi = await _AppDbContext.Divisi.FirstOrDefaultAsync(x => x.Id == items.DivisiId) ?? throw new("Divisi form Id tidak ditemukan");
+                var checkJenisMpp = await _AppDbContext.JenisMpp.FirstOrDefaultAsync(x => x.Id == items.JenisMppId) ?? throw new("JenisMpp form Id tidak ditemukan");
+                var checkStatus = await _AppDbContext.Status.FirstOrDefaultAsync(x => x.Id == items.StatusId) ?? throw new("Status form Id tidak ditemukan");
                 var roleData = new MppForm()
                 {
                     Id = Guid.NewGuid(),
@@ -50,7 +54,7 @@ namespace RepositoryPattern.Services.MppFormService
                     NrpPemohon = items.NrpPemohon,
                     NamaPemohon = items.NamaPemohon,
                     KategoriLokasiId = items.KategoriLokasiId,
-                    DevisiId = items.DevisiId,
+                    DivisiId = items.DivisiId,
                     JenisMppId = items.JenisMppId,
                     StatusId = items.StatusId,
                     TahunMpp = items.TahunMpp,

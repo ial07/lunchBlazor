@@ -5,9 +5,11 @@ using RepositoryPattern.Services.DivisiService;
 using RepositoryPattern.Services.GolonganService;
 using RepositoryPattern.Services.JenisMppService;
 using RepositoryPattern.Services.JenisPermintaanService;
+using RepositoryPattern.Services.JurusanPendidikanService;
 using RepositoryPattern.Services.LokasiService;
 using RepositoryPattern.Services.MppChildFormService;
 using RepositoryPattern.Services.MppFormService;
+using RepositoryPattern.Services.PendidikanService;
 using RepositoryPattern.Services.PosisiService;
 using RepositoryPattern.Services.StatusService;
 using RepositoryPattern.Services.SumberPemenuhanService;
@@ -33,6 +35,9 @@ builder.Services.AddScoped<ILokasiService, LokasiService>();
 builder.Services.AddScoped<IPosisiService, PosisiService>();
 builder.Services.AddScoped<ISumberPemenuhanService, SumberPemenuhanService>();
 builder.Services.AddScoped<IStatusService, StatusService>();
+builder.Services.AddScoped<IPendidikanService, PendidikanService>();
+builder.Services.AddScoped<IJurusanPendidikanService, JurusanPendidikanService>();
+
 
 
 builder.Services.AddScoped<IMppFormService, MppFormService>();

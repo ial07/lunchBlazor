@@ -30,6 +30,10 @@ namespace lunchBlazor.Server.Data
         public DbSet<Posisi> Posisi { get; set; }
         public DbSet<SumberPemenuhan> SumberPemenuhan { get; set; }
         public DbSet<Status> Status { get; set; }
+
+        public DbSet<Pendidikan> Pendidikan { get; set; }
+        public DbSet<JurusanPendidikan> JurusanPendidikan { get; set; }
+
         /// <Main>
         public DbSet<MppForm> MppForm { get; set; }
         public DbSet<MppChildForm> MppChildForm { get; set; }

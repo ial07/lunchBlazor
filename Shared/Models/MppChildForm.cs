@@ -43,7 +43,11 @@ namespace lunchBlazor.Shared.Models
         public string? PosisiManPower { get; set; }
         public string? DetailPekerjaan { get; set; }
         public Pendidikan? Pendidikan { get; set; }
+        public Guid? PendidikanId { get; set; }
+
         public JurusanPendidikan? JurusanPendidikan { get; set; }
+        public Guid? JurusanPendidikanId { get; set; }
+
         public string? Gender { get; set; }
         public int? Usia { get; set; }
         public bool? StatusPernikahan { get; set; }

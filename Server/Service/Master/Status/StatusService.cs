@@ -50,7 +50,6 @@ namespace RepositoryPattern.Services.StatusService
                 }
                 var roleData = new Status()
                 {
-                    Id = Guid.NewGuid(),
                     Name = items.Name,
                     Image = items.Image,
                     IsActive = true,
@@ -67,7 +66,7 @@ namespace RepositoryPattern.Services.StatusService
             }
         }
 
-        public async Task<Status> Put(Guid id, UpdateDevisiInput items)
+        public async Task<Status> Put(int id, UpdateDevisiInput items)
         {
             try
             {
@@ -90,7 +89,7 @@ namespace RepositoryPattern.Services.StatusService
             }
         }
 
-        public async Task<Status> Delete(Guid id)
+        public async Task<Status> Delete(int id)
         {
             try
             {

@@ -51,13 +51,38 @@ namespace RepositoryPattern.Services.MppChildFormService
                 var checkLokasi = await _AppDbContext.Lokasi.FirstOrDefaultAsync(x => x.Id == items.LokasiId) ?? throw new("Lokasi Id tidak ditemukan");
                 var checkJenisPermintaan = await _AppDbContext.JenisPermintaan.FirstOrDefaultAsync(x => x.Id == items.JenisPermintaanId) ?? throw new("JenisPermintaan Id tidak ditemukan");
                 var checkSumberPemenuhan = await _AppDbContext.SumberPemenuhan.FirstOrDefaultAsync(x => x.Id == items.SumberPemenuhanId) ?? throw new("SumberPemenuhan Id tidak ditemukan");
-                var checkPendidikan = await _AppDbContext.Pendidikan.FirstOrDefaultAsync(x => x.Id == items.PendidikanId) ?? throw new("Pendidikan Id tidak ditemukan");
-                var checkJurusanPendidikan = await _AppDbContext.JurusanPendidikan.FirstOrDefaultAsync(x => x.Id == items.JurusanPendidikanId) ?? throw new("JurusanPendidikan Id tidak ditemukan");
 
                 var roleData = new MppChildForm()
                 {
                     Id = Guid.NewGuid(),
                     Name = items.Name,
+                    PosisiId = items.PosisiId,
+                    GolonganId = items.GolonganId,
+                    TargetPemenuhan = items.TargetPemenuhan,
+                    DevisiTujuanId = items.DevisiTujuanId,
+                    DepartemenId = items.DepartemenId,
+                    LokasiId = items.LokasiId,
+                    NamaLokasi = items.NamaLokasi,
+                    JumlahMp = items.JumlahMp,
+                    JumlahPermintaan = items.JumlahPermintaan,
+                    AlasanPengajuan = items.AlasanPengajuan,
+                    JenisPermintaanId = items.JenisPermintaanId,
+                    SumberPemenuhanId = items.SumberPemenuhanId,
+                    DetailSumberPemenuhan = items.DetailSumberPemenuhan,
+                    PosisiManPower = items.PosisiManPower,
+                    DetailPekerjaan = items.DetailPekerjaan,
+                    Lulusan = items.Lulusan,
+                    Jurusan = items.Jurusan,
+                    Gender = items.Gender,
+                    Usia = items.Usia,
+                    StatusPernikahan = items.StatusPernikahan,
+                    StatusPegawai = items.StatusPegawai,
+                    PengalamanKerja = items.PengalamanKerja,
+                    KeahlianKhusus = items.KeahlianKhusus,
+                    PersyaratanFisik = items.PersyaratanFisik,
+                    CatatanTambahan = items.CatatanTambahan,
+                    Keterangan = items.Keterangan,
+                    Pengajuan = items.Pengajuan,
                     IsActive = true,
                     CreatedAt = DateTime.Now
                 };

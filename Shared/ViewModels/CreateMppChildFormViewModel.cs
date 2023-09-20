@@ -31,17 +31,17 @@ public class CreateMppChild
     /// <Informasi Detail Pekerjaan>
     public string? PosisiManPower { get; set; }
     public string? DetailPekerjaan { get; set; }
-    public Guid? PendidikanId { get; set; }
-    public Guid? JurusanPendidikanId { get; set; }
-
+    public string? Lulusan { get; set; }
+    public string? Jurusan { get; set; }
     public string? Gender { get; set; }
-    public int? Usia { get; set; }
-    public bool? StatusPernikahan { get; set; }
+    public string? Usia { get; set; }
+    public string? StatusPernikahan { get; set; }
     public string? StatusPegawai { get; set; }
     public string? PengalamanKerja { get; set; }
     public string? KeahlianKhusus { get; set; }
     public string? PersyaratanFisik { get; set; }
     public string? CatatanTambahan { get; set; }
     public string? Keterangan { get; set; }
+    public string? Pengajuan { get; set; }
     public bool? IsActive { get; set; }
 }

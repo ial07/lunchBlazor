@@ -14,21 +14,21 @@
     <div class="col-12 mt-4">
         <div class="d-flex justify-content-end">
             <Button type="button" Label="Tambah" bold data-bs-toggle="modal" data-bs-target="#formJurusanPendidikan"
-                onClick="HandleAddJurusanPendidikan" />
-        </div>
-        <div>
-            <Table table=@table HandleClickPrevious=" Previous" HandleClickNext="Next"
-                HandlePageSizeChange="HandlePageSizeChange" mySieveModel="mySieveModel"
-                totalCountData="JurusanPendidikanService.JurusanPendidikans.totalCountData"
-                HandleEditBtn="HandleEditBtnJurusanPendidikan" IsModalEdit modalEditNameId="formJurusanPendidikan"
-                HandleDeleteBtn="HandleDeleteJurusanPendidikan" />
-        </div>
-    </div>
-</div>
+                 onClick="HandleAddJurusanPendidikan" />
+         </div>
+         <div>
+             <Table table=@table HandleClickPrevious=" Previous" HandleClickNext="Next"
+                 HandlePageSizeChange="HandlePageSizeChange" mySieveModel="mySieveModel"
+                 totalCountData="JurusanPendidikanService.JurusanPendidikans.totalCountData"
+                 HandleEditBtn="HandleEditBtnJurusanPendidikan" IsModalEdit modalEditNameId="formJurusanPendidikan"
+                 HandleDeleteBtn="HandleDeleteJurusanPendidikan" />
+         </div>
+     </div>
+ </div>
 
-<Form_jurusan_pendidikan Id="@AppliationState.Id" formData="@formData" OnFormSubmit="HandleFormSubmission" />
+ <Form_jurusan_pendidikan Id="@AppliationState.Id" formData="@formData" OnFormSubmit="HandleFormSubmission" />
 
-@code {
+ @code {
 
     private JurusanPendidikan formData = new JurusanPendidikan();
     private async void HandleEditBtnJurusanPendidikan(string id)
@@ -146,6 +146,7 @@
                 var rowData = new List<object>
 {
 item.Id.ToString(),
+item.Id.ToString(),
 item.Name,
 };
 
@@ -154,6 +155,7 @@ item.Name,
 
             table.Headers = new List<string>
 {
+"ID",
 "Name"
 };
         }

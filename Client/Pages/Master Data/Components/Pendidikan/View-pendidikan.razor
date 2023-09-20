@@ -14,20 +14,20 @@
     <div class="col-12 mt-4">
         <div class="d-flex justify-content-end">
             <Button type="button" Label="Tambah" bold data-bs-toggle="modal" data-bs-target="#formPendidikan"
-                onClick="HandleAddPendidikan" />
-        </div>
-        <div>
-            <Table table=@table HandleClickPrevious=" Previous" HandleClickNext="Next"
-                HandlePageSizeChange="HandlePageSizeChange" mySieveModel="mySieveModel"
-                totalCountData="PendidikanService.Pendidikans.totalCountData" HandleEditBtn="HandleEditBtnPendidikan"
-                IsModalEdit modalEditNameId="formPendidikan" HandleDeleteBtn="HandleDeletePendidikan" />
-        </div>
-    </div>
-</div>
+                 onClick="HandleAddPendidikan" />
+         </div>
+         <div>
+             <Table table=@table HandleClickPrevious=" Previous" HandleClickNext="Next"
+                 HandlePageSizeChange="HandlePageSizeChange" mySieveModel="mySieveModel"
+                 totalCountData="PendidikanService.Pendidikans.totalCountData" HandleEditBtn="HandleEditBtnPendidikan"
+                    IsModalEdit modalEditNameId="formPendidikan" HandleDeleteBtn="HandleDeletePendidikan" />
+         </div>
+     </div>
+ </div>
 
-<Form_pendidikan Id="@AppliationState.Id" formData="@formData" OnFormSubmit="HandleFormSubmission" />
+ <Form_pendidikan Id="@AppliationState.Id" formData="@formData" OnFormSubmit="HandleFormSubmission" />
 
-@code {
+ @code {
 
     private Pendidikan formData = new Pendidikan();
     private async void HandleEditBtnPendidikan(string id)
@@ -145,6 +145,7 @@
                 var rowData = new List<object>
 {
 item.Id.ToString(),
+item.Id.ToString(),
 item.Name,
 };
 
@@ -153,6 +154,7 @@ item.Name,
 
             table.Headers = new List<string>
 {
+"ID",
 "Name"
 };
         }

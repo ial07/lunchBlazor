@@ -14,20 +14,20 @@
     <div class="col-12 mt-4">
         <div class="d-flex justify-content-end">
             <Button type="button" Label="Tambah" bold data-bs-toggle="modal" data-bs-target="#formDivisi"
-                onClick="HandleAddDivisi" />
-        </div>
-        <div>
-            <Table table=@table HandleClickPrevious=" Previous" HandleClickNext="Next"
-                HandlePageSizeChange="HandlePageSizeChange" mySieveModel="mySieveModel"
-                totalCountData="DivisiService.Divisies.totalCountData" HandleEditBtn="HandleEditBtnDivisi" IsModalEdit
-                modalEditNameId="formDivisi" HandleDeleteBtn="HandleDeleteDivisi" />
-        </div>
-    </div>
-</div>
+                 onClick="HandleAddDivisi" />
+         </div>
+         <div>
+             <Table table=@table HandleClickPrevious=" Previous" HandleClickNext="Next"
+                 HandlePageSizeChange="HandlePageSizeChange" mySieveModel="mySieveModel"
+                 totalCountData="DivisiService.Divisies.totalCountData" HandleEditBtn="HandleEditBtnDivisi" IsModalEdit
+                 modalEditNameId="formDivisi" HandleDeleteBtn="HandleDeleteDivisi" />
+         </div>
+     </div>
+ </div>
 
-<Form_divisi Id="@AppliationState.Id" formData="@formData" OnFormSubmit="HandleFormSubmission" />
+ <Form_divisi Id="@AppliationState.Id" formData="@formData" OnFormSubmit="HandleFormSubmission" />
 
-@code {
+ @code {
 
     private Divisi formData = new Divisi();
     private async void HandleEditBtnDivisi(string id)
@@ -144,6 +144,7 @@
                 var rowData = new List<object>
 {
 item.Id.ToString(),
+item.Id.ToString(),
 item.Name,
 };
 
@@ -152,6 +153,7 @@ item.Name,
 
             table.Headers = new List<string>
 {
+"ID",
 "Name"
 };
         }

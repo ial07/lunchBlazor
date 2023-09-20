@@ -25,7 +25,8 @@
     <div class="col-6">
         @if (isGolonganLoaded)
         {
-            <SelectComponent label="Golongan" isBold listItems="listItemsGolongan" placeholder="Pilih Golongan..." />
+            <SelectComponent label="Golongan" name="golongan" isBold listItems="listItemsGolongan"
+                 placeholder="Pilih Golongan..." ValueChanged="HandleSelectChange" />
         }
         else
         {
@@ -33,12 +34,14 @@
         }
     </div>
     <div class="col-6">
-        <Input label="Target Pemenuhan" bold placeholder="Pilih Bulan dan Tahun" type="date" />
+        <Input label="Target Pemenuhan" name="targetdate" OnInput="HandleInput" bold placeholder="Pilih Bulan dan Tahun"
+             type="date" />
      </div>
      <div class="col-6">
          @if (isDivisiLoaded)
         {
-            <SelectComponent label="Divisi Tujuan" isBold listItems="listItemsDivisi" placeholder="Pilih Divisi..." />
+            <SelectComponent label="Divisi Tujuan" name="divisi" isBold listItems="listItemsDivisi"
+                 placeholder="Pilih Divisi..." ValueChanged="HandleSelectChange" />
         }
         else
         {
@@ -49,7 +52,7 @@
         @if (isDepartemenLoaded)
         {
             <SelectComponent label="Departemen Tujuan" isBold listItems="listItemsDepartemen"
-                 placeholder="Pilih Nama Dept..." />
+                 placeholder="Pilih Nama Dept..." name="departemen" ValueChanged="HandleSelectChange" />
         }
         else
         {
@@ -59,7 +62,8 @@
     <div class="col-12">
         @if (isLokasiLoaded)
         {
-            <SelectComponent label="Lokasi Penempatan" isBold listItems="listItemsLokasi" placeholder="HO/Cab/Site" />
+            <SelectComponent label="Lokasi Penempatan" name="lokasi" isBold listItems="listItemsLokasi"
+                 placeholder="Pilih Lokasi..." ValueChanged="HandleSelectChange" />
         }
         else
         {
@@ -67,10 +71,12 @@
         }
     </div>
     <div class="col-6">
-        <Input label="Jumlah MP Saat ini" bold placeholder="6 Orang" />
+        <Input label="Jumlah MP Saat ini" type="number" name="jumlahmp" OnInput="HandleInput" bold
+             placeholder="Orang" />
      </div>
      <div class="col-6">
-         <Input label="Jumlah Permintaan" bold placeholder="Orang" />
+         <Input label="Jumlah Permintaan" type="number" name="jumlahpermintaan" OnInput="HandleInput" bold
+             placeholder="Orang" />
      </div>
      <div class="col-12">
          <div class="form-group">
@@ -78,9 +84,9 @@
              <textarea class="form-control"></textarea>
          </div>
      </div>
-     @if (AppliationState.MppChildForm != null && AppliationState.MppChildForm.PosisiId != null)
+     @if (AppliationState.MppChildForm != null && AppliationState.MppChildForm.TargetPemenuhan != null)
     {
-        <div>@(AppliationState.MppChildForm.PosisiId)</div>
+        <div>@(AppliationState.MppChildForm.TargetPemenuhan)</div>
     }
     <div class="d-flex justify-content-end mt-3">
         <Button Label="Selanjutnya" btnClass="btn-outline-info" type="button" onClick="onSwitch" />
@@ -104,7 +110,38 @@
         if (selectedName == "posisi")
         {
             mppChildForm.PosisiId = new Guid(selectedValue);
-            //AppliationState.MppChildForm.PosisiId = new Guid(selectedValue);
+        }
+        else if (selectedName == "golongan")
+        {
+            mppChildForm.GolonganId = new Guid(selectedValue);
+        }
+        else if (selectedName == "divisi")
+        {
+            mppChildForm.DevisiTujuanId = new Guid(selectedValue);
+        }
+        else if (selectedName == "departemen")
+        {
+            mppChildForm.DepartemenId = new Guid(selectedValue);
+        }
+        AppliationState.MppChildForm = mppChildForm;
+    }
+
+    private async Task HandleInput(SelectChangedEventArgs args)
+    {
+        string inputName = args.Name;
+        string inputValue = args.Value;
+
+        if (inputName == "targetdate")
+        {
+            mppChildForm.TargetPemenuhan = DateTime.Parse(inputValue);
+        }
+        else if (inputName == "jumlahmp")
+        {
+            mppChildForm.JumlahMp = int.Parse(inputValue);
+        }
+        else if (inputName == "jumlahpermintaan")
+        {
+            mppChildForm.JumlahPermintaan = int.Parse(inputValue);
         }
         AppliationState.MppChildForm = mppChildForm;
     }

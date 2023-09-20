@@ -59,10 +59,13 @@
     <div class="d-flex justify-content-between">
         <div class="fw-bold mb-3 font-size-16">Pengajuan MPP A1</div>
         <Button Label="Tambah Posisi" btnClass="btn-info" IsBtnIcon onClick="HandleButtonClickAddA1" />
-    </div>
-</div>
+     </div>
+ </div>
 
-@code {
+ @code {
+    [CascadingParameter]
+    public AppState AppliationState { get; set; }
+    private MppChildForm mppChildForm = new MppChildForm();
     private int selectedYear = DateTime.Now.Year;
     private void HandleYearInputChange()
     {
@@ -109,6 +112,9 @@
 
     private async Task HandleButtonClickAddA1(MouseEventArgs e)
     {
+        AppliationState.MppChildForm = mppChildForm;
+        StateHasChanged();
+        AppliationState.MppChildForm.Pengajuan = "A1";
         Navigation.NavigateTo("/pengajuan-mpp/tambah-a1");
     }
 }

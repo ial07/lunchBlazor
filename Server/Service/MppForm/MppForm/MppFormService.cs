@@ -47,7 +47,7 @@ namespace RepositoryPattern.Services.MppFormService
             }
         }
 
-        public async Task<Guid> Post(string userId)
+        public async Task<Guid> Post(User userId)
         {
             try
             {
@@ -57,7 +57,7 @@ namespace RepositoryPattern.Services.MppFormService
                     NoMpp = null,
                     NrpPemohon = null,
                     NamaPemohon = null,
-                    UserId = userId,
+                    UserId = userId.UserID,
                     KategoriLokasiId = null,
                     DivisiId = null,
                     JenisMppId = null,
@@ -118,6 +118,57 @@ namespace RepositoryPattern.Services.MppFormService
                 roleData.IsApprovalDirectorHC = items.IsApprovalDirectorHC;
                 roleData.IsActive = items.IsActive;
                 roleData.IsDraft = items.IsDraft;
+                _AppDbContext.MppForm.Update(roleData);
+                await _AppDbContext.SaveChangesAsync();
+                return roleData;
+            }
+            catch (Exception ex)
+            {
+                throw new(ex.Message);
+            }
+        }
+
+        public async Task<MppForm> PutApproval(Guid id, User items)
+        {
+            try
+            {
+                var roleData = await _AppDbContext.MppForm.FindAsync(id);
+                if (roleData == null)
+                {
+                    throw new("Opss Id not found");
+                }
+                if (items.Division == "HCBP")
+                {
+                    roleData.IsApprovalHCBP = true;
+                }
+                if (items.Division == "ADH")
+                {
+                    roleData.IsApprovalADH = true;
+                }
+                if (items.Division == "BM")
+                {
+                    roleData.IsApprovalBM = true;
+                }
+                if (items.Division == "HEAD")
+                {
+                    roleData.IsApprovalDivHead = true;
+                }
+                if (items.Division == "PIC")
+                {
+                    roleData.IsApprovalPICA1B1 = true;
+                }
+                if (items.Division == "OPCC")
+                {
+                    roleData.IsApprovalOPCC = true;
+                }
+                if (items.Division == "GMHC")
+                {
+                    roleData.IsApprovalGMHC = true;
+                }
+                if (items.Division == "DIRHC")
+                {
+                    roleData.IsApprovalDirectorHC = true;
+                }
                 _AppDbContext.MppForm.Update(roleData);
                 await _AppDbContext.SaveChangesAsync();
                 return roleData;

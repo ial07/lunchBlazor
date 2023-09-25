@@ -11,9 +11,11 @@ namespace test_blazor.Server.Controllers
     public class MppFormController : ControllerBase
     {
         private readonly IMppFormService _IMppFormService;
-        public MppFormController(IMppFormService service)
+        private readonly ConvertJWT _ConvertJwt;
+        public MppFormController(IMppFormService service, ConvertJWT convert)
         {
             _IMppFormService = service;
+            _ConvertJwt = convert;
         }
 
         [HttpGet]
@@ -36,23 +38,10 @@ namespace test_blazor.Server.Controllers
         {
             try
             {
-                // Access the Bearer token from the request headers
                 string accessToken = HttpContext.Request.Headers["Authorization"];
-                // Check if the Authorization header is present and starts with "Bearer "
-                if (!string.IsNullOrWhiteSpace(accessToken) && accessToken.StartsWith("Bearer "))
-                {
-                    // Remove "Bearer " prefix to get just the token
-                    accessToken = accessToken.Substring("Bearer ".Length);
-                    var tokenHandler = new JwtSecurityTokenHandler();
-                    var token = tokenHandler.ReadJwtToken(accessToken);
-                    string idUser = token.Subject;
-                    var dataList = await _IMppFormService.Post(idUser);
-                    return Ok(dataList);
-                }
-                else
-                {
-                    return Unauthorized(); // Return a 401 Unauthorized response if the token is missing or not in the correct format
-                }
+                User checktoken = await _ConvertJwt.ConvertString(accessToken);
+                var dataList = await _IMppFormService.Post(checktoken);
+                return Ok(dataList);
             }
             catch (Exception ex)
             {
@@ -66,6 +55,23 @@ namespace test_blazor.Server.Controllers
             try
             {
                 var dataList = await _IMppFormService.Put(id, items);
+                return Ok(dataList);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        [Authorize]
+        [HttpPut("Approval/{id}")]
+        public async Task<IActionResult> Approval([FromRoute] Guid id)
+        {
+            try
+            {
+                string accessToken = HttpContext.Request.Headers["Authorization"];
+                User checktoken = await _ConvertJwt.ConvertString(accessToken);
+                var dataList = await _IMppFormService.PutApproval(id, checktoken);
                 return Ok(dataList);
             }
             catch (Exception ex)

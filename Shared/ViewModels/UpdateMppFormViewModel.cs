@@ -11,7 +11,9 @@ public class UpdateMpp
     [Required]
     public string NamaPemohon { get; set; }
     [Required]
-    public Guid StatusId { get; set; }
+    public string UserId { get; set; }
+    [Required]
+    public int StatusId { get; set; }
     [Required]
     public Guid KategoriLokasiId { get; set; }
     [Required]
@@ -24,6 +26,13 @@ public class UpdateMpp
     public bool IsApprovalADH { get; set; }
     [Required]
     public bool IsApprovalHCBP { get; set; }
+    [Required]
+    public bool IsApprovalBM { get; set; }
+    public bool IsApprovalDivHead { get; set; }
+    public bool IsApprovalPICA1B1 { get; set; }
+    public bool IsApprovalOPCC { get; set; }
+    public bool IsApprovalGMHC { get; set; }
+    public bool IsApprovalDirectorHC { get; set; }
     [Required]
     public bool IsDraft { get; set; }
     [Required]

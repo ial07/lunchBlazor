@@ -1,6 +1,7 @@
 using lunchBlazor.Server.Data;
 using lunchBlazor.Shared.Helper;
 using lunchBlazor.Shared.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Sieve.Models;
 using Sieve.Services;
@@ -27,8 +28,9 @@ namespace RepositoryPattern.Services.MppFormService
                 await _AppDbContext.JenisMpp.Where(x => x.IsActive == true).OrderBy(x => x.CreatedAt).ToListAsync();
                 await _AppDbContext.Status.Where(x => x.IsActive == true).OrderBy(x => x.CreatedAt).ToListAsync();
                 await _AppDbContext.MppChildForm.Where(x => x.IsActive == true).OrderBy(x => x.CreatedAt).ToListAsync();
-
-                var departemen = _AppDbContext.MppForm.Where(d => (bool)d.IsActive).AsQueryable();
+                await _AppDbContext.User.OrderBy(x => x.CreatedAt).ToListAsync();
+                // var departemen = _AppDbContext.MppForm.Where(d => (bool)d.IsActive).AsQueryable();
+                var departemen = _AppDbContext.MppForm.AsQueryable();
                 var result = _SieveProcessor.Apply(model, departemen);
                 var departemenList = await PageList<MppForm>.ShowDataAsync(
                     departemen,
@@ -45,40 +47,37 @@ namespace RepositoryPattern.Services.MppFormService
             }
         }
 
-        public async Task<MppForm> Post(CreateMpp items)
+        public async Task<Guid> Post(string userId)
         {
             try
             {
-                var checkLokasi = await _AppDbContext.Lokasi.FirstOrDefaultAsync(x => x.Id == items.KategoriLokasiId) ?? throw new("Lokasi form Id tidak ditemukan");
-                var checkDivisi = await _AppDbContext.Divisi.FirstOrDefaultAsync(x => x.Id == items.DivisiId) ?? throw new("Divisi form Id tidak ditemukan");
-                var checkJenisMpp = await _AppDbContext.JenisMpp.FirstOrDefaultAsync(x => x.Id == items.JenisMppId) ?? throw new("JenisMpp form Id tidak ditemukan");
-                var checkStatus = await _AppDbContext.Status.FirstOrDefaultAsync(x => x.Id == items.StatusId) ?? throw new("Status form Id tidak ditemukan");
                 var roleData = new MppForm()
                 {
                     Id = Guid.NewGuid(),
-                    NoMpp = items.NoMpp,
-                    NrpPemohon = items.NrpPemohon,
-                    NamaPemohon = items.NamaPemohon,
-                    KategoriLokasiId = items.KategoriLokasiId,
-                    DivisiId = items.DivisiId,
-                    JenisMppId = items.JenisMppId,
-                    StatusId = items.StatusId,
-                    TahunMpp = items.TahunMpp,
-                    IsApprovalADH = items.IsApprovalADH,
-                    IsApprovalHCBP = items.IsApprovalHCBP,
+                    NoMpp = null,
+                    NrpPemohon = null,
+                    NamaPemohon = null,
+                    UserId = userId,
+                    KategoriLokasiId = null,
+                    DivisiId = null,
+                    JenisMppId = null,
+                    StatusId = null,
+                    TahunMpp = null,
+                    IsApprovalADH = false,
+                    IsApprovalHCBP = false,
                     IsApprovalBM = false,
                     IsApprovalDivHead = false,
                     IsApprovalPICA1B1 = false,
                     IsApprovalOPCC = false,
                     IsApprovalGMHC = false,
                     IsApprovalDirectorHC = false,
-                    IsActive = true,
-                    IsDraft = items.IsDraft,
+                    IsActive = false,
+                    IsDraft = false,
                     CreatedAt = DateTime.Now,
                 };
                 _AppDbContext.MppForm.Add(roleData);
                 await _AppDbContext.SaveChangesAsync();
-                return roleData;
+                return roleData.Id;
             }
             catch (Exception ex)
             {
@@ -90,6 +89,10 @@ namespace RepositoryPattern.Services.MppFormService
         {
             try
             {
+                var checkLokasi = await _AppDbContext.Lokasi.FirstOrDefaultAsync(x => x.Id == items.KategoriLokasiId) ?? throw new("Lokasi form Id tidak ditemukan");
+                var checkDivisi = await _AppDbContext.Divisi.FirstOrDefaultAsync(x => x.Id == items.DevisiId) ?? throw new("Divisi form Id tidak ditemukan");
+                var checkJenisMpp = await _AppDbContext.JenisMpp.FirstOrDefaultAsync(x => x.Id == items.JenisMppId) ?? throw new("JenisMpp form Id tidak ditemukan");
+                var checkStatus = await _AppDbContext.Status.FirstOrDefaultAsync(x => x.Id == items.StatusId) ?? throw new("Status form Id tidak ditemukan");
                 var roleData = await _AppDbContext.MppForm.FindAsync(id);
                 if (roleData == null)
                 {
@@ -97,8 +100,24 @@ namespace RepositoryPattern.Services.MppFormService
                 }
 
                 roleData.Name = items.Name;
+                roleData.NoMpp = items.NoMpp;
+                roleData.NrpPemohon = items.NrpPemohon;
+                roleData.NamaPemohon = items.NamaPemohon;
+                roleData.KategoriLokasiId = items.KategoriLokasiId;
+                roleData.DivisiId = items.DevisiId;
+                roleData.JenisMppId = items.JenisMppId;
+                roleData.StatusId = items.StatusId;
+                roleData.TahunMpp = items.TahunMpp;
+                roleData.IsApprovalADH = items.IsApprovalADH;
+                roleData.IsApprovalHCBP = items.IsApprovalHCBP;
+                roleData.IsApprovalBM = items.IsApprovalBM;
+                roleData.IsApprovalDivHead = items.IsApprovalDivHead;
+                roleData.IsApprovalPICA1B1 = items.IsApprovalPICA1B1;
+                roleData.IsApprovalOPCC = items.IsApprovalOPCC;
+                roleData.IsApprovalGMHC = items.IsApprovalGMHC;
+                roleData.IsApprovalDirectorHC = items.IsApprovalDirectorHC;
                 roleData.IsActive = items.IsActive;
-
+                roleData.IsDraft = items.IsDraft;
                 _AppDbContext.MppForm.Update(roleData);
                 await _AppDbContext.SaveChangesAsync();
                 return roleData;

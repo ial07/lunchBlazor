@@ -1,4 +1,6 @@
+using System.IdentityModel.Tokens.Jwt;
 using lunchBlazor.Shared.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Sieve.Models;
 
@@ -28,13 +30,29 @@ namespace test_blazor.Server.Controllers
             }
         }
 
+        [Authorize]
         [HttpPost]
-        public async Task<ActionResult<List<MppForm>>> Post([FromBody] CreateMpp items)
+        public async Task<ActionResult<List<MppForm>>> Post()
         {
             try
             {
-                var dataList = await _IMppFormService.Post(items);
-                return Ok(dataList);
+                // Access the Bearer token from the request headers
+                string accessToken = HttpContext.Request.Headers["Authorization"];
+                // Check if the Authorization header is present and starts with "Bearer "
+                if (!string.IsNullOrWhiteSpace(accessToken) && accessToken.StartsWith("Bearer "))
+                {
+                    // Remove "Bearer " prefix to get just the token
+                    accessToken = accessToken.Substring("Bearer ".Length);
+                    var tokenHandler = new JwtSecurityTokenHandler();
+                    var token = tokenHandler.ReadJwtToken(accessToken);
+                    string idUser = token.Subject;
+                    var dataList = await _IMppFormService.Post(idUser);
+                    return Ok(dataList);
+                }
+                else
+                {
+                    return Unauthorized(); // Return a 401 Unauthorized response if the token is missing or not in the correct format
+                }
             }
             catch (Exception ex)
             {

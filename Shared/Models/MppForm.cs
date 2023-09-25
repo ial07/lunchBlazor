@@ -9,6 +9,7 @@ namespace lunchBlazor.Shared.Models
         [Sieve(CanFilter = true, CanSort = true)] public string? Name { get; set; }
         [Sieve(CanFilter = true, CanSort = true)] public string? NrpPemohon { get; set; }
         [Sieve(CanFilter = true, CanSort = true)] public string? NamaPemohon { get; set; }
+        [Sieve(CanFilter = true, CanSort = true)] public string? UserId { get; set; }
         [Sieve(CanFilter = true, CanSort = true)] public Guid? KategoriLokasiId { get; set; }
         [Sieve(CanFilter = true, CanSort = true)] public Guid? DivisiId { get; set; }
         [Sieve(CanFilter = true, CanSort = true)] public Guid? JenisMppId { get; set; }
@@ -30,6 +31,8 @@ namespace lunchBlazor.Shared.Models
         public Divisi? Divisi { get; set; }
         public Status? Status { get; set; }
         public JenisMpp? JenisMpp { get; set; }
+        public User? User { get; set; }
+
 
     }
 }

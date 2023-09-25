@@ -1,30 +1,35 @@
 using System.ComponentModel.DataAnnotations;
 
+public class CreateFirstMpp
+{
+    public string? NrpPemohon { get; set; }
+    public string? NamaPemohon { get; set; }
+}
 public class CreateMpp
 {
     public string? Name { get; set; }
-    [Required]
+    // [Required]
     public string? NrpPemohon { get; set; }
-    [Required]
+    // [Required]
     public string? NoMpp { get; set; }
-    [Required]
+    // [Required]
     public string? NamaPemohon { get; set; }
+    // [Required]
+    public int? StatusId { get; set; }
+    // [Required]
+    public Guid? KategoriLokasiId { get; set; }
+    // [Required]
+    public Guid? DivisiId { get; set; }
+    // [Required]
+    public Guid? JenisMppId { get; set; }
+    // [Required]
+    public DateTime? TahunMpp { get; set; }
+    // [Required]
+    public bool? IsApprovalADH { get; set; }
+    // [Required]
+    public bool? IsApprovalHCBP { get; set; }
     [Required]
-    public int StatusId { get; set; }
+    public bool? IsDraft { get; set; }
     [Required]
-    public Guid KategoriLokasiId { get; set; }
-    [Required]
-    public Guid DivisiId { get; set; }
-    [Required]
-    public Guid JenisMppId { get; set; }
-    [Required]
-    public DateTime TahunMpp { get; set; }
-    [Required]
-    public bool IsApprovalADH { get; set; }
-    [Required]
-    public bool IsApprovalHCBP { get; set; }
-    [Required]
-    public bool IsDraft { get; set; }
-    [Required]
-    public bool IsActive { get; set; }
+    public bool? IsActive { get; set; }
 }

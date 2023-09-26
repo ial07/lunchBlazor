@@ -33,6 +33,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("defaultConn")));
 builder.Services.AddSwaggerGen();
 // builder.Services.AddSingleton<AppDbContext>();
+builder.Services.AddScoped<ConvertJWT>();
 builder.Services.AddSingleton<SieveProcessor>();
 builder.Services.AddScoped<IDepartemenService, DepartemenService>();
 builder.Services.AddScoped<IDivisiService, DivisiService>();

@@ -22,6 +22,7 @@ namespace RepositoryPattern.Services.MppChildFormService
         {
             try
             {
+                await _AppDbContext.Lokasi.Where(x => x.IsActive == true).OrderBy(x => x.CreatedAt).ToListAsync();
                 var departemen = _AppDbContext.MppChildForm.Where(d => (bool)d.IsActive).AsQueryable();
                 var result = _SieveProcessor.Apply(model, departemen);
                 var departemenList = await PageList<MppChildForm>.ShowDataAsync(

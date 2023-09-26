@@ -14,7 +14,7 @@
             <div class="d-flex align-items-center">
                 <div class="d-flex align-items-center">
                     <i class="bi bi-list-task mx-1 font-size-18 text-primary"
-                        style="-webkit-text-stroke-width: 1px;"></i>
+                       style="-webkit-text-stroke-width: 1px;"></i>
                     <div class="">
                         List View
                     </div>
@@ -24,7 +24,7 @@
                     <div class="mx-3">2022</div>
                     <i class="bi bi-caret-right-fill text-primary"></i>
                 </div>
-                <Button bold Label="MPP Baru" btnClass="btn-info" IsBtnIcon onClick="HandleButtonClickAdd" />
+                <Button bold Label="MPP Baru" btnClass="btn-info" IsBtnIcon onClick="HandleButtonClickAdd" loading="loading" />
              </div>
          </div>
      </div>
@@ -44,10 +44,10 @@
      </div>
  </div>
  <!-- end row -->
-
  @code {
     [CascadingParameter]
     public AppState ApplicationState { get; set; }
+    private bool loading = false;
     private async Task HandleButtonClickAdd()
     {
         if (ApplicationState.MppForm == null)
@@ -55,14 +55,29 @@
             ApplicationState.MppForm = new MppForm();
         }
 
-        Navigation.NavigateTo("/pengajuan-mpp/input-mpp");
-        ApplicationState.MppForm.NoMpp = "nompp1";
-        ApplicationState.MppForm.NrpPemohon = "99999999";
-        ApplicationState.MppForm.NamaPemohon = "Jhon Doe";
-        var result = await MppFormService.CreateMppForm(ApplicationState.MppForm);
-        Console.WriteLine(result);
-        if (result.ReasonPhrase == "OK")
+        if (ApplicationState.MppForm?.Id != null && ApplicationState.MppForm.Id != Guid.Empty)
         {
+            Navigation.NavigateTo("/pengajuan-mpp/input-mpp");
+        }
+        else
+        {
+            try
+            {
+                loading = true;
+                var result = await MppFormService.CreateMppForm();
+                if (result != "")
+                {
+                    ApplicationState.MppForm.Id = new Guid(result);
+                    Navigation.NavigateTo("/pengajuan-mpp/input-mpp");
+                }
+            }catch(Exception e)
+            {
+                Console.WriteLine(e);
+            }
+            finally
+            {
+                loading = false;
+            }
         }
     }
 

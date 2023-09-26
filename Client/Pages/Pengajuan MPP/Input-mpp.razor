@@ -1,6 +1,9 @@
 @page "/pengajuan-mpp/input-mpp"
 @inject NavigationManager Navigation
 @inject JenisMppService JenisMppService
+@inject MppChildFormService MppChildFormService
+@inject ILocalStorageService LocalStorage
+
 
 <PageTitle>Pengajuan MPP</PageTitle>
 
@@ -22,19 +25,19 @@
     <div class="fw-bold mb-3 font-size-16">Detail Pengajuan MPP</div>
     <div class="col-3">
         <label class="fw-bold">NRP Pemohon</label>
-        <div class="ms-1">Auto_fill_NRP_User</div>
+        <div class="ms-1">@User.UserID</div>
     </div>
     <div class="col-3">
         <label class="fw-bold">Nama Pemohon</label>
-        <div class="ms-1">Auto_fill_NRP_User</div>
+        <div class="ms-1">@User.UserName</div>
     </div>
     <div class="col-3">
         <label class="fw-bold">Divisi</label>
-        <div class="ms-1">Auto_fill_NRP_User</div>
+        <div class="ms-1">@User.Division</div>
     </div>
     <div class="col-3">
         <label class="fw-bold">Lokasi</label>
-        <div class="ms-1">Auto_fill_NRP_User</div>
+        <div class="ms-1">@User.Location</div>
     </div>
     <div class="col-3 mt-4">
         @if (isSelectMppLoaded)
@@ -50,7 +53,7 @@
         <div class="form-group">
             <label class="form-label">Tahun MPP</label>
             <input type="number" class="form-control" min="1900" max="2199" step="1" maxlength="4" minlength="4"
-                @bind="selectedYear" oninput="@HandleYearInputChange" />
+            @bind="selectedYear" oninput="@HandleYearInputChange" />
         </div>
     </div>
 </div>
@@ -60,12 +63,16 @@
         <div class="fw-bold mb-3 font-size-16">Pengajuan MPP A1</div>
         <Button Label="Tambah Posisi" btnClass="btn-info" IsBtnIcon onClick="HandleButtonClickAddA1" />
      </div>
+     <Table table=@table HandleClickPrevious="PreviousA1" HandleClickNext="NextA1"
+            HandlePageSizeChange="HandlePageSizeChangeA1" mySieveModel="mySieveModel"
+            totalCountData="MppChildFormService.MppChildForms.totalCountData"/>
  </div>
 
  @code {
     [CascadingParameter]
     public AppState ApplicationState { get; set; }
     private MppChildForm mppChildForm = new MppChildForm();
+    private User User = new User();
     private int selectedYear = DateTime.Now.Year;
     private void HandleYearInputChange()
     {
@@ -84,13 +91,40 @@
             PageSize = 5,
         };
 
+    private TableModelViewModel table = new TableModelViewModel();
+    private List<MppChildForm> A1listItems = new List<MppChildForm>();
+
     private List<JenisMpp> jenisMppList;
     private List<dynamic> listItemsJenisMpp;
     private bool isSelectMppLoaded = false; // Flag to indicate if data is loaded
 
+
+    private async Task NextA1()
+    {
+        mySieveModel.Page++; // Increment the page
+        await LoadDataMppChildAsync(mySieveModel); // Call LoadDepartemen with the updated page
+    }
+    private async Task PreviousA1()
+    {
+        mySieveModel.Page--;
+        await LoadDataMppChildAsync(mySieveModel);
+    }
+
+    private async Task HandlePageSizeChangeA1(ChangeEventArgs e)
+    {
+        if (int.TryParse(e.Value.ToString(), out int selectedPageSize))
+        {
+            mySieveModel.Page = 1;
+            mySieveModel.PageSize = selectedPageSize;
+            await LoadDataMppChildAsync(mySieveModel);
+        }
+    }
+
     protected async override Task OnInitializedAsync()
     {
-        await LoadDataAsync(); // Load data asynchronously
+        User = await LocalStorage.GetItemAsync<User>("profile");
+        await LoadDataAsync();
+        await LoadDataMppChildAsync(mySieveModel);
     }
 
     private async Task LoadDataAsync()
@@ -109,6 +143,49 @@
         // Notify the child component that the data is ready
         StateHasChanged();
     }
+
+    private async Task LoadDataMppChildAsync(SieveModel sieveModel)
+    {
+        sieveModel.Filters = $"Id== {ApplicationState.MppForm.Id}";
+        try
+        {
+            await MppChildFormService.LoadMppChildForm(sieveModel);
+
+            A1listItems = MppChildFormService.MppChildForms.Items;
+
+            table.Data = new List<List<object>>();
+
+            foreach (var item in A1listItems)
+            {
+                var rowData = new List<object>
+{
+item.Id.ToString(),
+item.NamaLokasi,
+item.CreatedAt.ToString("dd/MM/yyyy"),
+};
+
+                table.Data.Add(rowData);
+            }
+
+            table.Headers = new List<string>
+{
+"ID",
+"INI Lokasi",
+"Created At",
+};
+        }
+        catch (Exception ex)
+        {
+            // Log the exception
+            Console.WriteLine(ex);
+            // Handle the exception as needed (e.g., show an error message to the user)
+        }
+        finally
+        {
+        }
+    
+    StateHasChanged();
+ }
 
     private async Task HandleButtonClickAddA1(MouseEventArgs e)
     {

@@ -1,5 +1,4 @@
 @layout LoginLayout
-@inject GlobalService GlobalService
 @inject AuthService AuthService
 @inject SweetAlertService Swal
 @inject ILocalStorageService LocalStorage
@@ -65,15 +64,14 @@
        <img src="assets/images/Group.png" alt="Group" class="img-thumbs">
    </div>
 
-@code {
+ @code {
     UserForm login = new UserForm();
     private bool loading = false;
     private bool loggedIn;
 
     protected override async Task OnInitializedAsync()
     {
-        loggedIn = await GlobalService.CheckLogin();
-        Console.WriteLine(loggedIn);
+        loggedIn = await AuthService.CheckLogin();
         if (loggedIn)
         {
             NavigationManager.NavigateTo("/");

@@ -1,5 +1,5 @@
 ﻿@page "/"
-@inject GlobalService GlobalService
+@inject AuthService AuthService
 @inject NavigationManager NavigationManager
 
 
@@ -33,7 +33,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        loggedIn = await GlobalService.CheckLogin();
+        loggedIn = await AuthService.CheckLogin();
 
         if (!loggedIn)
         {

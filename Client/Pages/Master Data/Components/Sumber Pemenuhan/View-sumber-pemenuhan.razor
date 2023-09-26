@@ -26,17 +26,17 @@
      </div>
  </div>
 
- <Form_sumber_pemenuhan Id="@AppliationState.Id" formData="@formData" OnFormSubmit="HandleFormSubmission" />
+ <Form_sumber_pemenuhan Id="@ApplicationState.Id" formData="@formData" OnFormSubmit="HandleFormSubmission" />
 
  @code {
 
     private SumberPemenuhan formData = new SumberPemenuhan();
     private async void HandleEditBtnSumberPemenuhan(string id)
     {
-        AppliationState.Id = id;
-        if (AppliationState.Id is not null)
+        ApplicationState.Id = id;
+        if (ApplicationState.Id is not null)
         {
-            mySieveModel.Filters = $"Id=={AppliationState.Id}";
+            mySieveModel.Filters = $"Id=={ApplicationState.Id}";
             await SumberPemenuhanService.GetSumberPemenuhanById(mySieveModel);
             formData = SumberPemenuhanService.SumberPemenuhan;
         }
@@ -45,13 +45,13 @@
 
     private void HandleAddSumberPemenuhan()
     {
-        AppliationState.Id = null;
+        ApplicationState.Id = null;
         formData = new SumberPemenuhan();
         StateHasChanged();
     }
 
     [CascadingParameter]
-    public AppState AppliationState { get; set; }
+    public AppState ApplicationState { get; set; }
     private SieveModel mySieveModel = new SieveModel
         {
             Page = 1,
@@ -64,7 +64,7 @@
     private async Task HandleFormSubmission(SumberPemenuhan formData)
     {
         mySieveModel.Filters = "";
-        if (AppliationState.Id is null)
+        if (ApplicationState.Id is null)
         {
             var result = await SumberPemenuhanService.CreateSumberPemenuhan(formData);
             if (result.ReasonPhrase == "OK")
@@ -75,7 +75,7 @@
         }
         else
         {
-            var result = await SumberPemenuhanService.UpdateSumberPemenuhan(AppliationState.Id, formData);
+            var result = await SumberPemenuhanService.UpdateSumberPemenuhan(ApplicationState.Id, formData);
             if (result.ReasonPhrase == "OK")
             {
                 JSRuntime.InvokeVoidAsync("clickElementById", "closeButtonSumberPemenuhan");

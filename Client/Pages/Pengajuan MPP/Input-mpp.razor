@@ -64,7 +64,7 @@
 
  @code {
     [CascadingParameter]
-    public AppState AppliationState { get; set; }
+    public AppState ApplicationState { get; set; }
     private MppChildForm mppChildForm = new MppChildForm();
     private int selectedYear = DateTime.Now.Year;
     private void HandleYearInputChange()
@@ -112,9 +112,9 @@
 
     private async Task HandleButtonClickAddA1(MouseEventArgs e)
     {
-        AppliationState.MppChildForm = mppChildForm;
+        ApplicationState.MppChildForm = mppChildForm;
         StateHasChanged();
-        AppliationState.MppChildForm.Pengajuan = "A1";
-        Navigation.NavigateTo("/pengajuan-mpp/tambah-a1");
+        ApplicationState.MppChildForm.Pengajuan = "A1";
+        Navigation.NavigateTo("/pengajuan-mpp/tambah-posisi");
     }
 }

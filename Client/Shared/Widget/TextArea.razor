@@ -1,0 +1,40 @@
+<div class="form-group">
+    <label class="form-label @(bold ? "fw-bold" : "")">@label
+        @if (optional)
+        {
+            <b class="text-muted font-size-11">*optional</b>
+        }
+    </label>
+    <textarea class="form-control" name="@name" @oninput="HandleInputChange"></textarea>
+</div>
+
+@code {
+    [Parameter]
+    public string? label { get; set; }
+    [Parameter]
+    public string? name { get; set; }
+    [Parameter]
+    public string? value { get; set; }
+    [Parameter]
+    public bool bold { get; set; } = false;
+    [Parameter]
+    public bool optional { get; set; } = false;
+    [Parameter]
+    public bool disabled { get; set; } = false;
+    [Parameter]
+    public EventCallback<SelectChangedEventArgs> OnInput { get; set; }
+
+    private async Task HandleInputChange(ChangeEventArgs e)
+    {
+        string selectedValue = e.Value?.ToString() ?? string.Empty; // Get the selected value
+
+        var args = new SelectChangedEventArgs
+            {
+                Name = name ?? string.Empty,
+                Value = selectedValue
+            };
+
+        // Invoke the OnInput event with the SelectChangedEventArgs instance
+        await OnInput.InvokeAsync(args);
+    }
+}

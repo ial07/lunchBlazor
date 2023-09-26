@@ -5,4 +5,9 @@ namespace lunchBlazor.Client.helper
         public string Name { get; set; }
         public string Value { get; set; }
     }
+    public class SelectMultipleChangedEventArgs
+    {
+        public string Name { get; set; }
+        public string[] Value { get; set; }
+    }
 }

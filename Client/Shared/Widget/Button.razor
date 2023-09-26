@@ -1,11 +1,17 @@
 <button type="@type"
     class="btn @btnClass @LabelColor @(btnBlock?"col-12":"") @(rounded?"btn-rounded":"") @(bold?"fw-bold":"") @(IsBtnIcon?"waves-effect waves-light":"") @(IsBtnIconLabel ?"btn-label":"")"
-    @onclick="HandleClick" @attributes="HtmlAttributes">
+    @onclick="HandleClick" @attributes="HtmlAttributes" disabled="@loading">
+    @if (loading)
+    {
 
-    <i
-        class="@(IsBtnIcon ? $"{BtnIcon} {(IsBtnIconLabel ? "label-icon" : "")}{(IsBtnIconBlock ? "d-block font-size-16" : "mx-2 font-size-16")}" : "")"></i>
-
-    @Label
+        <i class="fa-solid fa-spinner fa-spin-pulse"></i>
+    }
+    else
+    {
+        <i
+            class="@(IsBtnIcon ? $"{BtnIcon} {(IsBtnIconLabel ? "label-icon" : "")}{(IsBtnIconBlock ? "d-block font-size-16" : "mx-2 font-size-16")}" : "")"></i>
+        @Label
+    }
 </button>
 
 @code {
@@ -21,6 +27,8 @@
     public bool btnBlock { get; set; } = false;
     [Parameter]
     public bool rounded { get; set; } = false;
+    [Parameter]
+    public bool loading { get; set; } = false;
     [Parameter]
     public bool bold { get; set; } = false;
     [Parameter]

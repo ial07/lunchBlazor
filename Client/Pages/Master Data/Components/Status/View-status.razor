@@ -25,17 +25,17 @@
      </div>
  </div>
 
- <Form_status Id="@AppliationState.Id" formData="@formData" OnFormSubmit="HandleFormSubmission" />
+ <Form_status Id="@ApplicationState.Id" formData="@formData" OnFormSubmit="HandleFormSubmission" />
 
  @code {
 
     private Status formData = new Status();
     private async void HandleEditBtnStatus(string id)
     {
-        AppliationState.Id = id;
-        if (AppliationState.Id is not null)
+        ApplicationState.Id = id;
+        if (ApplicationState.Id is not null)
         {
-            mySieveModel.Filters = $"Id=={AppliationState.Id}";
+            mySieveModel.Filters = $"Id=={ApplicationState.Id}";
             await StatusService.GetStatusById(mySieveModel);
             formData = StatusService.Status;
         }
@@ -44,13 +44,13 @@
 
     private void HandleAddStatus()
     {
-        AppliationState.Id = null;
+        ApplicationState.Id = null;
         formData = new Status();
         StateHasChanged();
     }
 
     [CascadingParameter]
-    public AppState AppliationState { get; set; }
+    public AppState ApplicationState { get; set; }
     private SieveModel mySieveModel = new SieveModel
         {
             Page = 1,
@@ -63,7 +63,7 @@
     private async Task HandleFormSubmission(Status formData)
     {
         mySieveModel.Filters = "";
-        if (AppliationState.Id is null)
+        if (ApplicationState.Id is null)
         {
             var result = await StatusService.CreateStatus(formData);
             if (result.ReasonPhrase == "OK")
@@ -74,7 +74,7 @@
         }
         else
         {
-            var result = await StatusService.UpdateStatus(AppliationState.Id, formData);
+            var result = await StatusService.UpdateStatus(ApplicationState.Id, formData);
             if (result.ReasonPhrase == "OK")
             {
                 JSRuntime.InvokeVoidAsync("clickElementById", "closeButtonStatus");

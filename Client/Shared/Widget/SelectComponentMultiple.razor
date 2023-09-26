@@ -1,12 +1,21 @@
 <div class="form-group">
     <label class="@(isBold ? " fw-bold" : "")">@label</label>
-    <select class="form-select" name="@name" @bind="@value" @oninput="HandleInputChange" @attributes="HtmlAttributes">
-        <option value="">@placeholder</option>
+    <div class="text-muted" style="font-size: 10px;">tekan ctrl+click untuk memilih multiple</div>
+    <select class="form-select @selectClass" name="@name" size="2" @oninput="HandleInputChange" multiple="multiple"
+        aria-label="select example">
+        <option value=""></option>
         @if (listItems.Any() || listItems.Count > 0)
         {
             foreach (var item in listItems)
             {
-                <option value="@item.Id">@item.Value</option>
+                if (value != null && value?.Contains(item.Id))
+                {
+                    <option value="@item.Id" selected>@item.Value</option>
+                }
+                else
+                {
+                    <option value="@item.Id">@item.Value</option>
+                }
             }
         }
         else
@@ -22,23 +31,21 @@
     [Parameter]
     public string? name { get; set; }
     [Parameter]
-    public string placeholder { get; set; } = "Choose Items";
+    public string? selectClass { get; set; }
+    [Parameter]
+    public List<string>? value { get; set; } = new List<string>();
     [Parameter]
     public List<dynamic>? listItems { get; set; }
     [Parameter]
-    public string? value { get; set; }
-    [Parameter]
     public bool isBold { get; set; } = false;
-    [Parameter(CaptureUnmatchedValues = true)]
-    public IDictionary<string, object> HtmlAttributes { get; set; }
     [Parameter]
-    public EventCallback<SelectChangedEventArgs> OnChanged { get; set; }
+    public EventCallback<SelectMultipleChangedEventArgs> OnChanged { get; set; }
 
     private async Task HandleInputChange(ChangeEventArgs e)
     {
-        string selectedValue = e.Value?.ToString() ?? string.Empty; // Get the selected value
+        string[] selectedValue = (string[])e.Value;
 
-        var args = new SelectChangedEventArgs
+        var args = new SelectMultipleChangedEventArgs
             {
                 Name = name ?? string.Empty,
                 Value = selectedValue
@@ -61,4 +68,6 @@
         appearance: none;
         color: #8F90A6;
     }
+
+    .select-multiple: {}
 </style>

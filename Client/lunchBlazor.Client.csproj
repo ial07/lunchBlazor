@@ -11,6 +11,8 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.16" PrivateAssets="all"/>
     <PackageReference Include="CurrieTechnologies.Razor.SweetAlert2" Version="5.5.0"/>
     <PackageReference Include="Blazored.Modal" Version="7.1.0"/>
+    <PackageReference Include="Syncfusion.Blazor.DropDowns" Version="23.1.36"/>
+    <PackageReference Include="Blazored.LocalStorage" Version="4.4.0"/>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Shared\lunchBlazor.Shared.csproj"/>

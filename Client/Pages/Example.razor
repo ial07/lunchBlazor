@@ -1,0 +1,36 @@
+@page "/example"
+@inject IJSRuntime JSRuntime
+
+<h3>Multiselect Example</h3>
+<select id="myMultiselect">
+    @foreach (var option in multiselectOptions)
+    {
+        <option value="@option.Value">@option.Label</option>
+    }
+</select>
+
+
+@code {
+    private List<dynamic> multiselectOptions = new List<dynamic>
+{
+new { Value = "Option1", Label = "Option 1" },
+new { Value = "Option2", Label = "Option 2" },
+new { Value = "Option3", Label = "Option 3" }
+};
+
+
+
+    // This method will be called when the component is rendered.
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            // Call a JavaScript function to initialize the multiselect widget with options.
+            await JSRuntime.InvokeVoidAsync("initializeMultiselect", "myMultiselect", multiselectOptions);
+        }
+    }
+
+
+
+
+}

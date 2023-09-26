@@ -1,4 +1,4 @@
-@page "/pengajuan-mpp/tambah-a1"
+@page "/pengajuan-mpp/tambah-posisi"
 @inject NavigationManager Navigation
 
 <PageTitle>Pengajuan MPP</PageTitle>
@@ -12,14 +12,19 @@
             <i class="bi bi-chevron-right text-primary mx-2" style="-webkit-text-stroke-width: 1px;"></i>
             <a href="/pengajuan-mpp/input-mpp" class="mb-sm-0 font-size-16 text-muted">Input MPP</a>
             <i class="bi bi-chevron-right text-primary mx-2" style="-webkit-text-stroke-width: 1px;"></i>
-            <h4 class="mb-sm-0 font-size-16">Tambah A1</h4>
+            <h4 class="mb-sm-0 font-size-16">
+                @if (ApplicationState.MppChildForm != null && ApplicationState.MppChildForm.Pengajuan != "")
+                {
+                    <text>Tambah @ApplicationState.MppChildForm.Pengajuan</text>
+                }
+            </h4>
         </div>
     </div>
 </div>
 <!-- end page title -->
 
 
-<div class="d-flex align-items-start">
+<div class="d-flex align-items-start" style="position: fixed; height: 100%; overflow: hidden;">
     <div class="nav flex-column nav-pills me-3 align-items-start" id="v-pills-tab" role="tablist"
         aria-orientation="vertical">
         <button class="nav-link @(activeTab == "informasi" ? "active" : "")" @onclick="SwitchToInfoTab">
@@ -38,11 +43,11 @@
     <div class="tab-content col-8" id="v-pills-tabContent">
         <div class="tab-pane @(activeTab == "informasi" ? "show active" : "fade")" id="v-pills-informasi"
             role="tabpanel" aria-labelledby="v-pills-informasi-tab" tabindex="0">
-            <Informasi_Dasar onSwitch="SwitchToPemenuhanTab" />
+            <Informasi_Dasar onNextInformasi="SwitchToPemenuhanTab" />
         </div>
         <div class="tab-pane @(activeTab == "pemenuhan" ? "show active" : "fade")" id="v-pills-pemenuhan"
             role="tabpanel" aria-labelledby="v-pills-pemenuhan-tab" tabindex="0">
-            <Pemenuhan_MPP />
+            <Pemenuhan_MPP onNextPemenuhan="SwitchToKualifikasiTab" onPrevPemenuhan="SwitchToInfoTab" />
         </div>
         <div class="tab-pane @(activeTab == "kualifikasi" ? "show active" : "fade")" id="v-pills-kualifikasi"
             role="tabpanel" aria-labelledby="v-pills-kualifikasi-tab" tabindex="0">
@@ -54,7 +59,7 @@
 
 @code {
     [CascadingParameter]
-    public AppState AppliationState { get; set; }
+    public AppState ApplicationState { get; set; }
 
     private string activeTab = "informasi";
 

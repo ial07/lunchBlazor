@@ -39,15 +39,6 @@ namespace lunchBlazor.Server.Data
         public DbSet<MppChildForm> MppChildForm { get; set; }
         public DbSet<HistoryMpp> HistoryMpp { get; set; }
         public DbSet<User> User { get; set; }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<MppForm>()
-                .HasMany(u => u.MppChildForm)
-                .WithOne(r => r.MppForm)
-                .HasForeignKey(u => u.MppFormId);
-
-        }
     }
 }
 

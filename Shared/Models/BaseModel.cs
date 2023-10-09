@@ -6,6 +6,6 @@ namespace lunchBlazor.Shared.Models
     {
         [Sieve(CanFilter = true, CanSort = true, Name = "created")] public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
-        public bool? isDeleted { get; set; }
+        [Sieve(CanFilter = true, CanSort = true, Name = "active")] public bool? IsActive { get; set; }
     }
 }

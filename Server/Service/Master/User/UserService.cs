@@ -39,7 +39,6 @@ namespace RepositoryPattern.Services.UserService
                 );
                 return UserList;
             }
-
             catch (Exception ex)
             {
                 throw new(ex.Message);

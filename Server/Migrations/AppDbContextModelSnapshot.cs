@@ -407,6 +407,9 @@ namespace lunchBlazor.Server.Migrations
                     b.Property<Guid?>("JenisMppId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("JenisPengajuan")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<Guid?>("KategoriLokasiId")
                         .HasColumnType("uniqueidentifier");
 

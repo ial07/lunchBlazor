@@ -13,16 +13,16 @@
     </div>
     <div class="col-12 mt-3">
         <Input label="Posisi Man Power" name="posisimanpower" OnInput="HandleInputChanged" bold
-            placeholder="Nama posisi man power" />
-    </div>
-    <div class="col-12 mt-3">
-        <TextArea label="Detail Pekerjaan" bold name="detailpekerjaan" OnInput="HandleInputChanged" />
-    </div>
-    <div class="col-6">
-        @if (isPendidikanLoaded)
+                placeholder="Nama posisi man power" />
+     </div>
+     <div class="col-12 mt-3">
+         <TextArea label="Detail Pekerjaan" bold name="detailpekerjaan" OnInput="HandleInputChanged" />
+     </div>
+     <div class="col-6">
+         @if (isPendidikanLoaded)
         {
             <SelectComponentMultiple label="Pendidikan Terakhir" name="pendidikan" isBold listItems="listItemsPendidikan"
-                 OnChanged="HandleInputChangedMultiple" />
+                                      OnChanged="HandleInputChangedMultiple" />
         }
         else
         {
@@ -33,7 +33,7 @@
         @if (isJurusanPendidikanLoaded)
         {
             <SelectComponentMultiple label="" name="jurusanposisi" isBold listItems="listItemsJurusanPendidikan"
-                 OnChanged="HandleInputChangedMultiple" selectClass="mt-2" />
+                                      OnChanged="HandleInputChangedMultiple" selectClass="mt-2" />
         }
         else
         {
@@ -43,18 +43,18 @@
 
     <div class="col-6">
         <SelectComponentMultiple label="Jenis Kelamin" name="jeniskelamin" isBold listItems="listItemsJenisKelamin"
-             OnChanged="HandleInputChangedMultiple" />
+                                  OnChanged="HandleInputChangedMultiple" />
      </div>
      <div class="col-6">
          <Input label="Usia" type="number" name="usia" OnInput="HandleInputChanged" bold placeholder="Usia maximal" />
      </div>
      <div class="col-6">
          <SelectComponentMultiple label="Status Pernikahan" name="statuspernikahan" isBold
-             listItems="listItemsPernikahan" OnChanged="HandleInputChangedMultiple" />
+                                  listItems="listItemsPernikahan" OnChanged="HandleInputChangedMultiple" />
      </div>
      <div class="col-6">
          <SelectComponent label="Status Pegawai" isBold listItems="listItemsPegawai"
-             placeholder="Pilih Status Pegawai..." name="statuspegawai" OnChanged="HandleInputChanged" />
+                          placeholder="Pilih Status Pegawai..." name="statuspegawai" OnChanged="HandleInputChanged" />
      </div>
      <div class="col-12">
          <TextArea label="Pengalaman Kerja" bold name="pengalamankerja" OnInput="HandleInputChanged" />
@@ -71,13 +71,14 @@
      <div class="d-flex justify-content-between mt-5">
          <Button Label="Batalkan" IsBtnIcon BtnIcon="bi-x-circle" bold btnClass="btn-outline-danger" />
          <Button Label="Simpan Data" IsBtnIcon BtnIcon="bi-pencil-square" bold btnClass="btn-info"
-             onClick="HandleSubmit" />
+                 onClick="HandleSubmit" loading="@loading" />
      </div>
  </div>
 
  @code {
     [CascadingParameter]
     public AppState ApplicationState { get; set; }
+    private bool loading = false;
     List<string>? oke = new List<string> { "Div.Head", "Staff" };
     private async Task HandleInputChangedMultiple(SelectMultipleChangedEventArgs args)
     {
@@ -149,11 +150,24 @@
 
     private async Task HandleSubmit()
     {
-        var result = await MppChildFormService.CreateMppChildForm(ApplicationState.MppChildForm);
-        if (result.ReasonPhrase == "OK")
+        ApplicationState.MppChildForm.MppFormId = ApplicationState.MppForm.Id;
+        try
         {
-            ApplicationState.MppChildForm = new MppChildForm();
-            Navigation.NavigateTo("/pengajuan-mpp/tambah-posisi");
+            loading = true;
+            var result = await MppChildFormService.CreateMppChildForm(ApplicationState.MppChildForm);
+            if (result.ReasonPhrase == "OK")
+            {
+                ApplicationState.MppChildForm = new MppChildForm();
+                Navigation.NavigateTo("/pengajuan-mpp/input-mpp");
+            }
+        }
+        catch(Exception e)
+        {
+            Console.WriteLine(e);
+        }
+        finally
+        {
+            loading = false;
         }
         Console.WriteLine(ApplicationState.MppChildForm);
     }

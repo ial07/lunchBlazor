@@ -33,14 +33,31 @@ namespace test_blazor.Server.Controllers
         }
 
         [Authorize]
-        [HttpPost]
+        [HttpPost("A1")]
         public async Task<ActionResult<List<MppForm>>> Post()
         {
             try
             {
                 string accessToken = HttpContext.Request.Headers["Authorization"];
                 User checktoken = await _ConvertJwt.ConvertString(accessToken);
-                var dataList = await _IMppFormService.Post(checktoken);
+                var dataList = await _IMppFormService.Post(checktoken, "A1");
+                return Ok(dataList);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        [Authorize]
+        [HttpPost("B1")]
+        public async Task<ActionResult<List<MppForm>>> Post2()
+        {
+            try
+            {
+                string accessToken = HttpContext.Request.Headers["Authorization"];
+                User checktoken = await _ConvertJwt.ConvertString(accessToken);
+                var dataList = await _IMppFormService.Post(checktoken, "B1");
                 return Ok(dataList);
             }
             catch (Exception ex)

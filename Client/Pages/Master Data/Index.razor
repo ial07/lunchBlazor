@@ -65,6 +65,10 @@
             <i class="bi bi-database-fill-gear me-2"></i>
             Sumber Pemenuhan
         </button>
+        <button class="nav-link @(activeTab == "coba" ? "active" : "")" @onclick="SwitchToCobaTab">
+            <i class="bi bi-database-fill-gear me-2"></i>
+            Coba
+        </button>
     </div>
     <div class="tab-content col-8" id="v-pills-tabContent">
         <div class="tab-pane @(activeTab == "departemen" ? "show active" : "fade")">
@@ -99,6 +103,9 @@
         </div>
         <div class="tab-pane @(activeTab == "sumberpemenuhan" ? "show active" : "fade")">
             <View_sumber_pemenuhan />
+        </div>
+        <div class="tab-pane @(activeTab == "coba" ? "show active" : "fade")">
+            <View_coba />
         </div>
     </div>
 </div>
@@ -152,6 +159,10 @@
     private void SwitchToSumberPemenuhanTab()
     {
         activeTab = "sumberpemenuhan";
+    }
+    private void SwitchToCobaTab()
+    {
+        activeTab = "coba";
     }
 
 }

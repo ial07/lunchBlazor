@@ -26,17 +26,17 @@
      </div>
  </div>
 
- <Form_jenis_permintaan Id="@AppliationState.Id" formData="@formData" OnFormSubmit="HandleFormSubmission" />
+ <Form_jenis_permintaan Id="@ApplicationState.Id" formData="@formData" OnFormSubmit="HandleFormSubmission" />
 
  @code {
 
     private JenisPermintaan formData = new JenisPermintaan();
     private async void HandleEditBtnJenisPermintaan(string id)
     {
-        AppliationState.Id = id;
-        if (AppliationState.Id is not null)
+        ApplicationState.Id = id;
+        if (ApplicationState.Id is not null)
         {
-            mySieveModel.Filters = $"Id=={AppliationState.Id}";
+            mySieveModel.Filters = $"Id=={ApplicationState.Id}";
             await JenisPermintaanService.GetJenisPermintaanById(mySieveModel);
             formData = JenisPermintaanService.JenisPermintaan;
         }
@@ -45,13 +45,13 @@
 
     private void HandleAddJenisPermintaan()
     {
-        AppliationState.Id = null;
+        ApplicationState.Id = null;
         formData = new JenisPermintaan();
         StateHasChanged();
     }
 
     [CascadingParameter]
-    public AppState AppliationState { get; set; }
+    public AppState ApplicationState { get; set; }
     private SieveModel mySieveModel = new SieveModel
         {
             Page = 1,
@@ -64,7 +64,7 @@
     private async Task HandleFormSubmission(JenisPermintaan formData)
     {
         mySieveModel.Filters = "";
-        if (AppliationState.Id is null)
+        if (ApplicationState.Id is null)
         {
             var result = await JenisPermintaanService.CreateJenisPermintaan(formData);
             if (result.ReasonPhrase == "OK")
@@ -75,7 +75,7 @@
         }
         else
         {
-            var result = await JenisPermintaanService.UpdateJenisPermintaan(AppliationState.Id, formData);
+            var result = await JenisPermintaanService.UpdateJenisPermintaan(ApplicationState.Id, formData);
             if (result.ReasonPhrase == "OK")
             {
                 JSRuntime.InvokeVoidAsync("clickElementById", "closeButtonJenisPermintaan");

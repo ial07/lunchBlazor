@@ -1,0 +1,130 @@
+@layout LoginLayout
+@inject AuthService AuthService
+@inject SweetAlertService Swal
+@inject ILocalStorageService LocalStorage
+@inject NavigationManager NavigationManager
+
+@page "/login"
+
+
+<div class="row">
+    <div class="col-lg-6 col-md-12">
+        <div class="p-5 m-5">
+            <div class="d-flex align-items-center">
+                <img src="assets/images/united-tractors.png" alt="ut" class="img-thumbs">
+                <img src="assets/images/movingasone.png" alt="movingasone" class="img-thumbs mx-3">
+            </div>
+            <div class="fw-bold d-flex font-size-22 mt-2">
+                One Commitment
+                <div class="mx-2" style="color: #FFCA0D;">.</div>
+                One Spirit
+                <div class="mx-2" style="color: #FFCA0D;">.</div>
+                One Synergy
+            </div>
+            <div class="mt-2">
+                Aplikasi Planner adalah sebuah aplikasi yang menyediakan sistem untuk melakukan proses pengajuan dan
+                persetujuan formulir A1 dan B1 terkait pengelolaan sumber daya manusia di lingkungan PT. United
+                Tractors, Tbk.
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-12 d-flex justify-content-center align-items-center" style="height: 100vh;">
+        <form>
+            <div class="d-flex flex-column align-items-center mx-5">
+                <div class="d-flex align-items-center mb-5">
+                    <div class="me-2">
+                        <img class="header-profile-user" src="assets/images/logo.png" alt="Header
+                    Avatar">
+                    </div>
+                    <div>
+                        <div class="fw-bold" style="font-size: 28px;">Planner</div>
+                        <div style="font-size: 8px;">for man power planning
+                        </div>
+                    </div>
+                </div>
+                <div class="font-size-22 fw-bold text-center mx-3">
+                    Aplikasi perencanaan & pengelolaan
+                    man power PT. United Tractors .Tbk
+                </div>
+                <div class="font-size-16 mx-5 text-center my-4">
+                    Masukkan username dan password anda
+                    untuk mengakses aplikasi ini.
+                </div>
+                <div class="col-10">
+                    <Input label="Username" placeholder="Masukan Username" name="UserID" OnInput="HandleInputChanged" />
+                    <Input label="Password" placeholder="Masukan Password" name="Password"
+                        OnInput="HandleInputChanged" type="password"/>
+                    <Button Label="Login" btnBlock onClick="Login" loading="@loading" />
+                   </div>
+               </div>
+           </form>
+       </div>
+   </div>
+   <div style="position: absolute; bottom: -20px; left: -20px;">
+       <img src="assets/images/Group.png" alt="Group" class="img-thumbs">
+   </div>
+
+ @code {
+    UserForm login = new UserForm();
+    private bool loading = false;
+    private bool loggedIn;
+
+    protected override async Task OnInitializedAsync()
+    {
+        loggedIn = await AuthService.CheckLogin();
+        if (loggedIn)
+        {
+            NavigationManager.NavigateTo("/");
+        }
+
+    }
+
+    private async Task HandleInputChanged(SelectChangedEventArgs args)
+    {
+        string inputName = args.Name;
+        string inputValue = args.Value;
+
+        if (inputName == "UserID")
+        {
+            login.UserID = inputValue;
+        }
+        else if (inputName == "Password")
+        {
+            login.Password = inputValue;
+        }
+
+    }
+
+    private async Task Login()
+    {
+        try
+        {
+            loading = true; // Show loading indicator
+            var result = await AuthService.Login(login);
+            Console.WriteLine(result);
+            if (result)
+            {
+                await LocalStorage.SetItemAsync("accessToken", AuthService.AuthReponse.accessToken);
+                await LocalStorage.SetItemAsync("profile", AuthService.AuthReponse.data);
+
+                // Redirect to a different page or perform other actions upon successful login
+
+                // Optional: You can navigate to a different page upon successful login.
+                NavigationManager.NavigateTo("/");
+            }
+            else
+            {
+                await Swal.FireAsync(new SweetAlertOptions
+                    {
+                        Title = "Harap Check kembali Username & Password anda!",
+                        Icon = "error",
+                    });
+            }
+        }
+        finally
+        {
+            loading = false; // Hide loading indicator
+        }
+    }
+
+}

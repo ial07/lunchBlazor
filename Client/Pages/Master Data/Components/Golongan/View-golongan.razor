@@ -25,17 +25,17 @@
      </div>
  </div>
 
- <Form_golongan Id="@AppliationState.Id" formData="@formData" OnFormSubmit="HandleFormSubmission" />
+ <Form_golongan Id="@ApplicationState.Id" formData="@formData" OnFormSubmit="HandleFormSubmission" />
 
  @code {
 
     private Golongan formData = new Golongan();
     private async void HandleEditBtnGolongan(string id)
     {
-        AppliationState.Id = id;
-        if (AppliationState.Id is not null)
+        ApplicationState.Id = id;
+        if (ApplicationState.Id is not null)
         {
-            mySieveModel.Filters = $"Id=={AppliationState.Id}";
+            mySieveModel.Filters = $"Id=={ApplicationState.Id}";
             await GolonganService.GetGolonganById(mySieveModel);
             formData = GolonganService.Golongan;
         }
@@ -44,13 +44,13 @@
 
     private void HandleAddGolongan()
     {
-        AppliationState.Id = null;
+        ApplicationState.Id = null;
         formData = new Golongan();
         StateHasChanged();
     }
 
     [CascadingParameter]
-    public AppState AppliationState { get; set; }
+    public AppState ApplicationState { get; set; }
     private SieveModel mySieveModel = new SieveModel
         {
             Page = 1,
@@ -63,7 +63,7 @@
     private async Task HandleFormSubmission(Golongan formData)
     {
         mySieveModel.Filters = "";
-        if (AppliationState.Id is null)
+        if (ApplicationState.Id is null)
         {
             var result = await GolonganService.CreateGolongan(formData);
             if (result.ReasonPhrase == "OK")
@@ -74,7 +74,7 @@
         }
         else
         {
-            var result = await GolonganService.UpdateGolongan(AppliationState.Id, formData);
+            var result = await GolonganService.UpdateGolongan(ApplicationState.Id, formData);
             if (result.ReasonPhrase == "OK")
             {
                 JSRuntime.InvokeVoidAsync("clickElementById", "closeButtonGolongan");

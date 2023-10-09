@@ -25,17 +25,17 @@
      </div>
  </div>
 
- <Form_lokasi Id="@AppliationState.Id" formData="@formData" OnFormSubmit="HandleFormSubmission" />
+ <Form_lokasi Id="@ApplicationState.Id" formData="@formData" OnFormSubmit="HandleFormSubmission" />
 
  @code {
 
     private Lokasi formData = new Lokasi();
     private async void HandleEditBtnLokasi(string id)
     {
-        AppliationState.Id = id;
-        if (AppliationState.Id is not null)
+        ApplicationState.Id = id;
+        if (ApplicationState.Id is not null)
         {
-            mySieveModel.Filters = $"Id=={AppliationState.Id}";
+            mySieveModel.Filters = $"Id=={ApplicationState.Id}";
             await LokasiService.GetLokasiById(mySieveModel);
             formData = LokasiService.Lokasi;
         }
@@ -44,13 +44,13 @@
 
     private void HandleAddLokasi()
     {
-        AppliationState.Id = null;
+        ApplicationState.Id = null;
         formData = new Lokasi();
         StateHasChanged();
     }
 
     [CascadingParameter]
-    public AppState AppliationState { get; set; }
+    public AppState ApplicationState { get; set; }
     private SieveModel mySieveModel = new SieveModel
         {
             Page = 1,
@@ -63,7 +63,7 @@
     private async Task HandleFormSubmission(Lokasi formData)
     {
         mySieveModel.Filters = "";
-        if (AppliationState.Id is null)
+        if (ApplicationState.Id is null)
         {
             var result = await LokasiService.CreateLokasi(formData);
             if (result.ReasonPhrase == "OK")
@@ -74,7 +74,7 @@
         }
         else
         {
-            var result = await LokasiService.UpdateLokasi(AppliationState.Id, formData);
+            var result = await LokasiService.UpdateLokasi(ApplicationState.Id, formData);
             if (result.ReasonPhrase == "OK")
             {
                 JSRuntime.InvokeVoidAsync("clickElementById", "closeButtonLokasi");

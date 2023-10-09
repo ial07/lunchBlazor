@@ -4,7 +4,7 @@
 @inject DepartemenService DepartemenService
 @inject LokasiService LokasiService
 
-<div class="row">
+<div class="row" style="max-height: 75vh; overflow: auto; overflow-y: auto;">
     <div class="col-12">
         <div class="fw-bold">
             Informasi Man Power Planning
@@ -15,7 +15,7 @@
         @if (isPosisiLoaded)
         {
             <SelectComponent label="Nama Posisi" name="posisi" isBold listItems="listItemsPosisi"
-                 placeholder="Pilih Nama Posisi..." ValueChanged="HandleSelectChange" />
+                placeholder="Pilih Nama Posisi..." OnChanged="HandleInputChanged" />
         }
         else
         {
@@ -26,7 +26,7 @@
         @if (isGolonganLoaded)
         {
             <SelectComponent label="Golongan" name="golongan" isBold listItems="listItemsGolongan"
-                 placeholder="Pilih Golongan..." ValueChanged="HandleSelectChange" />
+                placeholder="Pilih Golongan..." OnChanged="HandleInputChanged" />
         }
         else
         {
@@ -34,14 +34,14 @@
         }
     </div>
     <div class="col-6">
-        <Input label="Target Pemenuhan" name="targetdate" OnInput="HandleInput" bold placeholder="Pilih Bulan dan Tahun"
-             type="date" />
-     </div>
-     <div class="col-6">
-         @if (isDivisiLoaded)
+        <Input label="Target Pemenuhan" name="targetdate" OnInput="HandleInputChanged" bold
+            placeholder="Pilih Bulan dan Tahun" type="date" />
+    </div>
+    <div class="col-6">
+        @if (isDivisiLoaded)
         {
             <SelectComponent label="Divisi Tujuan" name="divisi" isBold listItems="listItemsDivisi"
-                 placeholder="Pilih Divisi..." ValueChanged="HandleSelectChange" />
+                placeholder="Pilih Divisi..." OnChanged="HandleInputChanged" />
         }
         else
         {
@@ -52,7 +52,7 @@
         @if (isDepartemenLoaded)
         {
             <SelectComponent label="Departemen Tujuan" isBold listItems="listItemsDepartemen"
-                 placeholder="Pilih Nama Dept..." name="departemen" ValueChanged="HandleSelectChange" />
+                placeholder="Pilih Nama Dept..." name="departemen" OnChanged="HandleInputChanged" />
         }
         else
         {
@@ -63,7 +63,7 @@
         @if (isLokasiLoaded)
         {
             <SelectComponent label="Lokasi Penempatan" name="lokasi" isBold listItems="listItemsLokasi"
-                 placeholder="Pilih Lokasi..." ValueChanged="HandleSelectChange" />
+                placeholder="Pilih Lokasi..." OnChanged="HandleInputChanged" />
         }
         else
         {
@@ -71,80 +71,77 @@
         }
     </div>
     <div class="col-6">
-        <Input label="Jumlah MP Saat ini" type="number" name="jumlahmp" OnInput="HandleInput" bold
-             placeholder="Orang" />
-     </div>
-     <div class="col-6">
-         <Input label="Jumlah Permintaan" type="number" name="jumlahpermintaan" OnInput="HandleInput" bold
-             placeholder="Orang" />
-     </div>
-     <div class="col-12">
-         <div class="form-group">
-             <label class="form-label fw-bold">Alasan Pengajuan</label>
-             <textarea class="form-control"></textarea>
-         </div>
-     </div>
-     @if (AppliationState.MppChildForm != null && AppliationState.MppChildForm.TargetPemenuhan != null)
+        <Input label="Jumlah MP Saat ini" type="number" name="jumlahmp" OnInput="HandleInputChanged" bold
+            placeholder="Orang" />
+    </div>
+    <div class="col-6">
+        <Input label="Jumlah Permintaan" type="number" name="jumlahpermintaan" OnInput="HandleInputChanged" bold
+            placeholder="Orang" />
+    </div>
+    <div class="col-12">
+        <TextArea label="Alasan Pengajuan" bold name="alasan" OnInput="HandleInputChanged" />
+    </div>
+    @* @if (ApplicationState.MppChildForm != null && ApplicationState.MppChildForm.AlasanPengajuan != null)
     {
-        <div>@(AppliationState.MppChildForm.TargetPemenuhan)</div>
-    }
+    <div>@(ApplicationState.MppChildForm.AlasanPengajuan)</div>
+    <div>@(ApplicationState.MppChildForm.TargetPemenuhan)</div>
+    } *@
     <div class="d-flex justify-content-end mt-3">
-        <Button Label="Selanjutnya" btnClass="btn-outline-info" type="button" onClick="onSwitch" />
+        <Button Label="Selanjutnya" btnClass="btn-outline-info" type="button" onClick="onNextInformasi" />
     </div>
 </div>
 
 @code {
     [Parameter]
-    public EventCallback<MouseEventArgs> onSwitch { get; set; }
+    public EventCallback<MouseEventArgs> onNextInformasi { get; set; }
     [CascadingParameter]
-    public AppState AppliationState { get; set; }
+    public AppState ApplicationState { get; set; }
 
-    private MppChildForm mppChildForm = new MppChildForm();
-
-    private async Task HandleSelectChange(SelectChangedEventArgs args)
-    {
-        string selectedName = args.Name;
-        string selectedValue = args.Value;
-
-
-        if (selectedName == "posisi")
-        {
-            mppChildForm.PosisiId = new Guid(selectedValue);
-        }
-        else if (selectedName == "golongan")
-        {
-            mppChildForm.GolonganId = new Guid(selectedValue);
-        }
-        else if (selectedName == "divisi")
-        {
-            mppChildForm.DevisiTujuanId = new Guid(selectedValue);
-        }
-        else if (selectedName == "departemen")
-        {
-            mppChildForm.DepartemenId = new Guid(selectedValue);
-        }
-        AppliationState.MppChildForm = mppChildForm;
-    }
-
-    private async Task HandleInput(SelectChangedEventArgs args)
+    private async Task HandleInputChanged(SelectChangedEventArgs args)
     {
         string inputName = args.Name;
         string inputValue = args.Value;
+        Console.WriteLine(inputName);
+        Console.WriteLine(inputValue);
 
         if (inputName == "targetdate")
         {
-            mppChildForm.TargetPemenuhan = DateTime.Parse(inputValue);
+            ApplicationState.MppChildForm.TargetPemenuhan = DateTime.Parse(inputValue);
         }
         else if (inputName == "jumlahmp")
         {
-            mppChildForm.JumlahMp = int.Parse(inputValue);
+            ApplicationState.MppChildForm.JumlahMp = int.Parse(inputValue);
         }
         else if (inputName == "jumlahpermintaan")
         {
-            mppChildForm.JumlahPermintaan = int.Parse(inputValue);
+            ApplicationState.MppChildForm.JumlahPermintaan = int.Parse(inputValue);
         }
-        AppliationState.MppChildForm = mppChildForm;
+        else if (inputName == "alasan")
+        {
+            ApplicationState.MppChildForm.AlasanPengajuan = inputValue;
+        }
+        else if (inputName == "posisi")
+        {
+            ApplicationState.MppChildForm.PosisiId = new Guid(inputValue);
+        }
+        else if (inputName == "golongan")
+        {
+            ApplicationState.MppChildForm.GolonganId = new Guid(inputValue);
+        }
+        else if (inputName == "divisi")
+        {
+            ApplicationState.MppChildForm.DevisiTujuanId = new Guid(inputValue);
+        }
+        else if (inputName == "departemen")
+        {
+            ApplicationState.MppChildForm.DepartemenId = new Guid(inputValue);
+        }
+        else if (inputName == "lokasi")
+        {
+            ApplicationState.MppChildForm.LokasiId = new Guid(inputValue);
+        }
     }
+
 
     private SieveModel mySieveModel = new SieveModel
         {

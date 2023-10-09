@@ -1,0 +1,73 @@
+<div class="form-group">
+    <label class="@(isBold ? " fw-bold" : "")">@label</label>
+    <div class="text-muted" style="font-size: 10px;">tekan ctrl+click untuk memilih multiple</div>
+    <select class="form-select @selectClass" name="@name" size="2" @oninput="HandleInputChange" multiple="multiple"
+        aria-label="select example">
+        <option value=""></option>
+        @if (listItems.Any() || listItems.Count > 0)
+        {
+            foreach (var item in listItems)
+            {
+                if (value != null && value?.Contains(item.Id))
+                {
+                    <option value="@item.Id" selected>@item.Value</option>
+                }
+                else
+                {
+                    <option value="@item.Id">@item.Value</option>
+                }
+            }
+        }
+        else
+        {
+            <option value="">No Items</option>
+        }
+    </select>
+</div>
+
+@code {
+    [Parameter]
+    public string? label { get; set; }
+    [Parameter]
+    public string? name { get; set; }
+    [Parameter]
+    public string? selectClass { get; set; }
+    [Parameter]
+    public List<string>? value { get; set; } = new List<string>();
+    [Parameter]
+    public List<dynamic>? listItems { get; set; }
+    [Parameter]
+    public bool isBold { get; set; } = false;
+    [Parameter]
+    public EventCallback<SelectMultipleChangedEventArgs> OnChanged { get; set; }
+
+    private async Task HandleInputChange(ChangeEventArgs e)
+    {
+        string[] selectedValue = (string[])e.Value;
+
+        var args = new SelectMultipleChangedEventArgs
+            {
+                Name = name ?? string.Empty,
+                Value = selectedValue
+            };
+
+        // Invoke the ValueChanged event with the SelectChangedEventArgs instance
+        await OnChanged.InvokeAsync(args);
+    }
+}
+
+
+<style scoped>
+    /* Remove the border and change the color of the button arrow */
+    select.form-select {
+        border: none;
+        border-bottom: 1px solid #dfdcdc;
+        background-color: transparent;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        color: #8F90A6;
+    }
+
+    .select-multiple: {}
+</style>

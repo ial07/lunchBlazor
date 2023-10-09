@@ -1,6 +1,6 @@
 <div class="form-group">
     <label class="@(isBold ? " fw-bold" : "")">@label</label>
-    <select class="form-select" name="@name" @bind="@value" @oninput="HandleInputChange">
+    <select class="form-select" name="@name" @bind="@value" @oninput="HandleInputChange" @attributes="HtmlAttributes">
         <option value="">@placeholder</option>
         @if (listItems.Any() || listItems.Count > 0)
         {
@@ -29,8 +29,10 @@
     public string? value { get; set; }
     [Parameter]
     public bool isBold { get; set; } = false;
+    [Parameter(CaptureUnmatchedValues = true)]
+    public IDictionary<string, object> HtmlAttributes { get; set; }
     [Parameter]
-    public EventCallback<SelectChangedEventArgs> ValueChanged { get; set; }
+    public EventCallback<SelectChangedEventArgs> OnChanged { get; set; }
 
     private async Task HandleInputChange(ChangeEventArgs e)
     {
@@ -43,7 +45,7 @@
             };
 
         // Invoke the ValueChanged event with the SelectChangedEventArgs instance
-        await ValueChanged.InvokeAsync(args);
+        await OnChanged.InvokeAsync(args);
     }
 }
 
@@ -58,18 +60,5 @@
         -moz-appearance: none;
         appearance: none;
         color: #8F90A6;
-    }
-
-    /* Style the arrow icon */
-    select.form-select::after {
-        content: '\25BC';
-        /* Unicode code for a downward arrow */
-        color: #FFCA0D;
-        /* Change the color of the arrow icon */
-        position: absolute;
-        right: 0.75rem;
-        /* Adjust the position as needed */
-        top: 50%;
-        transform: translateY(-50%);
     }
 </style>

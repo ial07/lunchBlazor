@@ -1,18 +1,253 @@
-<div class="row">
-    <div>Kualifikasi MPP</div>
-    <Button onClick="Check" />
-    @if (AppliationState.MppChildForm != null && AppliationState.MppChildForm.PosisiId != null)
-    {
-        <div>@(AppliationState.MppChildForm.PosisiId)</div>
-    }
-</div>
+@inject PendidikanService PendidikanService
+@inject JurusanPendidikanService JurusanPendidikanService
+@inject MppChildFormService MppChildFormService
+@using Syncfusion.Blazor.DropDowns
+@inject NavigationManager Navigation
 
-@code {
+<div class="row" style="max-height: 75vh; overflow: auto; overflow-y: auto;">
+    <div class="col-12">
+        <div class="fw-bold">
+            Informasi Detail Pekerjaan
+        </div>
+        <div class="border-title"></div>
+    </div>
+    <div class="col-12 mt-3">
+        <Input label="Posisi Man Power" name="posisimanpower" OnInput="HandleInputChanged" bold
+                placeholder="Nama posisi man power" />
+     </div>
+     <div class="col-12 mt-3">
+         <TextArea label="Detail Pekerjaan" bold name="detailpekerjaan" OnInput="HandleInputChanged" />
+     </div>
+     <div class="col-6">
+         @if (isPendidikanLoaded)
+        {
+            <SelectComponentMultiple label="Pendidikan Terakhir" name="pendidikan" isBold listItems="listItemsPendidikan"
+                                      OnChanged="HandleInputChangedMultiple" />
+        }
+        else
+        {
+            <p>Loading...</p>
+        }
+    </div>
+    <div class="col-6">
+        @if (isJurusanPendidikanLoaded)
+        {
+            <SelectComponentMultiple label="" name="jurusanposisi" isBold listItems="listItemsJurusanPendidikan"
+                                      OnChanged="HandleInputChangedMultiple" selectClass="mt-2" />
+        }
+        else
+        {
+            <p>Loading...</p>
+        }
+    </div>
+
+    <div class="col-6">
+        <SelectComponentMultiple label="Jenis Kelamin" name="jeniskelamin" isBold listItems="listItemsJenisKelamin"
+                                  OnChanged="HandleInputChangedMultiple" />
+     </div>
+     <div class="col-6">
+         <Input label="Usia" type="number" name="usia" OnInput="HandleInputChanged" bold placeholder="Usia maximal" />
+     </div>
+     <div class="col-6">
+         <SelectComponentMultiple label="Status Pernikahan" name="statuspernikahan" isBold
+                                  listItems="listItemsPernikahan" OnChanged="HandleInputChangedMultiple" />
+     </div>
+     <div class="col-6">
+         <SelectComponent label="Status Pegawai" isBold listItems="listItemsPegawai"
+                          placeholder="Pilih Status Pegawai..." name="statuspegawai" OnChanged="HandleInputChanged" />
+     </div>
+     <div class="col-12">
+         <TextArea label="Pengalaman Kerja" bold name="pengalamankerja" OnInput="HandleInputChanged" />
+     </div>
+     <div class="col-12">
+         <TextArea label="Keahlian Khusus" optional bold name="keahliankhusus" OnInput="HandleInputChanged" />
+     </div>
+     <div class="col-12">
+         <TextArea label="Persyaratan Fisik" optional bold name="persyaratanfisik" OnInput="HandleInputChanged" />
+     </div>
+     <div class="col-12">
+         <TextArea label="Catatan Tambahan" optional bold name="catatan" OnInput="HandleInputChanged" />
+     </div>
+     <div class="d-flex justify-content-between mt-5">
+         <Button Label="Batalkan" IsBtnIcon BtnIcon="bi-x-circle" bold btnClass="btn-outline-danger" />
+         <Button Label="Simpan Data" IsBtnIcon BtnIcon="bi-pencil-square" bold btnClass="btn-info"
+                 onClick="HandleSubmit" loading="@loading" />
+     </div>
+ </div>
+
+ @code {
     [CascadingParameter]
-    public AppState AppliationState { get; set; }
+    public AppState ApplicationState { get; set; }
+    private bool loading = false;
+    List<string>? oke = new List<string> { "Div.Head", "Staff" };
+    private async Task HandleInputChangedMultiple(SelectMultipleChangedEventArgs args)
+    {
+
+        string inputName = args.Name;
+        string[] inputValue = args.Value;
+        var nonEmptyValues = inputValue.Where(s => !string.IsNullOrEmpty(s)).ToArray();
+        string result = string.Join(", ", nonEmptyValues);
+        //Console.WriteLine(inputName);
+        //Console.WriteLine(result);
+        if (inputName == "pendidikan")
+        {
+            ApplicationState.MppChildForm.Lulusan = result;
+        }
+        else if (inputName == "jurusanposisi")
+        {
+            ApplicationState.MppChildForm.Jurusan = result;
+        }
+        else if (inputName == "jeniskelamin")
+        {
+            ApplicationState.MppChildForm.Gender = result;
+        }
+        else if (inputName == "statuspernikahan")
+        {
+            ApplicationState.MppChildForm.StatusPernikahan = result;
+        }
+
+    }
+
+    private async Task HandleInputChanged(SelectChangedEventArgs args)
+    {
+        string inputName = args.Name;
+        string inputValue = args.Value;
+        Console.WriteLine(inputName);
+        if (inputName == "posisimanpower")
+        {
+            ApplicationState.MppChildForm.PosisiManPower = inputValue;
+        }
+        else if (inputName == "detailpekerjaan")
+        {
+            ApplicationState.MppChildForm.DetailPekerjaan = inputValue;
+        }
+        else if (inputName == "usia")
+        {
+            ApplicationState.MppChildForm.Usia = inputValue;
+        }
+        else if (inputName == "statuspegawai")
+        {
+            ApplicationState.MppChildForm.StatusPegawai = inputValue;
+        }
+        else if (inputName == "pengalamankerja")
+        {
+            ApplicationState.MppChildForm.PengalamanKerja = inputValue;
+        }
+        else if (inputName == "keahliankhusus")
+        {
+            ApplicationState.MppChildForm.KeahlianKhusus = inputValue;
+        }
+        else if (inputName == "persyaratanfisik")
+        {
+            ApplicationState.MppChildForm.PersyaratanFisik = inputValue;
+        }
+        else if (inputName == "catatan")
+        {
+            ApplicationState.MppChildForm.CatatanTambahan = inputValue;
+        }
+
+    }
+
+    private async Task HandleSubmit()
+    {
+        ApplicationState.MppChildForm.MppFormId = ApplicationState.MppForm.Id;
+        try
+        {
+            loading = true;
+            var result = await MppChildFormService.CreateMppChildForm(ApplicationState.MppChildForm);
+            if (result.ReasonPhrase == "OK")
+            {
+                ApplicationState.MppChildForm = new MppChildForm();
+                Navigation.NavigateTo("/pengajuan-mpp/input-mpp");
+            }
+        }
+        catch(Exception e)
+        {
+            Console.WriteLine(e);
+        }
+        finally
+        {
+            loading = false;
+        }
+        Console.WriteLine(ApplicationState.MppChildForm);
+    }
+
+    private SieveModel mySieveModel = new SieveModel
+        {
+            Page = 1,
+            PageSize = 5,
+        };
+
+    /// Pendidikan
+    private List<Pendidikan> pendidikanList;
+    private List<dynamic> listItemsPendidikan;
+    private bool isPendidikanLoaded = false;
+
+    /// Jurusan Pendidikan
+    private List<JurusanPendidikan> jurusanPendidikanList;
+    private List<dynamic> listItemsJurusanPendidikan;
+    private bool isJurusanPendidikanLoaded = false;
+
+    /// Jenis Kelamin
+    private List<dynamic> listItemsJenisKelamin = new List<dynamic>
+{
+new { Id = "Laki-Laki", Value = "Laki-Laki" },
+new { Id = "Perempuan", Value = "Perempuan" }
+};
+
+    /// Status Pernikahan
+    private List<dynamic> listItemsPernikahan = new List<dynamic>
+{
+new { Id = "Belum Menikah", Value = "Belum Menikah" },
+new { Id = "Menikah", Value = "Menikah" }
+};
+
+    /// Status Pegawai
+    private List<dynamic> listItemsPegawai = new List<dynamic>
+{
+new { Id = "Karywan Tetap", Value = "Karywan Tetap" },
+new { Id = "Kontrak", Value = "Kontrak" }
+};
+
+    protected async override Task OnInitializedAsync()
+    {
+        await LoadPendidikanAsync();
+        await LoadJurusanPendidikanAsync();
+    }
+
+    private async Task LoadPendidikanAsync()
+    {
+        await PendidikanService.LoadPendidikan(mySieveModel);
+
+        pendidikanList = PendidikanService.Pendidikans.Items;
+
+        listItemsPendidikan = pendidikanList
+        .Select(x => (dynamic)new { Id = x.Name, Value = x.Name })
+        .ToList();
+
+        isPendidikanLoaded = true;
+
+        StateHasChanged();
+    }
+    private async Task LoadJurusanPendidikanAsync()
+    {
+        await JurusanPendidikanService.LoadJurusanPendidikan(mySieveModel);
+
+        jurusanPendidikanList = JurusanPendidikanService.JurusanPendidikans.Items;
+
+        listItemsJurusanPendidikan = jurusanPendidikanList
+        .Select(x => (dynamic)new { Id = x.Name, Value = x.Name })
+        .ToList();
+
+        isJurusanPendidikanLoaded = true;
+
+        StateHasChanged();
+    }
 
     private void Check()
     {
-        Console.WriteLine(AppliationState.MppChildForm.PosisiId);
+        Console.WriteLine(ApplicationState.MppChildForm.PosisiId);
+        Console.WriteLine(ApplicationState.MppChildForm.DepartemenId);
+        Console.WriteLine(ApplicationState.MppChildForm.DetailSumberPemenuhan);
     }
 }

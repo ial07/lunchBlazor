@@ -26,17 +26,17 @@
      </div>
  </div>
 
- <Form_jurusan_pendidikan Id="@AppliationState.Id" formData="@formData" OnFormSubmit="HandleFormSubmission" />
+ <Form_jurusan_pendidikan Id="@ApplicationState.Id" formData="@formData" OnFormSubmit="HandleFormSubmission" />
 
  @code {
 
     private JurusanPendidikan formData = new JurusanPendidikan();
     private async void HandleEditBtnJurusanPendidikan(string id)
     {
-        AppliationState.Id = id;
-        if (AppliationState.Id is not null)
+        ApplicationState.Id = id;
+        if (ApplicationState.Id is not null)
         {
-            mySieveModel.Filters = $"Id=={AppliationState.Id}";
+            mySieveModel.Filters = $"Id=={ApplicationState.Id}";
             await JurusanPendidikanService.GetJurusanPendidikanById(mySieveModel);
             formData = JurusanPendidikanService.JurusanPendidikan;
         }
@@ -45,13 +45,13 @@
 
     private void HandleAddJurusanPendidikan()
     {
-        AppliationState.Id = null;
+        ApplicationState.Id = null;
         formData = new JurusanPendidikan();
         StateHasChanged();
     }
 
     [CascadingParameter]
-    public AppState AppliationState { get; set; }
+    public AppState ApplicationState { get; set; }
     private SieveModel mySieveModel = new SieveModel
         {
             Page = 1,
@@ -64,7 +64,7 @@
     private async Task HandleFormSubmission(JurusanPendidikan formData)
     {
         mySieveModel.Filters = "";
-        if (AppliationState.Id is null)
+        if (ApplicationState.Id is null)
         {
             var result = await JurusanPendidikanService.CreateJurusanPendidikan(formData);
             if (result.ReasonPhrase == "OK")
@@ -75,7 +75,7 @@
         }
         else
         {
-            var result = await JurusanPendidikanService.UpdateJurusanPendidikan(AppliationState.Id, formData);
+            var result = await JurusanPendidikanService.UpdateJurusanPendidikan(ApplicationState.Id, formData);
             if (result.ReasonPhrase == "OK")
             {
                 JSRuntime.InvokeVoidAsync("clickElementById", "closeButtonJurusanPendidikan");

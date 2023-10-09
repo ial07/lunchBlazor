@@ -14,6 +14,12 @@ using lunchBlazor.Client.Services.JenisPermintaanService;
 using lunchBlazor.Client.Services.PendidikanService;
 using lunchBlazor.Client.Services.JurusanPendidikanService;
 using lunchBlazor.Client.Services.SumberPemenuhanService;
+using Syncfusion.Blazor;
+using lunchBlazor.Client.Services.MppChildFormService;
+using lunchBlazor.Client.Services.MppFormService;
+using Blazored.LocalStorage;
+using lunchBlazor.Client.Services.AuthService;
+using lunchBlazor.Client.helper;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
@@ -31,8 +37,15 @@ builder.Services.AddScoped<JenisPermintaanService>();
 builder.Services.AddScoped<PendidikanService>();
 builder.Services.AddScoped<JurusanPendidikanService>();
 builder.Services.AddScoped<SumberPemenuhanService>();
+builder.Services.AddScoped<MppChildFormService>();
+builder.Services.AddScoped<MppFormService>();
+builder.Services.AddScoped<AuthService>();
+builder.Services.AddScoped<AppState>();
+
 
 builder.Services.AddSweetAlert2();
 builder.Services.AddBlazoredModal();
+builder.Services.AddSyncfusionBlazor();
+builder.Services.AddBlazoredLocalStorage();
 
 await builder.Build().RunAsync();

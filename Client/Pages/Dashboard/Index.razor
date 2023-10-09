@@ -1,4 +1,6 @@
 ﻿@page "/"
+@inject AuthService AuthService
+@inject NavigationManager NavigationManager
 
 
 <PageTitle>Index</PageTitle>
@@ -27,5 +29,16 @@
 </div>
 
 @code {
-    public string abc { get; set; } = "aden";
+    private bool loggedIn;
+
+    protected override async Task OnInitializedAsync()
+    {
+        loggedIn = await AuthService.CheckLogin();
+
+        if (!loggedIn)
+        {
+            NavigationManager.NavigateTo("/login");
+        }
+
+    }
 }

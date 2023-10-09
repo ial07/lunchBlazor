@@ -1,5 +1,6 @@
 ﻿@page "/pengajuan-mpp"
 @inject NavigationManager Navigation
+@inject MppFormService MppFormService
 
 <PageTitle>Pengajuan MPP</PageTitle>
 
@@ -13,7 +14,7 @@
             <div class="d-flex align-items-center">
                 <div class="d-flex align-items-center">
                     <i class="bi bi-list-task mx-1 font-size-18 text-primary"
-                        style="-webkit-text-stroke-width: 1px;"></i>
+                       style="-webkit-text-stroke-width: 1px;"></i>
                     <div class="">
                         List View
                     </div>
@@ -23,31 +24,61 @@
                     <div class="mx-3">2022</div>
                     <i class="bi bi-caret-right-fill text-primary"></i>
                 </div>
-                <Button bold Label="MPP Baru" btnClass="btn-info" IsBtnIcon onClick="HandleButtonClickAdd" />
-            </div>
-        </div>
-    </div>
-</div>
-<!-- end page title -->
+                <Button bold Label="MPP Baru" btnClass="btn-info" IsBtnIcon onClick="HandleButtonClickAdd" loading="loading" />
+             </div>
+         </div>
+     </div>
+ </div>
+ <!-- end page title -->
 
 
-<div class="row">
-    <div class="col-lg-4 col-md-6 col-12">
-        <CardPlan labelCard="Dilanjutkan ke Sect. OPCC" />
-    </div>
-    <div class="col-lg-4 col-md-6 col-12">
-        <CardPlan labelCard="Disimpan Sebagai Draft" iconCardHeader="bi-pencil-square" />
-    </div>
-    <div class="col-lg-4 col-md-6 col-12">
-        <CardPlan labelCard="Pengajuan MPP Ditolak" iconCardHeader="bi-x-circle" />
-    </div>
-</div>
-<!-- end row -->
-
-@code {
-    private async Task HandleButtonClickAdd(MouseEventArgs e)
+ <div class="row">
+     <div class="col-lg-4 col-md-6 col-12">
+         <CardPlan labelCard="Dilanjutkan ke Sect. OPCC" />
+     </div>
+     <div class="col-lg-4 col-md-6 col-12">
+         <CardPlan labelCard="Disimpan Sebagai Draft" iconCardHeader="bi-pencil-square" />
+     </div>
+     <div class="col-lg-4 col-md-6 col-12">
+         <CardPlan labelCard="Pengajuan MPP Ditolak" iconCardHeader="bi-x-circle" />
+     </div>
+ </div>
+ <!-- end row -->
+ @code {
+    [CascadingParameter]
+    public AppState ApplicationState { get; set; }
+    private bool loading = false;
+    private async Task HandleButtonClickAdd()
     {
-        Navigation.NavigateTo("/pengajuan-mpp/input-mpp");
+        if (ApplicationState.MppForm == null)
+        {
+            ApplicationState.MppForm = new MppForm();
+        }
+
+        if (ApplicationState.MppForm?.Id != null && ApplicationState.MppForm.Id != Guid.Empty)
+        {
+            Navigation.NavigateTo("/pengajuan-mpp/input-mpp");
+        }
+        else
+        {
+            try
+            {
+                loading = true;
+                var result = await MppFormService.CreateMppForm();
+                if (result != "")
+                {
+                    ApplicationState.MppForm.Id = new Guid(result);
+                    Navigation.NavigateTo("/pengajuan-mpp/input-mpp");
+                }
+            }catch(Exception e)
+            {
+                Console.WriteLine(e);
+            }
+            finally
+            {
+                loading = false;
+            }
+        }
     }
 
 }

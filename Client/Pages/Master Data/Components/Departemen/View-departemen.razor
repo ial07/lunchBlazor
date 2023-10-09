@@ -25,17 +25,17 @@
      </div>
  </div>
 
- <Form_departemen Id="@AppliationState.Id" formData="@formData" OnFormSubmit="HandleFormSubmission" />
+ <Form_departemen Id="@ApplicationState.Id" formData="@formData" OnFormSubmit="HandleFormSubmission" />
 
  @code {
 
     private Departemen formData = new Departemen();
     private async void HandleEditBtnDepartemen(string id)
     {
-        AppliationState.Id = id;
-        if (AppliationState.Id is not null)
+        ApplicationState.Id = id;
+        if (ApplicationState.Id is not null)
         {
-            mySieveModel.Filters = $"Id=={AppliationState.Id}";
+            mySieveModel.Filters = $"Id=={ApplicationState.Id}";
             await DepartemenService.GetDepartemenById(mySieveModel);
             formData = DepartemenService.Departemen;
         }
@@ -44,13 +44,13 @@
 
     private void HandleAddDepartemen()
     {
-        AppliationState.Id = null;
+        ApplicationState.Id = null;
         formData = new Departemen();
         StateHasChanged();
     }
 
     [CascadingParameter]
-    public AppState AppliationState { get; set; }
+    public AppState ApplicationState { get; set; }
     private SieveModel mySieveModel = new SieveModel
         {
             Page = 1,
@@ -63,7 +63,7 @@
     private async Task HandleFormSubmission(Departemen formData)
     {
         mySieveModel.Filters = "";
-        if (AppliationState.Id is null)
+        if (ApplicationState.Id is null)
         {
             var result = await DepartemenService.CreateDepartemen(formData);
             if (result.ReasonPhrase == "OK")
@@ -74,7 +74,7 @@
         }
         else
         {
-            var result = await DepartemenService.UpdateDepartemen(AppliationState.Id, formData);
+            var result = await DepartemenService.UpdateDepartemen(ApplicationState.Id, formData);
             if (result.ReasonPhrase == "OK")
             {
                 JSRuntime.InvokeVoidAsync("clickElementById", "closeButtonDepartemen");
@@ -147,6 +147,7 @@
 item.Id.ToString(),
 item.Id.ToString(),
 item.Name,
+item.CreatedAt.ToString("dd/MM/yyyy"),
 };
 
                 table.Data.Add(rowData);
@@ -155,7 +156,8 @@ item.Name,
             table.Headers = new List<string>
 {
 "ID",
-"Name"
+"INI Name",
+"Created At",
 };
         }
         catch (Exception ex)

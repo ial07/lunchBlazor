@@ -25,17 +25,17 @@
      </div>
  </div>
 
- <Form_posisi Id="@AppliationState.Id" formData="@formData" OnFormSubmit="HandleFormSubmission" />
+ <Form_posisi Id="@ApplicationState.Id" formData="@formData" OnFormSubmit="HandleFormSubmission" />
 
  @code {
 
     private Posisi formData = new Posisi();
     private async void HandleEditBtnPosisi(string id)
     {
-        AppliationState.Id = id;
-        if (AppliationState.Id is not null)
+        ApplicationState.Id = id;
+        if (ApplicationState.Id is not null)
         {
-            mySieveModel.Filters = $"Id=={AppliationState.Id}";
+            mySieveModel.Filters = $"Id=={ApplicationState.Id}";
             await PosisiService.GetPosisiById(mySieveModel);
             formData = PosisiService.Posisi;
         }
@@ -44,13 +44,13 @@
 
     private void HandleAddPosisi()
     {
-        AppliationState.Id = null;
+        ApplicationState.Id = null;
         formData = new Posisi();
         StateHasChanged();
     }
 
     [CascadingParameter]
-    public AppState AppliationState { get; set; }
+    public AppState ApplicationState { get; set; }
     private SieveModel mySieveModel = new SieveModel
         {
             Page = 1,
@@ -63,7 +63,7 @@
     private async Task HandleFormSubmission(Posisi formData)
     {
         mySieveModel.Filters = "";
-        if (AppliationState.Id is null)
+        if (ApplicationState.Id is null)
         {
             var result = await PosisiService.CreatePosisi(formData);
             if (result.ReasonPhrase == "OK")
@@ -74,7 +74,7 @@
         }
         else
         {
-            var result = await PosisiService.UpdatePosisi(AppliationState.Id, formData);
+            var result = await PosisiService.UpdatePosisi(ApplicationState.Id, formData);
             if (result.ReasonPhrase == "OK")
             {
                 JSRuntime.InvokeVoidAsync("clickElementById", "closeButtonPosisi");

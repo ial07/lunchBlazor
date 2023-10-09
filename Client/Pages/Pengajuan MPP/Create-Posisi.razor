@@ -1,0 +1,105 @@
+@page "/pengajuan-mpp/tambah-posisi"
+@inject NavigationManager Navigation
+
+<PageTitle>Pengajuan MPP</PageTitle>
+
+
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center">
+            <a href="/pengajuan-mpp" class="mb-sm-0 font-size-16 text-muted">Man Power Planning</a>
+            <i class="bi bi-chevron-right text-primary mx-2" style="-webkit-text-stroke-width: 1px;"></i>
+            <a href="/pengajuan-mpp/input-mpp" class="mb-sm-0 font-size-16 text-muted">Input MPP</a>
+            <i class="bi bi-chevron-right text-primary mx-2" style="-webkit-text-stroke-width: 1px;"></i>
+            <h4 class="mb-sm-0 font-size-16">
+                @if (ApplicationState.MppChildForm != null && ApplicationState.MppChildForm.Pengajuan != "")
+                {
+                    <text>Tambah @ApplicationState.MppChildForm.Pengajuan</text>
+                }
+            </h4>
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+
+
+<div class="d-flex align-items-start" style="position: fixed; height: 100%; overflow: hidden;">
+    <div class="nav flex-column nav-pills me-3 align-items-start" id="v-pills-tab" role="tablist"
+        aria-orientation="vertical">
+        <button class="nav-link @(activeTab == "informasi" ? "active" : "")" @onclick="SwitchToInfoTab">
+            <i class="bi bi-info-circle-fill me-2"></i>
+            Informasi Dasar
+        </button>
+        <button class="nav-link @(activeTab == "pemenuhan" ? "active" : "")" @onclick="SwitchToPemenuhanTab">
+            <i class="bi bi-clipboard-check-fill me-2"></i>
+            Pemenuhan MPP
+        </button>
+        <button class="nav-link @(activeTab == "kualifikasi" ? "active" : "")" @onclick="SwitchToKualifikasiTab">
+            <i class="bi bi-person-square me-2"></i>
+            Kualifikasi MP
+        </button>
+    </div>
+    <div class="tab-content col-8" id="v-pills-tabContent">
+        <div class="tab-pane @(activeTab == "informasi" ? "show active" : "fade")" id="v-pills-informasi"
+            role="tabpanel" aria-labelledby="v-pills-informasi-tab" tabindex="0">
+            <Informasi_Dasar onNextInformasi="SwitchToPemenuhanTab" />
+        </div>
+        <div class="tab-pane @(activeTab == "pemenuhan" ? "show active" : "fade")" id="v-pills-pemenuhan"
+            role="tabpanel" aria-labelledby="v-pills-pemenuhan-tab" tabindex="0">
+            <Pemenuhan_MPP onNextPemenuhan="SwitchToKualifikasiTab" onPrevPemenuhan="SwitchToInfoTab" />
+        </div>
+        <div class="tab-pane @(activeTab == "kualifikasi" ? "show active" : "fade")" id="v-pills-kualifikasi"
+            role="tabpanel" aria-labelledby="v-pills-kualifikasi-tab" tabindex="0">
+            <Kualifikasi_MPP />
+        </div>
+    </div>
+</div>
+<!-- end row -->
+
+@code {
+    [CascadingParameter]
+    public AppState ApplicationState { get; set; }
+
+    private string activeTab = "informasi";
+
+    private void SwitchToInfoTab()
+    {
+        activeTab = "informasi";
+    }
+
+    private void SwitchToPemenuhanTab()
+    {
+        activeTab = "pemenuhan";
+    }
+
+    private void SwitchToKualifikasiTab()
+    {
+        activeTab = "kualifikasi";
+    }
+    private async Task HandleButtonClickAdd(MouseEventArgs e)
+    {
+        Navigation.NavigateTo("/input-mpp");
+    }
+
+
+}
+
+<style scoped>
+    .nav-link {
+        background-color: transparent !important;
+        font-weight: 500;
+        color: #8F90A6;
+    }
+
+    /* Style the text color and background color of the active nav link or button */
+    .nav-link.active,
+    .button.nav-link.active {
+        color: #FFCA0D !important;
+    }
+
+    .nav-link:hover,
+    .button.nav-link:hover {
+        color: #FFCA0D;
+    }
+</style>

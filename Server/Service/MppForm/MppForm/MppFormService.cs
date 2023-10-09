@@ -47,7 +47,7 @@ namespace RepositoryPattern.Services.MppFormService
             }
         }
 
-        public async Task<Guid> Post(User userId)
+        public async Task<Guid> Post(User userId, string jenis)
         {
             try
             {
@@ -74,6 +74,7 @@ namespace RepositoryPattern.Services.MppFormService
                     IsActive = false,
                     IsDraft = false,
                     CreatedAt = DateTime.Now,
+                    JenisPengajuan = jenis,
                 };
                 _AppDbContext.MppForm.Add(roleData);
                 await _AppDbContext.SaveChangesAsync();

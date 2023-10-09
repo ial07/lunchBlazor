@@ -48,11 +48,6 @@ builder.Services.AddScoped<IPendidikanService, PendidikanService>();
 builder.Services.AddScoped<IJurusanPendidikanService, JurusanPendidikanService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserService, UserService>();
-
-
-
-
-
 builder.Services.AddScoped<IMppFormService, MppFormService>();
 builder.Services.AddScoped<IMppChildFormService, MppChildFormService>();
 

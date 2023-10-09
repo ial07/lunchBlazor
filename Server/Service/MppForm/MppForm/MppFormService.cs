@@ -47,7 +47,7 @@ namespace RepositoryPattern.Services.MppFormService
             }
         }
 
-        public async Task<Guid> Post(User userId, string jenis)
+        public async Task<Guid> Post(Users userId, string jenis)
         {
             try
             {
@@ -129,7 +129,7 @@ namespace RepositoryPattern.Services.MppFormService
             }
         }
 
-        public async Task<MppForm> PutApproval(Guid id, User items)
+        public async Task<MppForm> PutApproval(Guid id, Users items)
         {
             try
             {

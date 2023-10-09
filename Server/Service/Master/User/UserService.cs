@@ -23,13 +23,14 @@ namespace RepositoryPattern.Services.UserService
             _SieveProcessor = sieveProcessor;
         }
 
-        public async Task<PageList<User>> Get(SieveModel model)
+        public async Task<PageList<Users>> Get(SieveModel model)
         {
             try
             {
                 var User = _AppDbContext.Users.AsQueryable();
+                Console.WriteLine(User);
                 var result = _SieveProcessor.Apply(model, User);
-                var UserList = await PageList<User>.ShowDataAsync(
+                var UserList = await PageList<Users>.ShowDataAsync(
                     User,
                     result,
                     model.Page,
@@ -43,7 +44,7 @@ namespace RepositoryPattern.Services.UserService
             }
         }
 
-        public async Task<User> Post(UserForm items)
+        public async Task<Users> Post(UserForm items)
         {
             try
             {
@@ -52,7 +53,7 @@ namespace RepositoryPattern.Services.UserService
                 {
                     throw new("Data sudah tersedia, silahkan input nama lain");
                 }
-                var roleData = new User()
+                var roleData = new Users()
                 {
                     UserID = items.UserID,
                     IsActive = true,
@@ -69,7 +70,7 @@ namespace RepositoryPattern.Services.UserService
             }
         }
 
-        public async Task<User> Put(Guid id, UserForm items)
+        public async Task<Users> Put(Guid id, UserForm items)
         {
             try
             {
@@ -91,7 +92,7 @@ namespace RepositoryPattern.Services.UserService
             }
         }
 
-        public async Task<User> Delete(Guid id)
+        public async Task<Users> Delete(Guid id)
         {
             try
             {
@@ -109,11 +110,6 @@ namespace RepositoryPattern.Services.UserService
             {
                 throw new(ex.Message);
             }
-        }
-
-        Task<PageList<User>> IUserService.Get(SieveModel model)
-        {
-            throw new NotImplementedException();
         }
     }
 }

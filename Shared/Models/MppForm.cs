@@ -32,7 +32,7 @@ namespace lunchBlazor.Shared.Models
         public Divisi? Divisi { get; set; }
         public Status? Status { get; set; }
         public JenisMpp? JenisMpp { get; set; }
-        public User? User { get; set; }
+        public Users? User { get; set; }
 
 
     }

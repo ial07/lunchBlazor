@@ -4,9 +4,9 @@ using Sieve.Models;
 
 public interface IUserService
 {
-    Task<PageList<User>> Get(SieveModel model);
-    Task<User> Post(UserForm model);
-    Task<User> Put(Guid id, UserForm items);
-    Task<User> Delete(Guid id);
+    Task<PageList<Users>> Get(SieveModel model);
+    Task<Users> Post(UserForm model);
+    Task<Users> Put(Guid id, UserForm items);
+    Task<Users> Delete(Guid id);
 
 }

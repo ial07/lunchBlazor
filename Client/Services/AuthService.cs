@@ -45,19 +45,19 @@ namespace lunchBlazor.Client.Services.AuthService
             return false;
         }
 
-       
+
         public async Task<bool> CheckLogin()
         {
-   
-                bool itemExists = await _localStorage.ContainKeyAsync("profile") && await _localStorage.ContainKeyAsync("accessToken"); ;
 
-                if (itemExists)
-                {
-                    ApplicationState.User = await _localStorage.GetItemAsync<User>("profile");
-                    ApplicationState.Token = await _localStorage.GetItemAsync<string>("accessToken");
-                    return true;
-                }
-            
+            bool itemExists = await _localStorage.ContainKeyAsync("profile") && await _localStorage.ContainKeyAsync("accessToken"); ;
+
+            if (itemExists)
+            {
+                ApplicationState.User = await _localStorage.GetItemAsync<Users>("profile");
+                ApplicationState.Token = await _localStorage.GetItemAsync<string>("accessToken");
+                return true;
+            }
+
             return false;
         }
 

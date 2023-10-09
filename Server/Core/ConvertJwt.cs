@@ -10,7 +10,7 @@ public class ConvertJWT
     {
         _AppDbContext = dbContext;
     }
-    public async Task<User> ConvertString(string accessToken)
+    public async Task<Users> ConvertString(string accessToken)
     {
         var tokenAccess = accessToken.Substring("Bearer ".Length);
         var tokenHandler = new JwtSecurityTokenHandler();

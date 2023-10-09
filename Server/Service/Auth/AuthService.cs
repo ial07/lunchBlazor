@@ -64,11 +64,11 @@ namespace RepositoryPattern.Services.AuthService
 
             // Read the response content as a string
             var responseContent = await response.Content.ReadAsStringAsync();
-            User userResponse = JsonConvert.DeserializeObject<User>(responseContent);
+            Users userResponse = JsonConvert.DeserializeObject<Users>(responseContent);
             var checkData = await _AppDbContext.Users.FirstOrDefaultAsync(x => x.UserID == userResponse.UserID);
             if (checkData == null)
             {
-                var roleData = new User()
+                var roleData = new Users()
                 {
                     UserID = userResponse.UserID,
                     UserName = userResponse.UserName,
@@ -87,13 +87,13 @@ namespace RepositoryPattern.Services.AuthService
             return new { Data = userResponse, accessToken = token };
         }
 
-        public async Task<PageList<User>> Get(SieveModel model)
+        public async Task<PageList<Users>> Get(SieveModel model)
         {
             try
             {
                 var Auth = _AppDbContext.Users.AsQueryable();
                 var result = _SieveProcessor.Apply(model, Auth);
-                var AuthList = await PageList<User>.ShowDataAsync(
+                var AuthList = await PageList<Users>.ShowDataAsync(
                     Auth,
                     result,
                     model.Page,
@@ -108,7 +108,7 @@ namespace RepositoryPattern.Services.AuthService
             }
         }
 
-        public async Task<User> Post(UserForm items)
+        public async Task<Users> Post(UserForm items)
         {
             try
             {
@@ -117,7 +117,7 @@ namespace RepositoryPattern.Services.AuthService
                 {
                     throw new("Data sudah tersedia, silahkan input nama lain");
                 }
-                var roleData = new User()
+                var roleData = new Users()
                 {
                     UserID = items.UserID,
                     IsActive = true,
@@ -134,7 +134,7 @@ namespace RepositoryPattern.Services.AuthService
             }
         }
 
-        public async Task<User> Put(Guid id, UserForm items)
+        public async Task<Users> Put(Guid id, UserForm items)
         {
             try
             {
@@ -156,7 +156,7 @@ namespace RepositoryPattern.Services.AuthService
             }
         }
 
-        public async Task<User> Delete(Guid id)
+        public async Task<Users> Delete(Guid id)
         {
             try
             {
@@ -176,7 +176,7 @@ namespace RepositoryPattern.Services.AuthService
             }
         }
 
-        Task<PageList<User>> IAuthService.Get(SieveModel model)
+        Task<PageList<Users>> IAuthService.Get(SieveModel model)
         {
             throw new NotImplementedException();
         }

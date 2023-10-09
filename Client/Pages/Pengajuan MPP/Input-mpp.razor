@@ -63,14 +63,14 @@
     <div class="d-flex justify-content-between">
         <div class="fw-bold mb-3 font-size-16">Pengajuan MPP A1</div>
         <Button Label="Tambah Posisi" btnClass="btn-info" IsBtnIcon onClick="HandleButtonClickAddA1" />
-    </div>
-</div>
+     </div>
+ </div>
 
-@code {
+ @code {
     [CascadingParameter]
     public AppState ApplicationState { get; set; }
     private MppChildForm mppChildForm = new MppChildForm();
-    private User User = new User();
+    private Users User = new Users();
     private int selectedYear = DateTime.Now.Year;
     private void HandleYearInputChange()
     {
@@ -120,7 +120,7 @@
 
     protected async override Task OnInitializedAsync()
     {
-        User = await LocalStorage.GetItemAsync<User>("profile");
+        User = await LocalStorage.GetItemAsync<Users>("profile");
         await LoadDataAsync();
         await LoadDataMppChildAsync(mySieveModel);
     }

@@ -29,7 +29,7 @@ namespace RepositoryPattern.Services.UserService
         {
             try
             {
-                var User = _AppDbContext.User.Where(d => d.IsActive).AsQueryable();
+                var User = _AppDbContext.User.AsQueryable();
                 var result = _SieveProcessor.Apply(model, User);
                 var UserList = await PageList<User>.ShowDataAsync(
                     User,

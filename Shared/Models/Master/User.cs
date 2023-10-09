@@ -12,6 +12,5 @@ namespace lunchBlazor.Shared.Models
         public string? Division { get; set; }
         public string? Location { get; set; }
         public bool? IsAdmin { get; set; }
-        public bool IsActive { get; set; }
     }
 }

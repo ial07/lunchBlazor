@@ -91,7 +91,7 @@ namespace RepositoryPattern.Services.AuthService
         {
             try
             {
-                var Auth = _AppDbContext.User.Where(d => d.IsActive).AsQueryable();
+                var Auth = _AppDbContext.User.AsQueryable();
                 var result = _SieveProcessor.Apply(model, Auth);
                 var AuthList = await PageList<User>.ShowDataAsync(
                     Auth,

@@ -8,8 +8,5 @@ namespace lunchBlazor.Shared.Models
         public string? Notes { get; set; }
         [Sieve(CanFilter = true, CanSort = true)] public Guid? UserId { get; set; }
         [Sieve(CanFilter = true, CanSort = true)] public Guid? MppId { get; set; }
-
-
-        public bool? IsActive { get; set; }
     }
 }

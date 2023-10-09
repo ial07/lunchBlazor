@@ -16,7 +16,7 @@ public class ConvertJWT
         var tokenHandler = new JwtSecurityTokenHandler();
         var token = tokenHandler.ReadJwtToken(tokenAccess);
         string idUser = token.Subject;
-        var User = await _AppDbContext.User.FirstOrDefaultAsync(d => d.UserID == idUser);
+        var User = await _AppDbContext.Users.FirstOrDefaultAsync(d => d.UserID == idUser);
         return User;
     }
 }

@@ -28,7 +28,7 @@ namespace RepositoryPattern.Services.MppFormService
                 await _AppDbContext.JenisMpp.Where(x => x.IsActive == true).OrderBy(x => x.CreatedAt).ToListAsync();
                 await _AppDbContext.Status.Where(x => x.IsActive == true).OrderBy(x => x.CreatedAt).ToListAsync();
                 await _AppDbContext.MppChildForm.Where(x => x.IsActive == true).OrderBy(x => x.CreatedAt).ToListAsync();
-                await _AppDbContext.User.OrderBy(x => x.CreatedAt).ToListAsync();
+                await _AppDbContext.Users.OrderBy(x => x.CreatedAt).ToListAsync();
                 // var departemen = _AppDbContext.MppForm.Where(d => (bool)d.IsActive).AsQueryable();
                 var departemen = _AppDbContext.MppForm.AsQueryable();
                 var result = _SieveProcessor.Apply(model, departemen);

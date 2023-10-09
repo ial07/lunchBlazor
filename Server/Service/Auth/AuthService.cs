@@ -65,7 +65,7 @@ namespace RepositoryPattern.Services.AuthService
             // Read the response content as a string
             var responseContent = await response.Content.ReadAsStringAsync();
             User userResponse = JsonConvert.DeserializeObject<User>(responseContent);
-            var checkData = await _AppDbContext.User.FirstOrDefaultAsync(x => x.UserID == userResponse.UserID);
+            var checkData = await _AppDbContext.Users.FirstOrDefaultAsync(x => x.UserID == userResponse.UserID);
             if (checkData == null)
             {
                 var roleData = new User()
@@ -79,7 +79,7 @@ namespace RepositoryPattern.Services.AuthService
                     IsActive = true,
                     CreatedAt = DateTime.Now
                 };
-                _AppDbContext.User.Add(userResponse);
+                _AppDbContext.Users.Add(userResponse);
                 await _AppDbContext.SaveChangesAsync();
                 return new { Data = roleData, accessToken = token }; ;
             }
@@ -91,7 +91,7 @@ namespace RepositoryPattern.Services.AuthService
         {
             try
             {
-                var Auth = _AppDbContext.User.AsQueryable();
+                var Auth = _AppDbContext.Users.AsQueryable();
                 var result = _SieveProcessor.Apply(model, Auth);
                 var AuthList = await PageList<User>.ShowDataAsync(
                     Auth,
@@ -112,7 +112,7 @@ namespace RepositoryPattern.Services.AuthService
         {
             try
             {
-                var checkData = await _AppDbContext.User.FirstOrDefaultAsync(x => x.UserID == items.UserID);
+                var checkData = await _AppDbContext.Users.FirstOrDefaultAsync(x => x.UserID == items.UserID);
                 if (checkData != null)
                 {
                     throw new("Data sudah tersedia, silahkan input nama lain");
@@ -124,7 +124,7 @@ namespace RepositoryPattern.Services.AuthService
                     CreatedAt = DateTime.Now
                 };
 
-                _AppDbContext.User.Add(roleData);
+                _AppDbContext.Users.Add(roleData);
                 await _AppDbContext.SaveChangesAsync();
                 return roleData;
             }
@@ -138,15 +138,15 @@ namespace RepositoryPattern.Services.AuthService
         {
             try
             {
-                var checkData = await _AppDbContext.User.FirstOrDefaultAsync(x => x.UserID == items.UserID);
+                var checkData = await _AppDbContext.Users.FirstOrDefaultAsync(x => x.UserID == items.UserID);
                 if (checkData != null)
                 {
                     throw new("Data sudah tersedia, silahkan input nama lain");
                 }
-                var roleData = await _AppDbContext.User.FindAsync(id) ?? throw new("Opss Id not found");
+                var roleData = await _AppDbContext.Users.FindAsync(id) ?? throw new("Opss Id not found");
                 roleData.UserID = items.UserID;
 
-                _AppDbContext.User.Update(roleData);
+                _AppDbContext.Users.Update(roleData);
                 await _AppDbContext.SaveChangesAsync();
                 return roleData;
             }
@@ -160,13 +160,13 @@ namespace RepositoryPattern.Services.AuthService
         {
             try
             {
-                var roleData = await _AppDbContext.User.FindAsync(id);
+                var roleData = await _AppDbContext.Users.FindAsync(id);
                 if (roleData == null)
                 {
                     throw new("Opss Id not found");
                 }
                 roleData.IsActive = false;
-                _AppDbContext.User.Update(roleData);
+                _AppDbContext.Users.Update(roleData);
                 await _AppDbContext.SaveChangesAsync();
                 return roleData;
             }

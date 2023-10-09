@@ -9,8 +9,8 @@ namespace lunchBlazor.Client.Services.UserService
     public class UserService
     {
         private readonly HttpClient _http;
-        public GetDatasViewModel<User> Users { get; set; } = new GetDatasViewModel<User>();
-        public User User { get; set; } = new User();
+        public GetDatasViewModel<Users> Users { get; set; } = new GetDatasViewModel<Users>();
+        public Users User { get; set; } = new Users();
 
         public UserService(HttpClient http)
         {
@@ -19,21 +19,21 @@ namespace lunchBlazor.Client.Services.UserService
 
         public async Task LoadUser(SieveModel sieveModel)
         {
-            Users = await _http.GetFromJsonAsync<GetDatasViewModel<User>>($"api/User?Filters={sieveModel.Filters}&Page={sieveModel.Page}&PageSize={sieveModel.PageSize}&Sorts=-created");
+            Users = await _http.GetFromJsonAsync<GetDatasViewModel<Users>>($"api/User?Filters={sieveModel.Filters}&Page={sieveModel.Page}&PageSize={sieveModel.PageSize}&Sorts=-created");
         }
 
         public async Task GetUserById(SieveModel sieveModel)
         {
-            var result = await _http.GetFromJsonAsync<GetDatasViewModel<User>>($"api/User?Filters={sieveModel.Filters}&Page={sieveModel.Page}&PageSize={sieveModel.PageSize}");
+            var result = await _http.GetFromJsonAsync<GetDatasViewModel<Users>>($"api/User?Filters={sieveModel.Filters}&Page={sieveModel.Page}&PageSize={sieveModel.PageSize}");
             User = result.Items[0];
         }
 
-        public async Task<HttpResponseMessage> CreateUser(User User)
+        public async Task<HttpResponseMessage> CreateUser(Users User)
         {
             var result = await _http.PostAsJsonAsync("api/User", User);
             return result;
         }
-        public async Task<HttpResponseMessage> UpdateUser(string id, User User)
+        public async Task<HttpResponseMessage> UpdateUser(string id, Users User)
         {
             var result = await _http.PutAsJsonAsync($"api/User/{id}", User);
             return result;

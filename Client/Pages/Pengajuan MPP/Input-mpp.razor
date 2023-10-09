@@ -67,11 +67,11 @@
 </div>
 
 @code {
-    [Parameter]
-    public string pengajuan { get; set; }
-    [CascadingParameter]
-    public AppState ApplicationState { get; set; }
-    private MppChildForm mppChildForm = new MppChildForm();
+        [Parameter]
+        public string pengajuan { get; set; }
+        [CascadingParameter]
+        public AppState ApplicationState { get; set; }
+private MppChildForm mppChildForm = new MppChildForm();
     private User User;
     private int selectedYear = DateTime.Now.Year;
     private void HandleYearInputChange()
@@ -122,74 +122,90 @@
 
     protected async override Task OnInitializedAsync()
     {
-        await LoadDataAsync();
-        await LoadDataMppChildAsync(mySieveModel);
-        User = await LocalStorage.GetItemAsync<User>("profile");
-    }
+        <
 
-    private async Task LoadDataAsync()
-    {
-        await JenisMppService.LoadJenisMpp(mySieveModel);
+        <
 
-        jenisMppList = JenisMppService.JenisMpps.Items;
+        <
 
-        listItemsJenisMpp = jenisMppList
-        .Select(x => (dynamic)new { Id = x.Id, Value = x.Name })
-        .ToList();
+        <
 
-        isSelectMppLoaded = true;
+        <
 
-        StateHasChanged();
-    }
+        <
 
-    private async Task LoadDataMppChildAsync(SieveModel sieveModel)
-    {
-        sieveModel.Filters = $"Id== {ApplicationState.MppForm.Id}";
-        try
-        {
-            await MppChildFormService.LoadMppChildForm(sieveModel);
+        < HEAD=======User=await LocalStorage.GetItemAsync
 
-            A1listItems = MppChildFormService.MppChildForms.Items;
+        <Users>("profile");
+            >>>>>>> 3ec681093dfcd9c547a0a73ba321d33d5595f017
+            await LoadDataAsync();
+            await LoadDataMppChildAsync(mySieveModel);
+            User = await LocalStorage.GetItemAsync<User>("profile");
+                }
 
-            table.Data = new List<List<object>>();
+                private async Task LoadDataAsync()
+                {
+                await JenisMppService.LoadJenisMpp(mySieveModel);
 
-            foreach (var item in A1listItems)
-            {
-                var rowData = new List<object>
-{
-item.Id.ToString(),
-item.NamaLokasi,
-item.CreatedAt.ToString("dd/MM/yyyy"),
-};
+                jenisMppList = JenisMppService.JenisMpps.Items;
 
-                table.Data.Add(rowData);
-            }
+                listItemsJenisMpp = jenisMppList
+                .Select(x => (dynamic)new { Id = x.Id, Value = x.Name })
+                .ToList();
 
-            table.Headers = new List<string>
-{
-"ID",
-"INI Lokasi",
-"Created At",
-};
-        }
-        catch (Exception ex)
-        {
-            // Log the exception
-            Console.WriteLine(ex);
-            // Handle the exception as needed (e.g., show an error message to the user)
-        }
-        finally
-        {
-        }
+                isSelectMppLoaded = true;
 
-        StateHasChanged();
-    }
+                StateHasChanged();
+                }
 
-    private async Task HandleButtonClickAdd(MouseEventArgs e)
-    {
-        ApplicationState.MppChildForm = mppChildForm;
-        StateHasChanged();
-        ApplicationState.MppChildForm.Pengajuan = pengajuan;
-        Navigation.NavigateTo("/pengajuan-mpp/tambah-posisi");
-    }
-}
+                private async Task LoadDataMppChildAsync(SieveModel sieveModel)
+                {
+                sieveModel.Filters = $"Id== {ApplicationState.MppForm.Id}";
+                try
+                {
+                await MppChildFormService.LoadMppChildForm(sieveModel);
+
+                A1listItems = MppChildFormService.MppChildForms.Items;
+
+                table.Data = new List<List<object>>();
+
+                    foreach (var item in A1listItems)
+                    {
+                    var rowData = new List<object>
+                        {
+                        item.Id.ToString(),
+                        item.NamaLokasi,
+                        item.CreatedAt.ToString("dd/MM/yyyy"),
+                        };
+
+                        table.Data.Add(rowData);
+                        }
+
+                        table.Headers = new List<string>
+                            {
+                            "ID",
+                            "INI Lokasi",
+                            "Created At",
+                            };
+                            }
+                            catch (Exception ex)
+                            {
+                            // Log the exception
+                            Console.WriteLine(ex);
+                            // Handle the exception as needed (e.g., show an error message to the user)
+                            }
+                            finally
+                            {
+                            }
+
+                            StateHasChanged();
+                            }
+
+                            private async Task HandleButtonClickAdd(MouseEventArgs e)
+                            {
+                            ApplicationState.MppChildForm = mppChildForm;
+                            StateHasChanged();
+                            ApplicationState.MppChildForm.Pengajuan = pengajuan;
+                            Navigation.NavigateTo("/pengajuan-mpp/tambah-posisi");
+                            }
+                            }

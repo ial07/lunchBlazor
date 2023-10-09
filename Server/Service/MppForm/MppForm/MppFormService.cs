@@ -28,7 +28,7 @@ namespace RepositoryPattern.Services.MppFormService
                 await _AppDbContext.JenisMpp.Where(x => x.IsActive == true).OrderBy(x => x.CreatedAt).ToListAsync();
                 await _AppDbContext.Status.Where(x => x.IsActive == true).OrderBy(x => x.CreatedAt).ToListAsync();
                 await _AppDbContext.MppChildForm.Where(x => x.IsActive == true).OrderBy(x => x.CreatedAt).ToListAsync();
-                await _AppDbContext.User.OrderBy(x => x.CreatedAt).ToListAsync();
+                await _AppDbContext.Users.OrderBy(x => x.CreatedAt).ToListAsync();
                 // var departemen = _AppDbContext.MppForm.Where(d => (bool)d.IsActive).AsQueryable();
                 var departemen = _AppDbContext.MppForm.AsQueryable();
                 var result = _SieveProcessor.Apply(model, departemen);
@@ -47,7 +47,7 @@ namespace RepositoryPattern.Services.MppFormService
             }
         }
 
-        public async Task<Guid> Post(User userId, string jenis)
+        public async Task<Guid> Post(Users userId, string jenis)
         {
             try
             {
@@ -129,7 +129,7 @@ namespace RepositoryPattern.Services.MppFormService
             }
         }
 
-        public async Task<MppForm> PutApproval(Guid id, User items)
+        public async Task<MppForm> PutApproval(Guid id, Users items)
         {
             try
             {

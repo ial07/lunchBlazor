@@ -6,16 +6,16 @@ namespace test_blazor.Server.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class UserController : ControllerBase
+    public class UsersController : ControllerBase
     {
         private readonly IUserService _IUserService;
-        public UserController(IUserService service)
+        public UsersController(IUserService service)
         {
             _IUserService = service;
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<User>>> Get([FromQuery] SieveModel model)
+        public async Task<ActionResult<List<Users>>> Get([FromQuery] SieveModel model)
         {
             try
             {
@@ -29,7 +29,7 @@ namespace test_blazor.Server.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<List<User>>> Post([FromBody] UserForm items)
+        public async Task<ActionResult<List<Users>>> Post([FromBody] UserForm items)
         {
             try
             {

@@ -16,22 +16,21 @@ namespace RepositoryPattern.Services.UserService
     {
         private readonly AppDbContext _AppDbContext;
         private readonly SieveProcessor _SieveProcessor;
-        private readonly IConfiguration _configuration;
 
-        public UserService(AppDbContext dbContext, SieveProcessor sieveProcessor, IConfiguration configuration)
+        public UserService(AppDbContext dbContext, SieveProcessor sieveProcessor)
         {
             _AppDbContext = dbContext;
             _SieveProcessor = sieveProcessor;
-            _configuration = configuration;
         }
 
-        public async Task<PageList<User>> Get(SieveModel model)
+        public async Task<PageList<Users>> Get(SieveModel model)
         {
             try
             {
-                var User = _AppDbContext.User.AsQueryable();
+                var User = _AppDbContext.Users.AsQueryable();
+                Console.WriteLine(User);
                 var result = _SieveProcessor.Apply(model, User);
-                var UserList = await PageList<User>.ShowDataAsync(
+                var UserList = await PageList<Users>.ShowDataAsync(
                     User,
                     result,
                     model.Page,
@@ -45,23 +44,23 @@ namespace RepositoryPattern.Services.UserService
             }
         }
 
-        public async Task<User> Post(UserForm items)
+        public async Task<Users> Post(UserForm items)
         {
             try
             {
-                var checkData = await _AppDbContext.User.FirstOrDefaultAsync(x => x.UserID == items.UserID);
+                var checkData = await _AppDbContext.Users.FirstOrDefaultAsync(x => x.UserID == items.UserID);
                 if (checkData != null)
                 {
                     throw new("Data sudah tersedia, silahkan input nama lain");
                 }
-                var roleData = new User()
+                var roleData = new Users()
                 {
                     UserID = items.UserID,
                     IsActive = true,
                     CreatedAt = DateTime.Now
                 };
 
-                _AppDbContext.User.Add(roleData);
+                _AppDbContext.Users.Add(roleData);
                 await _AppDbContext.SaveChangesAsync();
                 return roleData;
             }
@@ -71,19 +70,19 @@ namespace RepositoryPattern.Services.UserService
             }
         }
 
-        public async Task<User> Put(Guid id, UserForm items)
+        public async Task<Users> Put(Guid id, UserForm items)
         {
             try
             {
-                var checkData = await _AppDbContext.User.FirstOrDefaultAsync(x => x.UserID == items.UserID);
+                var checkData = await _AppDbContext.Users.FirstOrDefaultAsync(x => x.UserID == items.UserID);
                 if (checkData != null)
                 {
                     throw new("Data sudah tersedia, silahkan input nama lain");
                 }
-                var roleData = await _AppDbContext.User.FindAsync(id) ?? throw new("Opss Id not found");
+                var roleData = await _AppDbContext.Users.FindAsync(id) ?? throw new("Opss Id not found");
                 roleData.UserID = items.UserID;
 
-                _AppDbContext.User.Update(roleData);
+                _AppDbContext.Users.Update(roleData);
                 await _AppDbContext.SaveChangesAsync();
                 return roleData;
             }
@@ -93,17 +92,17 @@ namespace RepositoryPattern.Services.UserService
             }
         }
 
-        public async Task<User> Delete(Guid id)
+        public async Task<Users> Delete(Guid id)
         {
             try
             {
-                var roleData = await _AppDbContext.User.FindAsync(id);
+                var roleData = await _AppDbContext.Users.FindAsync(id);
                 if (roleData == null)
                 {
                     throw new("Opss Id not found");
                 }
                 roleData.IsActive = false;
-                _AppDbContext.User.Update(roleData);
+                _AppDbContext.Users.Update(roleData);
                 await _AppDbContext.SaveChangesAsync();
                 return roleData;
             }
@@ -111,11 +110,6 @@ namespace RepositoryPattern.Services.UserService
             {
                 throw new(ex.Message);
             }
-        }
-
-        Task<PageList<User>> IUserService.Get(SieveModel model)
-        {
-            throw new NotImplementedException();
         }
     }
 }

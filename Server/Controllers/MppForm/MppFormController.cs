@@ -39,7 +39,7 @@ namespace test_blazor.Server.Controllers
             try
             {
                 string accessToken = HttpContext.Request.Headers["Authorization"];
-                User checktoken = await _ConvertJwt.ConvertString(accessToken);
+                Users checktoken = await _ConvertJwt.ConvertString(accessToken);
                 var dataList = await _IMppFormService.Post(checktoken, "A1");
                 return Ok(dataList);
             }
@@ -56,7 +56,7 @@ namespace test_blazor.Server.Controllers
             try
             {
                 string accessToken = HttpContext.Request.Headers["Authorization"];
-                User checktoken = await _ConvertJwt.ConvertString(accessToken);
+                Users checktoken = await _ConvertJwt.ConvertString(accessToken);
                 var dataList = await _IMppFormService.Post(checktoken, "B1");
                 return Ok(dataList);
             }
@@ -87,7 +87,7 @@ namespace test_blazor.Server.Controllers
             try
             {
                 string accessToken = HttpContext.Request.Headers["Authorization"];
-                User checktoken = await _ConvertJwt.ConvertString(accessToken);
+                Users checktoken = await _ConvertJwt.ConvertString(accessToken);
                 var dataList = await _IMppFormService.PutApproval(id, checktoken);
                 return Ok(dataList);
             }

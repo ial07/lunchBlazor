@@ -14,20 +14,20 @@
     <div class="col-12 mt-4">
         <div class="d-flex justify-content-end">
             <Button type="button" Label="Tambah" bold data-bs-toggle="modal" data-bs-target="#formDepartemen"
-                 onClick="HandleAddDepartemen" />
-         </div>
-         <div>
-             <Table table=@table HandleClickPrevious=" Previous" HandleClickNext="Next"
-                 HandlePageSizeChange="HandlePageSizeChange" mySieveModel="mySieveModel"
-                 totalCountData="DepartemenService.Departemens.totalCountData" HandleEditBtn="HandleEditBtnDepartemen"
-                    IsModalEdit modalEditNameId="formDepartemen" HandleDeleteBtn="HandleDeleteDepartemen" />
-         </div>
-     </div>
- </div>
+                onClick="HandleAddDepartemen" />
+        </div>
+        <div>
+            <Table table=@table HandleClickPrevious=" Previous" HandleClickNext="Next"
+                HandlePageSizeChange="HandlePageSizeChange" mySieveModel="mySieveModel"
+                totalCountData="DepartemenService.Departemens.totalCountData" HandleEditBtn="HandleEditBtnDepartemen"
+                IsModalEdit modalEditNameId="formDepartemen" HandleDeleteBtn="HandleDeleteDepartemen" />
+        </div>
+    </div>
+</div>
 
- <Form_departemen Id="@ApplicationState.Id" formData="@formData" OnFormSubmit="HandleFormSubmission" />
+<Form_departemen Id="@ApplicationState.Id" formData="@formData" OnFormSubmit="HandleFormSubmission" />
 
- @code {
+@code {
 
     private Departemen formData = new Departemen();
     private async void HandleEditBtnDepartemen(string id)
@@ -86,7 +86,6 @@
 
     private async void HandleDeleteDepartemen(string id)
     {
-        Console.WriteLine($"Deletteee option clicked for item with value: {id}");
         var result = await Swal.FireAsync(new SweetAlertOptions
             {
                 Title = "Are you sure to delete this item?",

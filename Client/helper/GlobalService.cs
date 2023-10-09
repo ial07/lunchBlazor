@@ -21,7 +21,7 @@ namespace lunchBlazor.Client.helper
         {
 
             bool itemExists = await _localStorage.ContainKeyAsync("profile") && await _localStorage.ContainKeyAsync("accessToken"); ;
-
+            
 
             if (itemExists)
             {

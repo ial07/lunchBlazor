@@ -10,7 +10,8 @@
     <div class="col-12 card bg-secondary" style="border-radius: 10px;">
         <div class="row">
             <div class="col-9 px-4">
-                <div class="title-user d-flex mt-5">Selamat Datang, <div class="username"> Nama User!</div>
+                <div class="title-user d-flex mt-5">Selamat Datang, <div class="username">
+                        @ApplicationState.User.UserName!</div>
                 </div>
                 <div class="subtitle-user mb-4">Selamat datang di aplikasi Planner, aplikasi perencanaan dan <br>
                     pengelolaan
@@ -29,11 +30,15 @@
 </div>
 
 @code {
+    [CascadingParameter]
+    public AppState ApplicationState { get; set; }
     private bool loggedIn;
-
     protected override async Task OnInitializedAsync()
     {
-        loggedIn = await GlobalService.CheckLogin();
+        if (GlobalService != null)
+        {
+            loggedIn = await GlobalService.CheckLogin();
+        }
 
         if (!loggedIn)
         {

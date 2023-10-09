@@ -22,11 +22,12 @@
     <div class="fw-bold mb-3 font-size-16">Detail Pengajuan MPP</div>
     <div class="col-3">
         <label class="fw-bold">NRP Pemohon</label>
-        <div class="ms-1">Auto_fill_NRP_User</div>
+        <div class="ms-1">@ApplicationState.User.</div>
+
     </div>
     <div class="col-3">
         <label class="fw-bold">Nama Pemohon</label>
-        <div class="ms-1">Auto_fill_NRP_User</div>
+        <div class="ms-1">@ApplicationState.MppForm.NamaPemohon</div>
     </div>
     <div class="col-3">
         <label class="fw-bold">Divisi</label>
@@ -59,10 +60,10 @@
     <div class="d-flex justify-content-between">
         <div class="fw-bold mb-3 font-size-16">Pengajuan MPP A1</div>
         <Button Label="Tambah Posisi" btnClass="btn-info" IsBtnIcon onClick="HandleButtonClickAddA1" />
-     </div>
- </div>
+    </div>
+</div>
 
- @code {
+@code {
     [CascadingParameter]
     public AppState ApplicationState { get; set; }
     private MppChildForm mppChildForm = new MppChildForm();
@@ -103,10 +104,8 @@
         .Select(x => (dynamic)new { Id = x.Id, Value = x.Name })
         .ToList();
 
-        // Set the flag to indicate that data is loaded
         isSelectMppLoaded = true;
 
-        // Notify the child component that the data is ready
         StateHasChanged();
     }
 

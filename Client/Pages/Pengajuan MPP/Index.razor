@@ -24,46 +24,55 @@
                     <div class="mx-3">2022</div>
                     <i class="bi bi-caret-right-fill text-primary"></i>
                 </div>
-                <Button bold Label="MPP Baru" btnClass="btn-info" IsBtnIcon onClick="HandleButtonClickAdd" />
-             </div>
-         </div>
-     </div>
- </div>
- <!-- end page title -->
+                <div class="dropdown">
+                    <button class="btn btn-info
+        dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-plus-square-fill mx-1"></i>
+                        MPP Baru
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" @onclick="HandleButtonClickAddA1">MPP A1</a>
+                        <a class="dropdown-item" href="#">MPP B1</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end page title -->
 
 
- <div class="row">
-     <div class="col-lg-4 col-md-6 col-12">
-         <CardPlan labelCard="Dilanjutkan ke Sect. OPCC" />
-     </div>
-     <div class="col-lg-4 col-md-6 col-12">
-         <CardPlan labelCard="Disimpan Sebagai Draft" iconCardHeader="bi-pencil-square" />
-     </div>
-     <div class="col-lg-4 col-md-6 col-12">
-         <CardPlan labelCard="Pengajuan MPP Ditolak" iconCardHeader="bi-x-circle" />
-     </div>
- </div>
- <!-- end row -->
+<div class="row">
+    <div class="col-lg-4 col-md-6 col-12">
+        <CardPlan labelCard="Dilanjutkan ke Sect. OPCC" />
+    </div>
+    <div class="col-lg-4 col-md-6 col-12">
+        <CardPlan labelCard="Disimpan Sebagai Draft" iconCardHeader="bi-pencil-square" />
+    </div>
+    <div class="col-lg-4 col-md-6 col-12">
+        <CardPlan labelCard="Pengajuan MPP Ditolak" iconCardHeader="bi-x-circle" />
+    </div>
+</div>
+<!-- end row -->
 
- @code {
+@code {
     [CascadingParameter]
     public AppState ApplicationState { get; set; }
-    private async Task HandleButtonClickAdd()
+    private async Task HandleButtonClickAddA1()
     {
         if (ApplicationState.MppForm == null)
         {
             ApplicationState.MppForm = new MppForm();
         }
 
-        Navigation.NavigateTo("/pengajuan-mpp/input-mpp");
         ApplicationState.MppForm.NoMpp = "nompp1";
         ApplicationState.MppForm.NrpPemohon = "99999999";
         ApplicationState.MppForm.NamaPemohon = "Jhon Doe";
-        var result = await MppFormService.CreateMppForm(ApplicationState.MppForm);
-        Console.WriteLine(result);
-        if (result.ReasonPhrase == "OK")
-        {
-        }
+        Navigation.NavigateTo("/pengajuan-mpp/input-mpp");
+        @* var result = await MppFormService.CreateMppForm(ApplicationState.MppForm);
+Console.WriteLine(result);
+if (result.ReasonPhrase == "OK")*@
     }
 
 }

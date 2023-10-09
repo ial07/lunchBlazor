@@ -1,5 +1,5 @@
 ﻿@page "/"
-@inject AuthService AuthService
+@inject GlobalService GlobalService
 @inject NavigationManager NavigationManager
 
 
@@ -11,7 +11,7 @@
         <div class="row">
             <div class="col-9 px-4">
                 <div class="title-user d-flex mt-5">Selamat Datang, <div class="username">
-                        @ApplicationState.User.UserName!</div>
+                        @ApplicationState.Token!</div>
                 </div>
                 <div class="subtitle-user mb-4">Selamat datang di aplikasi Planner, aplikasi perencanaan dan <br>
                     pengelolaan

@@ -41,6 +41,7 @@ builder.Services.AddScoped<MppChildFormService>();
 builder.Services.AddScoped<MppFormService>();
 builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<AppState>();
+builder.Services.AddScoped<GlobalService>();
 
 
 builder.Services.AddSweetAlert2();

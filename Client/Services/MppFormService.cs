@@ -35,15 +35,15 @@ namespace lunchBlazor.Client.Services.MppFormService
 
         public async Task GetMppFormById(SieveModel sieveModel)
         {
-           await SetAuthorizationHeader();
+            await SetAuthorizationHeader();
             var result = await _http.GetFromJsonAsync<GetDatasViewModel<MppForm>>($"api/MppForm?Filters={sieveModel.Filters}&Page={sieveModel.Page}&PageSize={sieveModel.PageSize}");
             MppForm = result.Items[0];
         }
 
-        public async Task<string> CreateMppForm()
+        public async Task<string> CreateMppFormA1()
         {
             await SetAuthorizationHeader();
-            var result = await _http.PostAsJsonAsync("api/MppForm","");
+            var result = await _http.PostAsJsonAsync("api/MppForm/A1", "");
             var responseData = await result.Content.ReadFromJsonAsync<string>();
             return responseData;
         }

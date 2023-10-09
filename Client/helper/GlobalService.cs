@@ -8,25 +8,27 @@ namespace lunchBlazor.Client.helper
     public class GlobalService
     {
         private readonly ILocalStorageService _localStorage;
+        private readonly AppState _ApplicationState;
 
-        public GlobalService(ILocalStorageService localStorage)
+        public GlobalService(ILocalStorageService localStorage, AppState ApplicationState)
         {
             _localStorage = localStorage;
+            _ApplicationState = ApplicationState;
         }
 
 
-        [CascadingParameter]
-        public AppState ApplicationState { get; set; }
         public async Task<bool> CheckLogin()
         {
 
             bool itemExists = await _localStorage.ContainKeyAsync("profile") && await _localStorage.ContainKeyAsync("accessToken"); ;
-            
+
 
             if (itemExists)
             {
-                ApplicationState.User = await _localStorage.GetItemAsync<User>("profile");
-                ApplicationState.Token = await _localStorage.GetItemAsync<string>("accessToken");
+                // var token = await _localStorage.GetItemAsync<string>("accessToken");
+                // var user = await _localStorage.GetItemAsync<User>("profile");
+                // _ApplicationState.Token = token;
+                // _ApplicationState.User = user;
                 return true;
             }
             return false;

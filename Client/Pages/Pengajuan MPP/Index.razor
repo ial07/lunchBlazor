@@ -32,7 +32,7 @@
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <a class="dropdown-item" @onclick="HandleButtonClickAddA1">MPP A1</a>
-                        <a class="dropdown-item" href="#">MPP B1</a>
+                        <a class="dropdown-item" @onclick="HandleButtonClickAddB1">MPP B1</a>
                     </div>
                 </div>
 
@@ -69,7 +69,18 @@
         ApplicationState.MppForm.NoMpp = "nompp1";
         ApplicationState.MppForm.NrpPemohon = "99999999";
         ApplicationState.MppForm.NamaPemohon = "Jhon Doe";
-        Navigation.NavigateTo("/pengajuan-mpp/input-mpp");
+        @* Navigation.NavigateTo("/pengajuan-mpp/input-mpp/A1"); *@
+        var result = await MppFormService.CreateMppFormA1();
+        Console.WriteLine(result);
+    }
+    private async Task HandleButtonClickAddB1()
+    {
+        if (ApplicationState.MppForm == null)
+        {
+            ApplicationState.MppForm = new MppForm();
+        }
+
+        Navigation.NavigateTo("/pengajuan-mpp/input-mpp/B1");
         @* var result = await MppFormService.CreateMppForm(ApplicationState.MppForm);
 Console.WriteLine(result);
 if (result.ReasonPhrase == "OK")*@

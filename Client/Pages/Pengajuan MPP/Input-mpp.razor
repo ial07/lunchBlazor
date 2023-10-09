@@ -1,4 +1,4 @@
-@page "/pengajuan-mpp/input-mpp"
+@page "/pengajuan-mpp/input-mpp/{pengajuan}"
 @inject NavigationManager Navigation
 @inject JenisMppService JenisMppService
 @inject MppChildFormService MppChildFormService
@@ -25,12 +25,12 @@
     <div class="fw-bold mb-3 font-size-16">Detail Pengajuan MPP</div>
     <div class="col-3">
         <label class="fw-bold">NRP Pemohon</label>
-        <div class="ms-1">@ApplicationState.User.</div>
+        <div class="ms-1">@User.UserID</div>
 
     </div>
     <div class="col-3">
         <label class="fw-bold">Nama Pemohon</label>
-        <div class="ms-1">@ApplicationState.MppForm.NamaPemohon</div>
+        <div class="ms-1">@User.UserName</div>
     </div>
     <div class="col-3">
         <label class="fw-bold">Divisi</label>
@@ -61,16 +61,18 @@
 
 <div class="row">
     <div class="d-flex justify-content-between">
-        <div class="fw-bold mb-3 font-size-16">Pengajuan MPP A1</div>
-        <Button Label="Tambah Posisi" btnClass="btn-info" IsBtnIcon onClick="HandleButtonClickAddA1" />
+        <div class="fw-bold mb-3 font-size-16">Pengajuan MPP @pengajuan</div>
+        <Button Label="Tambah Posisi" btnClass="btn-info" IsBtnIcon onClick="HandleButtonClickAdd" />
     </div>
 </div>
 
 @code {
+    [Parameter]
+    public string pengajuan { get; set; }
     [CascadingParameter]
     public AppState ApplicationState { get; set; }
     private MppChildForm mppChildForm = new MppChildForm();
-    private User User = new User();
+    private User User;
     private int selectedYear = DateTime.Now.Year;
     private void HandleYearInputChange()
     {
@@ -120,9 +122,9 @@
 
     protected async override Task OnInitializedAsync()
     {
-        User = await LocalStorage.GetItemAsync<User>("profile");
         await LoadDataAsync();
         await LoadDataMppChildAsync(mySieveModel);
+        User = await LocalStorage.GetItemAsync<User>("profile");
     }
 
     private async Task LoadDataAsync()
@@ -183,11 +185,11 @@ item.CreatedAt.ToString("dd/MM/yyyy"),
         StateHasChanged();
     }
 
-    private async Task HandleButtonClickAddA1(MouseEventArgs e)
+    private async Task HandleButtonClickAdd(MouseEventArgs e)
     {
         ApplicationState.MppChildForm = mppChildForm;
         StateHasChanged();
-        ApplicationState.MppChildForm.Pengajuan = "A1";
+        ApplicationState.MppChildForm.Pengajuan = pengajuan;
         Navigation.NavigateTo("/pengajuan-mpp/tambah-posisi");
     }
 }

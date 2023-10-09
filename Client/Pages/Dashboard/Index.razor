@@ -1,7 +1,7 @@
 ﻿@page "/"
 @inject GlobalService GlobalService
 @inject NavigationManager NavigationManager
-
+@inject ILocalStorageService LocalStorage
 
 <PageTitle>Index</PageTitle>
 
@@ -11,7 +11,15 @@
         <div class="row">
             <div class="col-9 px-4">
                 <div class="title-user d-flex mt-5">Selamat Datang, <div class="username">
-                        @ApplicationState.Token!</div>
+                        @if (user != null)
+                        {
+                            <div class="username">@user.UserName!</div>
+                        }
+                        else
+                        {
+                            <div class="username">Loading...</div>
+                        }
+                    </div>
                 </div>
                 <div class="subtitle-user mb-4">Selamat datang di aplikasi Planner, aplikasi perencanaan dan <br>
                     pengelolaan
@@ -32,11 +40,13 @@
 @code {
     [CascadingParameter]
     public AppState ApplicationState { get; set; }
+    private User user;
     private bool loggedIn;
     protected override async Task OnInitializedAsync()
     {
         if (GlobalService != null)
         {
+            user = await LocalStorage.GetItemAsync<User>("profile");
             loggedIn = await GlobalService.CheckLogin();
         }
 

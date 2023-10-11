@@ -6,6 +6,7 @@ using lunchBlazor.Shared.ViewModels;
 using Microsoft.AspNetCore.Components;
 using Sieve.Models;
 using Blazored.LocalStorage;
+using System.Net;
 
 namespace lunchBlazor.Client.Services.MppFormService
 {
@@ -44,8 +45,41 @@ namespace lunchBlazor.Client.Services.MppFormService
         {
             await SetAuthorizationHeader();
             var result = await _http.PostAsJsonAsync("api/MppForm/A1", "");
-            var responseData = await result.Content.ReadFromJsonAsync<string>();
-            return responseData;
+            if (result.IsSuccessStatusCode)
+            {
+                var responseData = await result.Content.ReadFromJsonAsync<string>();
+                return responseData;
+            }
+            else if (result.StatusCode == HttpStatusCode.Unauthorized) // Check for 401 Unauthorized
+            {
+                await _localStorage.RemoveItemAsync("accessToken");
+                await _localStorage.RemoveItemAsync("profile");
+                return "Unauthorized";
+            }
+            else
+            {
+                return "HTTP Error: " + result.StatusCode.ToString();
+            }
+        }
+        public async Task<string> CreateMppFormB1()
+        {
+            await SetAuthorizationHeader();
+            var result = await _http.PostAsJsonAsync("api/MppForm/B1", "");
+            if (result.IsSuccessStatusCode)
+            {
+                var responseData = await result.Content.ReadFromJsonAsync<string>();
+                return responseData;
+            }
+            else if (result.StatusCode == HttpStatusCode.Unauthorized) // Check for 401 Unauthorized
+            {
+                await _localStorage.RemoveItemAsync("accessToken");
+                await _localStorage.RemoveItemAsync("profile");
+                return "Unauthorized";
+            }
+            else
+            {
+                return "HTTP Error: " + result.StatusCode.ToString();
+            }
         }
         public async Task<HttpResponseMessage> UpdateMppForm(string id, MppForm MppForm)
         {

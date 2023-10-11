@@ -3,6 +3,7 @@
 @inject JenisMppService JenisMppService
 @inject MppChildFormService MppChildFormService
 @inject ILocalStorageService LocalStorage
+@inject SweetAlertService Swal
 
 
 <PageTitle>Pengajuan MPP</PageTitle>
@@ -63,16 +64,23 @@
     <div class="d-flex justify-content-between">
         <div class="fw-bold mb-3 font-size-16">Pengajuan MPP @pengajuan</div>
         <Button Label="Tambah Posisi" btnClass="btn-info" IsBtnIcon onClick="HandleButtonClickAdd" />
-    </div>
-</div>
+     </div>
+     <div>
+         <Table table=@table HandleClickPrevious="Previous" HandleClickNext="Next"
+             HandlePageSizeChange="HandlePageSizeChange" mySieveModel="mySieveModel"
+             totalCountData="MppChildFormService.MppChildForms.totalCountData" HandleEditBtn="HandleEditBtnChildForm"
+             modalEditNameId="mppChildForm" HandleDeleteBtn="HandleDeleteChildForm" />
+     </div>
+ </div>
 
-@code {
-        [Parameter]
-        public string pengajuan { get; set; }
-        [CascadingParameter]
-        public AppState ApplicationState { get; set; }
-private MppChildForm mppChildForm = new MppChildForm();
-    private User User;
+
+ @code {
+    [Parameter]
+    public string pengajuan { get; set; }
+    [CascadingParameter]
+    public AppState ApplicationState { get; set; }
+    private MppChildForm mppChildForm = new MppChildForm();
+    private Users User;
     private int selectedYear = DateTime.Now.Year;
     private void HandleYearInputChange()
     {
@@ -92,25 +100,55 @@ private MppChildForm mppChildForm = new MppChildForm();
         };
 
     private TableModelViewModel table = new TableModelViewModel();
-    private List<MppChildForm> A1listItems = new List<MppChildForm>();
+    private List<MppChildForm> listItems = new List<MppChildForm>();
 
     private List<JenisMpp> jenisMppList;
     private List<dynamic> listItemsJenisMpp;
-    private bool isSelectMppLoaded = false; // Flag to indicate if data is loaded
+    private bool isSelectMppLoaded = false;
 
-
-    private async Task NextA1()
+    private async void HandleEditBtnChildForm(string id)
     {
-        mySieveModel.Page++; // Increment the page
-        await LoadDataMppChildAsync(mySieveModel); // Call LoadDepartemen with the updated page
+        ApplicationState.Id = id;
+        if (ApplicationState.Id is not null)
+        {
+            mySieveModel.Filters = $"Id=={ApplicationState.Id}";
+            await MppChildFormService.GetMppChildFormById(mySieveModel);
+            mppChildForm = MppChildFormService.MppChildForm;
+        }
+        StateHasChanged();
     }
-    private async Task PreviousA1()
+
+    private async void HandleDeleteChildForm(string id)
+    {
+        var result = await Swal.FireAsync(new SweetAlertOptions
+            {
+                Title = "Are you sure to delete this item?",
+                ShowCancelButton = true,
+                ConfirmButtonText = "Yes!",
+                Icon = "warning",
+            });
+        var confirm = !string.IsNullOrEmpty(result.Value);
+
+        if (confirm)
+        {
+            await MppChildFormService.DeleteMppChildForm(id);
+            await LoadDataMppChildAsync(mySieveModel);
+            StateHasChanged();
+        }
+    }
+
+    private async Task Next()
+    {
+        mySieveModel.Page++;
+        await LoadDataMppChildAsync(mySieveModel);
+    }
+    private async Task Previous()
     {
         mySieveModel.Page--;
         await LoadDataMppChildAsync(mySieveModel);
     }
 
-    private async Task HandlePageSizeChangeA1(ChangeEventArgs e)
+    private async Task HandlePageSizeChange(ChangeEventArgs e)
     {
         if (int.TryParse(e.Value.ToString(), out int selectedPageSize))
         {
@@ -122,90 +160,86 @@ private MppChildForm mppChildForm = new MppChildForm();
 
     protected async override Task OnInitializedAsync()
     {
-        <
+        await LoadDataAsync();
+        await LoadDataMppChildAsync(mySieveModel);
+        User = await LocalStorage.GetItemAsync<Users>("profile");
+    }
 
-        <
+    private async Task LoadDataAsync()
+    {
+        await JenisMppService.LoadJenisMpp(mySieveModel);
 
-        <
+        jenisMppList = JenisMppService.JenisMpps.Items;
 
-        <
+        listItemsJenisMpp = jenisMppList
+        .Select(x => (dynamic)new { Id = x.Id, Value = x.Name })
+        .ToList();
 
-        <
+        isSelectMppLoaded = true;
 
-        <
+        StateHasChanged();
+    }
 
-        < HEAD=======User=await LocalStorage.GetItemAsync
+    private async Task LoadDataMppChildAsync(SieveModel sieveModel)
+    {
 
-        <Users>("profile");
-            >>>>>>> 3ec681093dfcd9c547a0a73ba321d33d5595f017
-            await LoadDataAsync();
-            await LoadDataMppChildAsync(mySieveModel);
-            User = await LocalStorage.GetItemAsync<User>("profile");
-                }
-
-                private async Task LoadDataAsync()
-                {
-                await JenisMppService.LoadJenisMpp(mySieveModel);
-
-                jenisMppList = JenisMppService.JenisMpps.Items;
-
-                listItemsJenisMpp = jenisMppList
-                .Select(x => (dynamic)new { Id = x.Id, Value = x.Name })
-                .ToList();
-
-                isSelectMppLoaded = true;
-
-                StateHasChanged();
-                }
-
-                private async Task LoadDataMppChildAsync(SieveModel sieveModel)
-                {
-                sieveModel.Filters = $"Id== {ApplicationState.MppForm.Id}";
-                try
-                {
+        try
+        {
+            if (ApplicationState.MppForm != null && ApplicationState.MppForm.Id != null)
+            {
+                sieveModel.Filters = $"Id=={ApplicationState.MppForm.Id}";
                 await MppChildFormService.LoadMppChildForm(sieveModel);
+                listItems = MppChildFormService.MppChildForms.Items;
+            }
+            else
+            {
+                listItems = new List<MppChildForm>();
+            }
 
-                A1listItems = MppChildFormService.MppChildForms.Items;
+            table.Data = new List<List<object>>();
 
-                table.Data = new List<List<object>>();
+            foreach (var item in listItems)
+            {
+                var rowData = new List<object>
+{
+item.Id.ToString(),
+    @* item.Departemen.Name, *@
+    @* item.Posisi.Name, *@
+item.JumlahPermintaan,
+    @* item.JenisPermintaan.Name, *@
+item.TargetPemenuhan
+};
 
-                    foreach (var item in A1listItems)
-                    {
-                    var rowData = new List<object>
-                        {
-                        item.Id.ToString(),
-                        item.NamaLokasi,
-                        item.CreatedAt.ToString("dd/MM/yyyy"),
-                        };
+                table.Data.Add(rowData);
+            }
 
-                        table.Data.Add(rowData);
-                        }
+            table.Headers = new List<string>
+{
+"Departemen",
+    @* "Nama Posisi",
+"Jumlah",
+"Jenis Pemenuhan", *@
+"Target"
+};
+        }
+        catch (Exception ex)
+        {
+            // Log the exception
+            Console.WriteLine(ex);
+            // Handle the exception as needed (e.g., show an error message to the user)
+        }
+        finally
+        {
+        }
 
-                        table.Headers = new List<string>
-                            {
-                            "ID",
-                            "INI Lokasi",
-                            "Created At",
-                            };
-                            }
-                            catch (Exception ex)
-                            {
-                            // Log the exception
-                            Console.WriteLine(ex);
-                            // Handle the exception as needed (e.g., show an error message to the user)
-                            }
-                            finally
-                            {
-                            }
+        StateHasChanged();
+    }
 
-                            StateHasChanged();
-                            }
-
-                            private async Task HandleButtonClickAdd(MouseEventArgs e)
-                            {
-                            ApplicationState.MppChildForm = mppChildForm;
-                            StateHasChanged();
-                            ApplicationState.MppChildForm.Pengajuan = pengajuan;
-                            Navigation.NavigateTo("/pengajuan-mpp/tambah-posisi");
-                            }
-                            }
+    private async Task HandleButtonClickAdd(MouseEventArgs e)
+    {
+        ApplicationState.MppChildForm = mppChildForm;
+        StateHasChanged();
+        ApplicationState.MppChildForm.Pengajuan = pengajuan;
+        Navigation.NavigateTo("/pengajuan-mpp/tambah-posisi");
+    }
+}

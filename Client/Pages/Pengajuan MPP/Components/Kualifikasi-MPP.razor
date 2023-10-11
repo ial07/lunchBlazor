@@ -70,12 +70,12 @@
     </div>
     <div class="d-flex justify-content-between mt-5">
         <Button Label="Batalkan" IsBtnIcon BtnIcon="bi-x-circle" bold btnClass="btn-outline-danger" />
-        <Button Label="Simpan Data" IsBtnIcon BtnIcon="bi-pencil-square" bold btnClass="btn-info" onClick="HandleSubmit"
-            loading="@loading" />
-    </div>
-</div>
+         <Button Label="Simpan Data" IsBtnIcon BtnIcon="bi-pencil-square" bold btnClass="btn-info" onClick="HandleSubmit"
+             loading="@loading" />
+     </div>
+ </div>
 
-@code {
+ @code {
     [CascadingParameter]
     public AppState ApplicationState { get; set; }
     private bool loading = false;
@@ -157,8 +157,8 @@
             var result = await MppChildFormService.CreateMppChildForm(ApplicationState.MppChildForm);
             if (result.ReasonPhrase == "OK")
             {
+                Navigation.NavigateTo($"/pengajuan-mpp/input-mpp/{ApplicationState.MppChildForm.Pengajuan}");
                 ApplicationState.MppChildForm = new MppChildForm();
-                Navigation.NavigateTo("/pengajuan-mpp/input-mpp");
             }
         }
         catch (Exception e)
@@ -169,7 +169,7 @@
         {
             loading = false;
         }
-        Console.WriteLine(ApplicationState.MppChildForm);
+        Console.WriteLine(ApplicationState.MppChildForm.MppFormId);
     }
 
     private SieveModel mySieveModel = new SieveModel

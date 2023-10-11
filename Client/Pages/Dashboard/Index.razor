@@ -40,13 +40,13 @@
 @code {
     [CascadingParameter]
     public AppState ApplicationState { get; set; }
-    private User user;
+    private Users user;
     private bool loggedIn;
     protected override async Task OnInitializedAsync()
     {
         if (GlobalService != null)
         {
-            user = await LocalStorage.GetItemAsync<User>("profile");
+            user = await LocalStorage.GetItemAsync<Users>("profile");
             loggedIn = await GlobalService.CheckLogin();
         }
 

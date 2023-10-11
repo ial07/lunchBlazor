@@ -54,7 +54,7 @@
                     <Input label="Username" placeholder="Masukan Username" name="UserID" OnInput="HandleInputChanged" />
                     <Input label="Password" placeholder="Masukan Password" name="Password"
                         OnInput="HandleInputChanged" type="password"/>
-                    <Button Label="Login" btnBlock onClick="Login" loading="@loading" />
+                    <Button Label="Login" bold btnBlock onClick="Login" loading="@loading" />
                    </div>
                </div>
            </form>
@@ -107,9 +107,7 @@
                 await LocalStorage.SetItemAsync("accessToken", AuthService.AuthReponse.accessToken);
                 await LocalStorage.SetItemAsync("profile", AuthService.AuthReponse.data);
 
-                // Redirect to a different page or perform other actions upon successful login
 
-                // Optional: You can navigate to a different page upon successful login.
                 NavigationManager.NavigateTo("/");
             }
             else

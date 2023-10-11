@@ -203,6 +203,7 @@
                 var rowData = new List<object>
 {
 item.Id.ToString(),
+item.Id.ToString(),
     @* item.Departemen.Name, *@
     @* item.Posisi.Name, *@
 item.JumlahPermintaan,
@@ -215,7 +216,8 @@ item.TargetPemenuhan
 
             table.Headers = new List<string>
 {
-"Departemen",
+"ID",
+"Jumlah Permintaan",
     @* "Nama Posisi",
 "Jumlah",
 "Jenis Pemenuhan", *@

@@ -1,6 +1,7 @@
 ﻿@page "/pengajuan-mpp"
 @inject NavigationManager Navigation
 @inject MppFormService MppFormService
+@inject SweetAlertService Swal
 
 <PageTitle>Pengajuan MPP</PageTitle>
 
@@ -26,13 +27,21 @@
                 </div>
                 <div class="dropdown">
                     <button class="btn btn-info
-        dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="bi bi-plus-square-fill mx-1"></i>
-                        MPP Baru
+        dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false"
+                        disabled="@isLoading">
+                        @if (isLoading)
+                        {
+                            <i class="fa-solid fa-spinner fa-spin-pulse"></i>
+                        }
+                        else
+                        {
+                            <i class="bi bi-plus-square-fill mx-1"></i>
+                            <text>MPP Baru</text>
+                        }
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <a class="dropdown-item" @onclick="HandleButtonClickAddA1">MPP A1</a>
-                        <a class="dropdown-item" href="#">MPP B1</a>
+                        <a class="dropdown-item" @onclick="HandleButtonClickAddB1">MPP B1</a>
                     </div>
                 </div>
 
@@ -59,20 +68,60 @@
 @code {
     [CascadingParameter]
     public AppState ApplicationState { get; set; }
+
+    private bool isLoading = false;
     private async Task HandleButtonClickAddA1()
     {
+        isLoading = true;
         if (ApplicationState.MppForm == null)
         {
             ApplicationState.MppForm = new MppForm();
         }
 
-        ApplicationState.MppForm.NoMpp = "nompp1";
-        ApplicationState.MppForm.NrpPemohon = "99999999";
-        ApplicationState.MppForm.NamaPemohon = "Jhon Doe";
-        Navigation.NavigateTo("/pengajuan-mpp/input-mpp");
-        @* var result = await MppFormService.CreateMppForm(ApplicationState.MppForm);
-Console.WriteLine(result);
-if (result.ReasonPhrase == "OK")*@
+        var result = await MppFormService.CreateMppFormA1();
+        if (Guid.TryParse(result, out _))
+        {
+            ApplicationState.MppForm.Id = new Guid(result);
+            isLoading = false;
+            Navigation.NavigateTo("/pengajuan-mpp/input-mpp/A1");
+        }
+        else if (result == "Unauthorized")
+        {
+            await Swal.FireAsync(new SweetAlertOptions
+                {
+                    Title = "Session Anda habis, harap login kembali!",
+                    Icon = "error",
+                });
+            Navigation.NavigateTo("/login");
+        }
+        isLoading = false;
+    }
+    private async Task HandleButtonClickAddB1()
+    {
+        isLoading = true;
+        if (ApplicationState.MppForm == null)
+        {
+            ApplicationState.MppForm = new MppForm();
+        }
+
+        Navigation.NavigateTo("/pengajuan-mpp/input-mpp/B1");
+        var result = await MppFormService.CreateMppFormA1();
+        if (Guid.TryParse(result, out _))
+        {
+            ApplicationState.MppForm.Id = new Guid(result);
+            isLoading = false;
+            Navigation.NavigateTo("/pengajuan-mpp/input-mpp/B1");
+        }
+        else if (result == "Unauthorized")
+        {
+            await Swal.FireAsync(new SweetAlertOptions
+                {
+                    Title = "Session Anda habis, harap login kembali!",
+                    Icon = "error",
+                });
+            Navigation.NavigateTo("/login");
+        }
+        isLoading = false;
     }
 
 }

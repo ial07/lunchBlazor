@@ -1,8 +1,9 @@
-@page "/pengajuan-mpp/input-mpp"
+@page "/pengajuan-mpp/input-mpp/{pengajuan}"
 @inject NavigationManager Navigation
 @inject JenisMppService JenisMppService
 @inject MppChildFormService MppChildFormService
 @inject ILocalStorageService LocalStorage
+@inject SweetAlertService Swal
 
 
 <PageTitle>Pengajuan MPP</PageTitle>
@@ -25,12 +26,12 @@
     <div class="fw-bold mb-3 font-size-16">Detail Pengajuan MPP</div>
     <div class="col-3">
         <label class="fw-bold">NRP Pemohon</label>
-        <div class="ms-1">@ApplicationState.User.</div>
+        <div class="ms-1">@User.UserID</div>
 
     </div>
     <div class="col-3">
         <label class="fw-bold">Nama Pemohon</label>
-        <div class="ms-1">@ApplicationState.MppForm.NamaPemohon</div>
+        <div class="ms-1">@User.UserName</div>
     </div>
     <div class="col-3">
         <label class="fw-bold">Divisi</label>
@@ -61,16 +62,25 @@
 
 <div class="row">
     <div class="d-flex justify-content-between">
-        <div class="fw-bold mb-3 font-size-16">Pengajuan MPP A1</div>
-        <Button Label="Tambah Posisi" btnClass="btn-info" IsBtnIcon onClick="HandleButtonClickAddA1" />
+        <div class="fw-bold mb-3 font-size-16">Pengajuan MPP @pengajuan</div>
+        <Button Label="Tambah Posisi" btnClass="btn-info" IsBtnIcon onClick="HandleButtonClickAdd" />
+     </div>
+     <div>
+         <Table table=@table HandleClickPrevious="Previous" HandleClickNext="Next"
+             HandlePageSizeChange="HandlePageSizeChange" mySieveModel="mySieveModel"
+             totalCountData="MppChildFormService.MppChildForms.totalCountData" HandleEditBtn="HandleEditBtnChildForm"
+             modalEditNameId="mppChildForm" HandleDeleteBtn="HandleDeleteChildForm" />
      </div>
  </div>
 
+
  @code {
+    [Parameter]
+    public string pengajuan { get; set; }
     [CascadingParameter]
     public AppState ApplicationState { get; set; }
     private MppChildForm mppChildForm = new MppChildForm();
-    private Users User = new Users();
+    private Users User;
     private int selectedYear = DateTime.Now.Year;
     private void HandleYearInputChange()
     {
@@ -90,25 +100,55 @@
         };
 
     private TableModelViewModel table = new TableModelViewModel();
-    private List<MppChildForm> A1listItems = new List<MppChildForm>();
+    private List<MppChildForm> listItems = new List<MppChildForm>();
 
     private List<JenisMpp> jenisMppList;
     private List<dynamic> listItemsJenisMpp;
-    private bool isSelectMppLoaded = false; // Flag to indicate if data is loaded
+    private bool isSelectMppLoaded = false;
 
-
-    private async Task NextA1()
+    private async void HandleEditBtnChildForm(string id)
     {
-        mySieveModel.Page++; // Increment the page
-        await LoadDataMppChildAsync(mySieveModel); // Call LoadDepartemen with the updated page
+        ApplicationState.Id = id;
+        if (ApplicationState.Id is not null)
+        {
+            mySieveModel.Filters = $"Id=={ApplicationState.Id}";
+            await MppChildFormService.GetMppChildFormById(mySieveModel);
+            mppChildForm = MppChildFormService.MppChildForm;
+        }
+        StateHasChanged();
     }
-    private async Task PreviousA1()
+
+    private async void HandleDeleteChildForm(string id)
+    {
+        var result = await Swal.FireAsync(new SweetAlertOptions
+            {
+                Title = "Are you sure to delete this item?",
+                ShowCancelButton = true,
+                ConfirmButtonText = "Yes!",
+                Icon = "warning",
+            });
+        var confirm = !string.IsNullOrEmpty(result.Value);
+
+        if (confirm)
+        {
+            await MppChildFormService.DeleteMppChildForm(id);
+            await LoadDataMppChildAsync(mySieveModel);
+            StateHasChanged();
+        }
+    }
+
+    private async Task Next()
+    {
+        mySieveModel.Page++;
+        await LoadDataMppChildAsync(mySieveModel);
+    }
+    private async Task Previous()
     {
         mySieveModel.Page--;
         await LoadDataMppChildAsync(mySieveModel);
     }
 
-    private async Task HandlePageSizeChangeA1(ChangeEventArgs e)
+    private async Task HandlePageSizeChange(ChangeEventArgs e)
     {
         if (int.TryParse(e.Value.ToString(), out int selectedPageSize))
         {
@@ -120,9 +160,9 @@
 
     protected async override Task OnInitializedAsync()
     {
-        User = await LocalStorage.GetItemAsync<Users>("profile");
         await LoadDataAsync();
         await LoadDataMppChildAsync(mySieveModel);
+        User = await LocalStorage.GetItemAsync<Users>("profile");
     }
 
     private async Task LoadDataAsync()
@@ -142,22 +182,33 @@
 
     private async Task LoadDataMppChildAsync(SieveModel sieveModel)
     {
-        sieveModel.Filters = $"Id== {ApplicationState.MppForm.Id}";
+
         try
         {
-            await MppChildFormService.LoadMppChildForm(sieveModel);
-
-            A1listItems = MppChildFormService.MppChildForms.Items;
+            if (ApplicationState.MppForm != null && ApplicationState.MppForm.Id != null)
+            {
+                sieveModel.Filters = $"Id=={ApplicationState.MppForm.Id}";
+                await MppChildFormService.LoadMppChildForm(sieveModel);
+                listItems = MppChildFormService.MppChildForms.Items;
+            }
+            else
+            {
+                listItems = new List<MppChildForm>();
+            }
 
             table.Data = new List<List<object>>();
 
-            foreach (var item in A1listItems)
+            foreach (var item in listItems)
             {
                 var rowData = new List<object>
 {
 item.Id.ToString(),
-item.NamaLokasi,
-item.CreatedAt.ToString("dd/MM/yyyy"),
+item.Id.ToString(),
+    @* item.Departemen.Name, *@
+    @* item.Posisi.Name, *@
+item.JumlahPermintaan,
+    @* item.JenisPermintaan.Name, *@
+item.TargetPemenuhan
 };
 
                 table.Data.Add(rowData);
@@ -166,8 +217,11 @@ item.CreatedAt.ToString("dd/MM/yyyy"),
             table.Headers = new List<string>
 {
 "ID",
-"INI Lokasi",
-"Created At",
+"Jumlah Permintaan",
+    @* "Nama Posisi",
+"Jumlah",
+"Jenis Pemenuhan", *@
+"Target"
 };
         }
         catch (Exception ex)
@@ -183,11 +237,11 @@ item.CreatedAt.ToString("dd/MM/yyyy"),
         StateHasChanged();
     }
 
-    private async Task HandleButtonClickAddA1(MouseEventArgs e)
+    private async Task HandleButtonClickAdd(MouseEventArgs e)
     {
         ApplicationState.MppChildForm = mppChildForm;
         StateHasChanged();
-        ApplicationState.MppChildForm.Pengajuan = "A1";
+        ApplicationState.MppChildForm.Pengajuan = pengajuan;
         Navigation.NavigateTo("/pengajuan-mpp/tambah-posisi");
     }
 }

@@ -69,6 +69,7 @@ namespace RepositoryPattern.Services.MppChildFormService
                     AlasanPengajuan = items.AlasanPengajuan,
                     JenisPermintaanId = items.JenisPermintaanId,
                     SumberPemenuhanId = items.SumberPemenuhanId,
+                    MppFormId = items.MppFormId,
                     DetailSumberPemenuhan = items.DetailSumberPemenuhan,
                     PosisiManPower = items.PosisiManPower,
                     DetailPekerjaan = items.DetailPekerjaan,

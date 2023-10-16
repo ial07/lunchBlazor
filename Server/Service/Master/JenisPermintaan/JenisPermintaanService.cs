@@ -82,7 +82,6 @@ namespace RepositoryPattern.Services.JenisPermintaanService
                 }
 
                 roleData.Name = items.Name;
-                roleData.IsActive = items.IsActive;
 
                 _AppDbContext.JenisPermintaan.Update(roleData);
                 await _AppDbContext.SaveChangesAsync();

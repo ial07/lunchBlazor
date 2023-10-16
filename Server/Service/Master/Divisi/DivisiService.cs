@@ -77,7 +77,6 @@ namespace RepositoryPattern.Services.DivisiService
                 }
                 var roleData = await _AppDbContext.Divisi.FindAsync(id) ?? throw new("Opss Id not found");
                 roleData.Name = items.Name;
-                roleData.IsActive = items.IsActive;
 
                 _AppDbContext.Divisi.Update(roleData);
                 await _AppDbContext.SaveChangesAsync();

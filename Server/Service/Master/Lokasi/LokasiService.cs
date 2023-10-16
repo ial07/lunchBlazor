@@ -77,7 +77,6 @@ namespace RepositoryPattern.Services.LokasiService
                 }
                 var roleData = await _AppDbContext.Lokasi.FindAsync(id) ?? throw new("Opss Id not found");
                 roleData.Name = items.Name;
-                roleData.IsActive = items.IsActive;
 
                 _AppDbContext.Lokasi.Update(roleData);
                 await _AppDbContext.SaveChangesAsync();

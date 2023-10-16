@@ -34,13 +34,30 @@ namespace RepositoryPattern.Services.DepartemenService
                 return departemenList;
             }
 
-            catch (Exception ex)
+            catch (CustomException ex)
             {
-                throw new(ex.Message);
+                throw;
             }
         }
 
-        public async Task<Departemen> Post(CreateDevisiInput items)
+        public async Task<Object> GetId(Guid Id)
+        {
+            try
+            {
+                var checkData = await _AppDbContext.Departemen.FirstOrDefaultAsync(x => x.Id == Id);
+                if (checkData == null)
+                {
+                    throw new CustomException(400, "Data tidak ditemukan");
+                }
+                return new { Data = checkData, Code = 200 }; ;
+            }
+            catch (CustomException ex)
+            {
+                throw;
+            }
+        }
+
+        public async Task<Object> Post(CreateDevisiInput items)
         {
             try
             {
@@ -61,52 +78,50 @@ namespace RepositoryPattern.Services.DepartemenService
                 await _AppDbContext.SaveChangesAsync();
                 return roleData;
             }
-            catch (Exception ex)
+            catch (CustomException ex)
             {
-                throw new(ex.Message);
+                throw;
             }
         }
 
-        public async Task<Departemen> Put(Guid id, UpdateDevisiInput items)
+        public async Task<Object> Put(Guid id, UpdateDevisiInput items)
         {
             try
             {
+                var roleData = await _AppDbContext.Departemen.FindAsync(id) ?? throw new CustomException(400, "Data tidak ditemukan"); ;
                 var checkData = await _AppDbContext.Departemen.FirstOrDefaultAsync(x => x.Name == items.Name);
                 if (checkData != null)
                 {
-                    throw new("Data sudah tersedia, silahkan input nama lain");
+                    throw new CustomException(400, "Nama tersedia, silahkan update nama lain");
                 }
-                var roleData = await _AppDbContext.Departemen.FindAsync(id) ?? throw new("Opss Id not found");
                 roleData.Name = items.Name;
-                roleData.IsActive = items.IsActive;
-
                 _AppDbContext.Departemen.Update(roleData);
                 await _AppDbContext.SaveChangesAsync();
                 return roleData;
             }
-            catch (Exception ex)
+            catch (CustomException ex)
             {
-                throw new(ex.Message);
+                throw;
             }
         }
 
-        public async Task<Departemen> Delete(Guid id)
+        public async Task<Object> Delete(Guid id)
         {
             try
             {
                 var roleData = await _AppDbContext.Departemen.FindAsync(id);
                 if (roleData == null)
                 {
-                    throw new("Opss Id not found");
+                    throw new CustomException(400, "Data tidak ditemukan");
                 }
                 roleData.IsActive = false;
                 _AppDbContext.Departemen.Update(roleData);
                 await _AppDbContext.SaveChangesAsync();
                 return roleData;
             }
-            catch (Exception ex)
+            catch (CustomException ex)
             {
-                throw new(ex.Message);
+                throw;
             }
         }
     }

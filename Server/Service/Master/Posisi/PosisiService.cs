@@ -77,7 +77,6 @@ namespace RepositoryPattern.Services.PosisiService
                 }
                 var roleData = await _AppDbContext.Posisi.FindAsync(id) ?? throw new("Opss Id not found");
                 roleData.Name = items.Name;
-                roleData.IsActive = items.IsActive;
 
                 _AppDbContext.Posisi.Update(roleData);
                 await _AppDbContext.SaveChangesAsync();

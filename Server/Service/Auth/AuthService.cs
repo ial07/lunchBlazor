@@ -1,5 +1,6 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Text;
 using lunchBlazor.Server.Data;
 using lunchBlazor.Shared.Helper;
 using lunchBlazor.Shared.Models;
@@ -17,74 +18,87 @@ namespace RepositoryPattern.Services.AuthService
         private readonly AppDbContext _AppDbContext;
         private readonly SieveProcessor _SieveProcessor;
         private readonly IConfiguration _configuration;
+        private readonly string key;
+        private readonly ILogger<AuthService> _logger;
 
-        public AuthService(AppDbContext dbContext, SieveProcessor sieveProcessor, IConfiguration configuration)
+        public AuthService(AppDbContext dbContext, SieveProcessor sieveProcessor, IConfiguration configuration, ILogger<AuthService> logger)
         {
             _AppDbContext = dbContext;
             _SieveProcessor = sieveProcessor;
             _configuration = configuration;
+            _logger = logger;
+            this.key = configuration.GetSection("AppSettings")["JwtKey"];
         }
 
         private string CreateJWT(UserForm? user)
         {
-            var secretkey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes("Mx0K7BAwAk+YXsKErRDtbTAeEpZEdHcSeKO15Snw/RaKd+Dnfb3XfX60F4AQHaG1")); // NOTE: SAME KEY AS USED IN Program.cs FILE
-            var credentials = new SigningCredentials(secretkey, SecurityAlgorithms.HmacSha256);
-
-            var claims = new[] // NOTE: could also use List<Claim> here
-			{
-                new Claim(ClaimTypes.Name, user.UserID), // NOTE: this will be the "User.Identity.Name" value
-				new Claim(JwtRegisteredClaimNames.Sub, user.UserID),
-                new Claim(JwtRegisteredClaimNames.Email, user.UserID),
-                new Claim(JwtRegisteredClaimNames.Jti, user.UserID) // NOTE: this could a unique ID assigned to the user by a database
-			};
-
-            var token = new JwtSecurityToken(issuer: "domain.com", audience: "domain.com", claims: claims, expires: DateTime.Now.AddMinutes(60), signingCredentials: credentials);
-            return new JwtSecurityTokenHandler().WriteToken(token);
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var keys = Encoding.ASCII.GetBytes(key);
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new Claim[]
+                {
+                    new Claim(ClaimTypes.Name, user.UserID), // NOTE: this will be the "User.Identity.Name" value
+                    new Claim(JwtRegisteredClaimNames.Sub, user.UserID),
+                }),
+                Expires = DateTime.UtcNow.AddHours(1),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(keys), SecurityAlgorithms.HmacSha256Signature),
+                Issuer = "manpower.com",
+                Audience = "manpower.com",
+            };
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            return tokenHandler.WriteToken(token);
         }
 
         public async Task<Object> LoginAsync([FromBody] UserForm login)
         {
             string token = CreateJWT(login);
-            // Create an instance of HttpClient to make the HTTP request
             var httpClient = new HttpClient();
-
-            // Define the login parameters to send in the request
             var parameters = new Dictionary<string, string>
             {
                 { "UserID", login.UserID },
                 { "Password", login.Password },
                 { "ApplicationID", "LunchApp" },
             };
-
-            // Create the request content with the parameters
             var content = new FormUrlEncodedContent(parameters);
-
-            // Send a POST request to the authentication service
-            var response = await httpClient.PostAsync(_configuration.GetSection("UmsUrlLogin").Value, content);
-
-            // Read the response content as a string
-            var responseContent = await response.Content.ReadAsStringAsync();
-            Users userResponse = JsonConvert.DeserializeObject<Users>(responseContent);
-            var checkData = await _AppDbContext.Users.FirstOrDefaultAsync(x => x.UserID == userResponse.UserID);
-            if (checkData == null)
+            try
             {
-                var roleData = new Users()
+                var response = await httpClient.PostAsync(_configuration.GetSection("UmsUrlLogin").Value, content);
+                var responseContent = await response.Content.ReadAsStringAsync();
+                if (responseContent.Contains("Your account is invalid !"))
                 {
-                    UserID = userResponse.UserID,
-                    UserName = userResponse.UserName,
-                    Department = userResponse.Department,
-                    Division = userResponse.Division,
-                    Location = userResponse.Location,
-                    IsAdmin = false,
-                    IsActive = true,
-                    CreatedAt = DateTime.Now
-                };
-                _AppDbContext.Users.Add(userResponse);
-                await _AppDbContext.SaveChangesAsync();
-                return new { Data = roleData, accessToken = token }; ;
+                    throw new CustomException(400, responseContent);
+                }
+                if (responseContent.Contains("Your account is invalid or please check your User ID and Password again !"))
+                {
+                    throw new CustomException(400, responseContent);
+                }
+                Users userResponse = JsonConvert.DeserializeObject<Users>(responseContent);
+                var checkData = await _AppDbContext.Users.FirstOrDefaultAsync(x => x.UserID == userResponse.UserID);
+                if (checkData == null)
+                {
+                    var roleData = new Users()
+                    {
+                        UserID = userResponse.UserID,
+                        UserName = userResponse.UserName,
+                        Department = userResponse.Department,
+                        Division = userResponse.Division,
+                        Location = userResponse.Location,
+                        IsAdmin = false,
+                        IsActive = true,
+                        CreatedAt = DateTime.Now
+                    };
+                    _AppDbContext.Users.Add(userResponse);
+                    await _AppDbContext.SaveChangesAsync();
+                    return new { Data = roleData, accessToken = token };
+                }
+                return new { code = 200, Data = userResponse, accessToken = token };
             }
-            // Return an HTTP response with the token content in JSON format
-            return new { Data = userResponse, accessToken = token };
+            catch (CustomException ex)
+            {
+                _logger.LogError(ex, "An error occurred during login.");
+                throw;
+            }
         }
 
         public async Task<PageList<Users>> Get(SieveModel model)

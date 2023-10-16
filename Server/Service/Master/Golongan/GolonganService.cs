@@ -77,7 +77,6 @@ namespace RepositoryPattern.Services.GolonganService
                 }
                 var roleData = await _AppDbContext.Golongan.FindAsync(id) ?? throw new("Opss Id not found");
                 roleData.Name = items.Name;
-                roleData.IsActive = items.IsActive;
 
                 _AppDbContext.Golongan.Update(roleData);
                 await _AppDbContext.SaveChangesAsync();

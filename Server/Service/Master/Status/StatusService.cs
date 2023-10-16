@@ -77,7 +77,6 @@ namespace RepositoryPattern.Services.StatusService
                 }
                 var roleData = await _AppDbContext.Status.FindAsync(id) ?? throw new("Opss Id not found");
                 roleData.Name = items.Name;
-                roleData.IsActive = items.IsActive;
                 roleData.Image = items.Image;
                 _AppDbContext.Status.Update(roleData);
                 await _AppDbContext.SaveChangesAsync();

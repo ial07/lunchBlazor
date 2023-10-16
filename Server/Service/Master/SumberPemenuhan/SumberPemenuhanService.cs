@@ -78,7 +78,6 @@ namespace RepositoryPattern.Services.SumberPemenuhanService
 
                 var roleData = await _AppDbContext.SumberPemenuhan.FindAsync(id) ?? throw new("Opss Id not found");
                 roleData.Name = items.Name;
-                roleData.IsActive = items.IsActive;
 
                 _AppDbContext.SumberPemenuhan.Update(roleData);
                 await _AppDbContext.SaveChangesAsync();

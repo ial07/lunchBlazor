@@ -78,7 +78,6 @@ namespace RepositoryPattern.Services.PendidikanService
 
                 var roleData = await _AppDbContext.Pendidikan.FindAsync(id) ?? throw new("Opss Id not found");
                 roleData.Name = items.Name;
-                roleData.IsActive = items.IsActive;
 
                 _AppDbContext.Pendidikan.Update(roleData);
                 await _AppDbContext.SaveChangesAsync();

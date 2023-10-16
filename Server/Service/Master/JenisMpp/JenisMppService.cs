@@ -82,7 +82,6 @@ namespace RepositoryPattern.Services.JenisMppService
                 }
 
                 roleData.Name = items.Name;
-                roleData.IsActive = items.IsActive;
 
                 _AppDbContext.JenisMpp.Update(roleData);
                 await _AppDbContext.SaveChangesAsync();

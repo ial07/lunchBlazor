@@ -5,8 +5,9 @@ using Sieve.Models;
 public interface IDepartemenService
 {
     Task<PageList<Departemen>> Get(SieveModel model);
-    Task<Departemen> Post(CreateDevisiInput model);
-    Task<Departemen> Put(Guid id, UpdateDevisiInput items);
-    Task<Departemen> Delete(Guid id);
+    Task<Object> Post(CreateDevisiInput model);
+    Task<Object> Put(Guid id, UpdateDevisiInput items);
+    Task<Object> GetId(Guid id);
+    Task<Object> Delete(Guid id);
 
 }

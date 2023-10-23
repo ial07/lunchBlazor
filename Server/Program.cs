@@ -4,6 +4,7 @@ using System.Text;
 using lunchBlazor.Server.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -24,6 +25,7 @@ using RepositoryPattern.Services.SumberPemenuhanService;
 using RepositoryPattern.Services.UserService;
 using Sieve.Services;
 
+[assembly: ApiController]
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -51,6 +53,7 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IMppFormService, MppFormService>();
 builder.Services.AddScoped<IMppChildFormService, MppChildFormService>();
+builder.Services.AddScoped<ValidationDto>();
 
 builder.Services.AddAuthentication(options =>
 {

@@ -28,7 +28,6 @@ namespace RepositoryPattern.Services.UserService
             try
             {
                 var User = _AppDbContext.Users.AsQueryable();
-                Console.WriteLine(User);
                 var result = _SieveProcessor.Apply(model, User);
                 var UserList = await PageList<Users>.ShowDataAsync(
                     User,

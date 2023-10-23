@@ -1,5 +1,5 @@
 
-namespace lunchBlazor.Shared.ViewModels
+namespace man_power_planning.Shared.ViewModels
 {
     public class GetDatasViewModel<T>
     {

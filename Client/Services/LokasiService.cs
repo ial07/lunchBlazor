@@ -1,10 +1,10 @@
 using System.Net.Http.Json;
-using lunchBlazor.Shared.Models;
-using lunchBlazor.Shared.ViewModels;
+using man_power_planning.Shared.Models;
+using man_power_planning.Shared.ViewModels;
 using Microsoft.AspNetCore.Components;
 using Sieve.Models;
 
-namespace lunchBlazor.Client.Services.LokasiService
+namespace man_power_planning.Client.Services.LokasiService
 {
     public class LokasiService
     {

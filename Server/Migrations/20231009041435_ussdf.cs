@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace lunchBlazor.Server.Migrations
+namespace man_power_planning.Server.Migrations
 {
     public partial class ussdf : Migration
     {

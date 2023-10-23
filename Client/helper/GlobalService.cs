@@ -1,9 +1,9 @@
-using lunchBlazor.Client;
+using man_power_planning.Client;
 using Microsoft.AspNetCore.Components;
 using Blazored.LocalStorage;
-using lunchBlazor.Shared.Models;
+using man_power_planning.Shared.Models;
 
-namespace lunchBlazor.Client.helper
+namespace man_power_planning.Client.helper
 {
     public class GlobalService
     {

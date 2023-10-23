@@ -1,4 +1,4 @@
-using lunchBlazor.Shared.Models;
+using man_power_planning.Shared.Models;
 
 public class AuthViewModel
 {

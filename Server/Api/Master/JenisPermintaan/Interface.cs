@@ -1,5 +1,5 @@
-using lunchBlazor.Shared.Helper;
-using lunchBlazor.Shared.Models;
+using man_power_planning.Shared.Helper;
+using man_power_planning.Shared.Models;
 using Sieve.Models;
 
 public interface IJenisPermintaanService

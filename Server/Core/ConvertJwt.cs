@@ -1,6 +1,6 @@
 using System.IdentityModel.Tokens.Jwt;
-using lunchBlazor.Server.Data;
-using lunchBlazor.Shared.Models;
+using man_power_planning.Server.Data;
+using man_power_planning.Shared.Models;
 using Microsoft.EntityFrameworkCore;
 
 public class ConvertJWT

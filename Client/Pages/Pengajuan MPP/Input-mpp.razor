@@ -26,20 +26,20 @@
     <div class="fw-bold mb-3 font-size-16">Detail Pengajuan MPP</div>
     <div class="col-3">
         <label class="fw-bold">NRP Pemohon</label>
-        <div class="ms-1">@User.UserID</div>
+        <div class="ms-1">@User?.UserID</div>
 
     </div>
     <div class="col-3">
         <label class="fw-bold">Nama Pemohon</label>
-        <div class="ms-1">@User.UserName</div>
+        <div class="ms-1">@User?.UserName</div>
     </div>
     <div class="col-3">
         <label class="fw-bold">Divisi</label>
-        <div class="ms-1">@User.Division</div>
+        <div class="ms-1">@User?.Division</div>
     </div>
     <div class="col-3">
         <label class="fw-bold">Lokasi</label>
-        <div class="ms-1">@User.Location</div>
+        <div class="ms-1">@User?.Location</div>
     </div>
     <div class="col-3 mt-4">
         @if (isSelectMppLoaded)
@@ -64,17 +64,17 @@
     <div class="d-flex justify-content-between">
         <div class="fw-bold mb-3 font-size-16">Pengajuan MPP @pengajuan</div>
         <Button Label="Tambah Posisi" btnClass="btn-info" IsBtnIcon onClick="HandleButtonClickAdd" />
-     </div>
-     <div>
-         <Table table=@table HandleClickPrevious="Previous" HandleClickNext="Next"
-             HandlePageSizeChange="HandlePageSizeChange" mySieveModel="mySieveModel"
-             totalCountData="MppChildFormService.MppChildForms.totalCountData" HandleEditBtn="HandleEditBtnChildForm"
-             modalEditNameId="mppChildForm" HandleDeleteBtn="HandleDeleteChildForm" />
-     </div>
- </div>
+    </div>
+    <div>
+        <Table table=@table HandleClickPrevious="Previous" HandleClickNext="Next"
+            HandlePageSizeChange="HandlePageSizeChange" mySieveModel="mySieveModel"
+            totalCountData="MppChildFormService.MppChildForms.totalCountData" HandleEditBtn="HandleEditBtnChildForm"
+            modalEditNameId="mppChildForm" HandleDeleteBtn="HandleDeleteChildForm" />
+    </div>
+</div>
 
 
- @code {
+@code {
     [Parameter]
     public string pengajuan { get; set; }
     [CascadingParameter]

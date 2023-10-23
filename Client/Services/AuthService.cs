@@ -1,9 +1,9 @@
 using Blazored.LocalStorage;
-using lunchBlazor.Shared.Models;
+using man_power_planning.Shared.Models;
 using Microsoft.AspNetCore.Components;
 using System.Net.Http.Json;
 
-namespace lunchBlazor.Client.Services.AuthService
+namespace man_power_planning.Client.Services.AuthService
 {
     public class AuthService
     {

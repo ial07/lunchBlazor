@@ -2,7 +2,7 @@
 
 <div class="vertical-menu @(IsMinimize ? "minimized" : "")">
 
-    <div class="h-100">
+    <div class="h-100" style="overflow-y: auto;">
 
         <!--- Sidemenu -->
         <div id="sidebar-menu">
@@ -12,53 +12,117 @@
                     <NavLink href="/" Match="NavLinkMatch.All">
                         <i class="bi bi-grid-1x2-fill"></i>
                         <span data-key="t-dashboard"
-                            class="@(IsMinimize ? "hidden" : "visible") @(IsMinimize ? "" : "active")">Dashboard</span>
+                            class="@(IsMinimize ? "hidden" : "visible active")">Dashboard</span>
                     </NavLink>
                 </li>
                 <li>
                     <NavLink href="/pengajuan-mpp">
                         <i class="bi bi-layers-fill"></i>
-                        <span data-key="t-dashboard"
-                            class="@(IsMinimize ? "hidden" : "visible") @(IsMinimize ? "" : "active")">Pengajuan
+                        <span data-key="t-dashboard" class="@(IsMinimize ? "hidden" : "visible active")">Pengajuan
                             MPP</span>
                     </NavLink>
                 </li>
                 <li>
                     <NavLink href="/pemenuhan-mpp">
                         <i class="bi bi-geo-alt-fill"></i>
-                        <span data-key="t-dashboard"
-                            class="@(IsMinimize ? "hidden" : "visible") @(IsMinimize ? "" : "active")">Pemenuhan
+                        <span data-key="t-dashboard" class="@(IsMinimize ? "hidden" : "visible active")">Pemenuhan
                             MPP</span>
                     </NavLink>
                 </li>
                 <li>
                     <NavLink href="/menu-report">
                         <i class="bi bi-bar-chart-fill"></i>
-                        <span data-key="t-dashboard"
-                            class="@(IsMinimize ? "hidden" : "visible") @(IsMinimize ? "" : "active")">Menu
+                        <span data-key="t-dashboard" class="@(IsMinimize ? "hidden" : "visible active")">Menu
                             Report</span>
                     </NavLink>
                 </li>
+                @* <li>
+                <NavLink href="/master-data">
+                <i class="bi bi-database-fill"></i>
+                <span data-key="t-dashboard" class="@(IsMinimize ? "hidden" : "visible active")">Master
+                Data</span>
+                </NavLink>
+                </li> *@
                 <li>
-                    <NavLink href="/master-data">
+                    <NavLink href="#" class="@(IsMinimize ? "" : "has-arrow")" @onclick="ToggleSubMenu">
                         <i class="bi bi-database-fill"></i>
-                        <span data-key="t-dashboard"
-                            class="@(IsMinimize ? "hidden" : "visible") @(IsMinimize ? "" : "active")">Master
+                        <span data-key="t-dashboard" class="@(IsMinimize ? "hidden" : "visible active")">Master
                             Data</span>
                     </NavLink>
+                    <ul class="sub-menu mm-collapse @(isSubMenuVisible ? "mm-show" : "")" aria-expanded="false">
+
+                        <li>
+                            <NavLink href="/master-data/departemen">
+                                Departemen
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink href="/master-data/divisi">
+                                Divisi
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink href="/master-data/golongan">
+                                Golongan
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink href="/master-data/jenis-mpp">
+                                Jenis MPP
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink href="/master-data/jenis-permintaan">
+                                Jenis
+                                Permintaan
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink href="/master-data/jurusan-pendidikan">
+                                Jurusan
+                                Pendidikan
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink href="/master-data/lokasi">
+                                Lokasi
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink href="/master-data/pendidikan">
+                                Pendidikan
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink href="/master-data/posisi">
+                                Posisi
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink href="/master-data/status">
+                                Status
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink href="/master-data/sumber-pemenuhan">
+                                Sumber
+                                Pemenuhan
+                            </NavLink>
+                        </li>
+
+                    </ul>
                 </li>
                 <li>
                     <NavLink href="/akun">
                         <i class="bi bi-person-circle"></i>
-                        <span data-key="t-dashboard"
-                            class="@(IsMinimize ? "hidden" : "visible") @(IsMinimize ? "" : "active")">Akun</span>
+                        <span data-key="t-dashboard" class="@(IsMinimize ? "hidden" : "visible active")">Akun</span>
                     </NavLink>
                 </li>
                 <li>
                     <NavLink href="/components">
                         <i class="bi bi-sliders"></i>
                         <span data-key="t-dashboard"
-                            class="@(IsMinimize ? "hidden" : "visible") @(IsMinimize ? "" : "active")">Components</span>
+                            class="@(IsMinimize ? "hidden" : "visible active")">Components</span>
                     </NavLink>
                 </li>
             </ul>
@@ -70,6 +134,12 @@
 @code {
     [Parameter]
     public bool IsMinimize { get; set; }
+    private bool isSubMenuVisible = false;
+
+    private void ToggleSubMenu()
+    {
+        isSubMenuVisible = !isSubMenuVisible;
+    }
 }
 
 <style scoped>
@@ -126,5 +196,9 @@
         width: 10px;
         height: 10px;
         background-color: blue;
+    }
+
+    .sub-menu {
+        transition: height 0.3s ease-in-out;
     }
 </style>

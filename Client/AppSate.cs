@@ -1,6 +1,6 @@
-using lunchBlazor.Shared.Models;
+using man_power_planning.Shared.Models;
 
-namespace lunchBlazor.Client
+namespace man_power_planning.Client
 {
     public class AppState
     {

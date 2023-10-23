@@ -1,5 +1,5 @@
 using System.IdentityModel.Tokens.Jwt;
-using lunchBlazor.Shared.Models;
+using man_power_planning.Shared.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Sieve.Models;

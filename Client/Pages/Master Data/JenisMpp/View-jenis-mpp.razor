@@ -1,0 +1,178 @@
+@inject JenisMppService JenisMppService
+@inject IModalService modal
+@inject SweetAlertService Swal
+@inject IJSRuntime JSRuntime
+
+@page "/master-data/jenis-mpp"
+
+<PageTitle>Jenis MPP</PageTitle>
+
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center
+                    justify-content-between">
+            <h4 class="mb-sm-0 font-size-24">Jenis MPP</h4>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12 mt-4">
+        <div class="d-flex justify-content-end">
+            <Button type="button" Label="Tambah" bold data-bs-toggle="modal" data-bs-target="#formJenisMpp"
+                onClick="HandleAddJenisMpp" />
+        </div>
+        <div>
+            <Table table=@table HandleClickPrevious="Previous" HandleClickNext="Next"
+                HandlePageSizeChange="HandlePageSizeChange" mySieveModel="mySieveModel"
+                totalCountData="JenisMppService.JenisMpps.totalCountData" HandleEditBtn="HandleEditBtnJenisMpp"
+                IsModalEdit modalEditNameId="formJenisMpp" HandleDeleteBtn="HandleDeleteJenisMpp" />
+        </div>
+    </div>
+</div>
+
+<Form_jenis_mpp Id="@ApplicationState.Id" formData="@formData" OnFormSubmit="HandleFormSubmission" />
+
+@code {
+
+    private JenisMpp formData = new JenisMpp();
+    private async void HandleEditBtnJenisMpp(string id)
+    {
+        ApplicationState.Id = id;
+        if (ApplicationState.Id is not null)
+        {
+            mySieveModel.Filters = $"Id=={ApplicationState.Id}";
+            await JenisMppService.GetJenisMppById(mySieveModel);
+            formData = JenisMppService.JenisMpp;
+        }
+        StateHasChanged();
+    }
+
+    private void HandleAddJenisMpp()
+    {
+        ApplicationState.Id = null;
+        formData = new JenisMpp();
+        StateHasChanged();
+    }
+
+    [CascadingParameter]
+    public AppState ApplicationState { get; set; }
+    private SieveModel mySieveModel = new SieveModel
+        {
+            Page = 1,
+            PageSize = 5,
+        };
+    private TableModelViewModel table = new TableModelViewModel();
+    private List<JenisMpp> departemenItems = new List<JenisMpp>();
+
+
+    private async Task HandleFormSubmission(JenisMpp formData)
+    {
+        mySieveModel.Filters = "";
+        if (ApplicationState.Id is null)
+        {
+            var result = await JenisMppService.CreateJenisMpp(formData);
+            if (result.ReasonPhrase == "OK")
+            {
+                JSRuntime.InvokeVoidAsync("clickElementById", "closeButtonJenisMpp");
+                //await LoadJenisMpp(mySieveModel);
+            }
+        }
+        else
+        {
+            var result = await JenisMppService.UpdateJenisMpp(ApplicationState.Id, formData);
+            if (result.ReasonPhrase == "OK")
+            {
+                JSRuntime.InvokeVoidAsync("clickElementById", "closeButtonJenisMpp");
+            }
+        }
+        await LoadJenisMpp(mySieveModel);
+        StateHasChanged();
+    }
+
+    private async void HandleDeleteJenisMpp(string id)
+    {
+        var result = await Swal.FireAsync(new SweetAlertOptions
+            {
+                Title = "Are you sure to delete this item?",
+                ShowCancelButton = true,
+                ConfirmButtonText = "Yes!",
+                Icon = "warning",
+            });
+        var confirm = !string.IsNullOrEmpty(result.Value);
+
+        if (confirm)
+        {
+            await JenisMppService.DeleteJenisMpp(id);
+            await LoadJenisMpp(mySieveModel);
+            StateHasChanged();
+        }
+    }
+
+    private async Task Next()
+    {
+        mySieveModel.Page++; // Increment the page
+        await LoadJenisMpp(mySieveModel); // Call LoadJenisMpp with the updated page
+    }
+    private async Task Previous()
+    {
+        mySieveModel.Page--;
+        await LoadJenisMpp(mySieveModel);
+    }
+
+    private async Task HandlePageSizeChange(ChangeEventArgs e)
+    {
+        if (int.TryParse(e.Value.ToString(), out int selectedPageSize))
+        {
+            mySieveModel.Page = 1;
+            mySieveModel.PageSize = selectedPageSize;
+            await LoadJenisMpp(mySieveModel);
+        }
+    }
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadJenisMpp(mySieveModel);
+    }
+
+
+    private async Task LoadJenisMpp(SieveModel sieveModel)
+    {
+        try
+        {
+            await JenisMppService.LoadJenisMpp(sieveModel);
+
+            departemenItems = JenisMppService.JenisMpps.Items;
+
+            table.Data = new List<List<object>>();
+
+            foreach (var item in departemenItems)
+            {
+                var rowData = new List<object>
+{
+item.Id.ToString(),
+item.Id.ToString(),
+item.Name,
+};
+
+                table.Data.Add(rowData);
+            }
+
+            table.Headers = new List<string>
+{
+"ID",
+"Name"
+};
+        }
+        catch (Exception ex)
+        {
+            // Log the exception
+            Console.WriteLine(ex);
+            // Handle the exception as needed (e.g., show an error message to the user)
+        }
+        finally
+        {
+        }
+    }
+
+}

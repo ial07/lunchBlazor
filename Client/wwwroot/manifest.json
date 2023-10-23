@@ -1,6 +1,6 @@
 {
-  "name": "lunchBlazor",
-  "short_name": "lunchBlazor",
+  "name": "man_power_planning",
+  "short_name": "man_power_planning",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#ffffff",

@@ -8,7 +8,7 @@
     }
   },
   "profiles": {
-    "lunchBlazor.Server": {
+    "man_power_planning.Server": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,

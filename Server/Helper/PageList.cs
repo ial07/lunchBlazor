@@ -3,7 +3,7 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 
-namespace lunchBlazor.Shared.Helper
+namespace man_power_planning.Shared.Helper
 {
     public class PageList<T>
     {

@@ -1,4 +1,4 @@
-namespace lunchBlazor.Shared
+namespace man_power_planning.Shared
 {
     public class WeatherForecast
     {

@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Sieve.Attributes;
 
-namespace lunchBlazor.Shared.Models
+namespace man_power_planning.Shared.Models
 {
     public class Status : BaseModel
     {

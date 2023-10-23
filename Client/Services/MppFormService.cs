@@ -1,14 +1,14 @@
 using System.Net.Http.Headers;
 using System.Net.Http;
 using System.Net.Http.Json;
-using lunchBlazor.Shared.Models;
-using lunchBlazor.Shared.ViewModels;
+using man_power_planning.Shared.Models;
+using man_power_planning.Shared.ViewModels;
 using Microsoft.AspNetCore.Components;
 using Sieve.Models;
 using Blazored.LocalStorage;
 using System.Net;
 
-namespace lunchBlazor.Client.Services.MppFormService
+namespace man_power_planning.Client.Services.MppFormService
 {
     public class MppFormService
     {

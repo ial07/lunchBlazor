@@ -1,0 +1,178 @@
+@inject PosisiService PosisiService
+@inject IModalService modal
+@inject SweetAlertService Swal
+@inject IJSRuntime JSRuntime
+
+@page "/master-data/posisi"
+
+<PageTitle>Posisi</PageTitle>
+
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center
+                    justify-content-between">
+            <h4 class="mb-sm-0 font-size-24">Posisi</h4>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12 mt-4">
+        <div class="d-flex justify-content-end">
+            <Button type="button" Label="Tambah" bold data-bs-toggle="modal" data-bs-target="#formPosisi"
+                onClick="HandleAddPosisi" />
+        </div>
+        <div>
+            <Table table=@table HandleClickPrevious=" Previous" HandleClickNext="Next"
+                HandlePageSizeChange="HandlePageSizeChange" mySieveModel="mySieveModel"
+                totalCountData="PosisiService.Posisies.totalCountData" HandleEditBtn="HandleEditBtnPosisi" IsModalEdit
+                modalEditNameId="formPosisi" HandleDeleteBtn="HandleDeletePosisi" />
+        </div>
+    </div>
+</div>
+
+<Form_posisi Id="@ApplicationState.Id" formData="@formData" OnFormSubmit="HandleFormSubmission" />
+
+@code {
+
+    private Posisi formData = new Posisi();
+    private async void HandleEditBtnPosisi(string id)
+    {
+        ApplicationState.Id = id;
+        if (ApplicationState.Id is not null)
+        {
+            mySieveModel.Filters = $"Id=={ApplicationState.Id}";
+            await PosisiService.GetPosisiById(mySieveModel);
+            formData = PosisiService.Posisi;
+        }
+        StateHasChanged();
+    }
+
+    private void HandleAddPosisi()
+    {
+        ApplicationState.Id = null;
+        formData = new Posisi();
+        StateHasChanged();
+    }
+
+    [CascadingParameter]
+    public AppState ApplicationState { get; set; }
+    private SieveModel mySieveModel = new SieveModel
+        {
+            Page = 1,
+            PageSize = 5,
+        };
+    private TableModelViewModel table = new TableModelViewModel();
+    private List<Posisi> departemenItems = new List<Posisi>();
+
+
+    private async Task HandleFormSubmission(Posisi formData)
+    {
+        mySieveModel.Filters = "";
+        if (ApplicationState.Id is null)
+        {
+            var result = await PosisiService.CreatePosisi(formData);
+            if (result.ReasonPhrase == "OK")
+            {
+                JSRuntime.InvokeVoidAsync("clickElementById", "closeButtonPosisi");
+                //await LoadPosisi(mySieveModel);
+            }
+        }
+        else
+        {
+            var result = await PosisiService.UpdatePosisi(ApplicationState.Id, formData);
+            if (result.ReasonPhrase == "OK")
+            {
+                JSRuntime.InvokeVoidAsync("clickElementById", "closeButtonPosisi");
+            }
+        }
+        await LoadPosisi(mySieveModel);
+        StateHasChanged();
+    }
+
+    private async void HandleDeletePosisi(string id)
+    {
+        var result = await Swal.FireAsync(new SweetAlertOptions
+            {
+                Title = "Are you sure to delete this item?",
+                ShowCancelButton = true,
+                ConfirmButtonText = "Yes!",
+                Icon = "warning",
+            });
+        var confirm = !string.IsNullOrEmpty(result.Value);
+
+        if (confirm)
+        {
+            await PosisiService.DeletePosisi(id);
+            await LoadPosisi(mySieveModel);
+            StateHasChanged();
+        }
+    }
+
+    private async Task Next()
+    {
+        mySieveModel.Page++; // Increment the page
+        await LoadPosisi(mySieveModel); // Call LoadPosisi with the updated page
+    }
+    private async Task Previous()
+    {
+        mySieveModel.Page--;
+        await LoadPosisi(mySieveModel);
+    }
+
+    private async Task HandlePageSizeChange(ChangeEventArgs e)
+    {
+        if (int.TryParse(e.Value.ToString(), out int selectedPageSize))
+        {
+            mySieveModel.Page = 1;
+            mySieveModel.PageSize = selectedPageSize;
+            await LoadPosisi(mySieveModel);
+        }
+    }
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadPosisi(mySieveModel);
+    }
+
+
+    private async Task LoadPosisi(SieveModel sieveModel)
+    {
+        try
+        {
+            await PosisiService.LoadPosisi(sieveModel);
+
+            departemenItems = PosisiService.Posisies.Items;
+
+            table.Data = new List<List<object>>();
+
+            foreach (var item in departemenItems)
+            {
+                var rowData = new List<object>
+{
+item.Id.ToString(),
+item.Id.ToString(),
+item.Name,
+};
+
+                table.Data.Add(rowData);
+            }
+
+            table.Headers = new List<string>
+{
+"ID",
+"Name"
+};
+        }
+        catch (Exception ex)
+        {
+            // Log the exception
+            Console.WriteLine(ex);
+            // Handle the exception as needed (e.g., show an error message to the user)
+        }
+        finally
+        {
+        }
+    }
+
+}

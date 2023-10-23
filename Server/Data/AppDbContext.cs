@@ -1,8 +1,8 @@
 
-using lunchBlazor.Shared.Models;
+using man_power_planning.Shared.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace lunchBlazor.Server.Data
+namespace man_power_planning.Server.Data
 {
     public class AppDbContext : DbContext
     {

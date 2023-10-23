@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-namespace lunchBlazor.Shared.Models
+namespace man_power_planning.Shared.Models
 {
     public class Users : BaseModel
     {

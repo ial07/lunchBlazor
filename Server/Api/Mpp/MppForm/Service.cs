@@ -1,6 +1,6 @@
-using lunchBlazor.Server.Data;
-using lunchBlazor.Shared.Helper;
-using lunchBlazor.Shared.Models;
+using man_power_planning.Server.Data;
+using man_power_planning.Shared.Helper;
+using man_power_planning.Shared.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Sieve.Models;

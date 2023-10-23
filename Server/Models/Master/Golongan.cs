@@ -1,6 +1,6 @@
 using Sieve.Attributes;
 
-namespace lunchBlazor.Shared.Models
+namespace man_power_planning.Shared.Models
 {
     public class Golongan : BaseModel
     {

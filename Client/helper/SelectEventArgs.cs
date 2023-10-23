@@ -1,4 +1,4 @@
-namespace lunchBlazor.Client.helper
+namespace man_power_planning.Client.helper
 {
     public class SelectChangedEventArgs
     {

@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using lunchBlazor.Server.Data;
+using man_power_planning.Server.Data;
 
 #nullable disable
 
-namespace lunchBlazor.Server.Migrations
+namespace man_power_planning.Server.Migrations
 {
     [DbContext(typeof(AppDbContext))]
     [Migration("20231009041435_ussdf")]
@@ -24,7 +24,7 @@ namespace lunchBlazor.Server.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("lunchBlazor.Shared.Models.Departemen", b =>
+            modelBuilder.Entity("man_power_planning.Shared.Models.Departemen", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -47,7 +47,7 @@ namespace lunchBlazor.Server.Migrations
                     b.ToTable("Departemen");
                 });
 
-            modelBuilder.Entity("lunchBlazor.Shared.Models.Divisi", b =>
+            modelBuilder.Entity("man_power_planning.Shared.Models.Divisi", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -70,7 +70,7 @@ namespace lunchBlazor.Server.Migrations
                     b.ToTable("Divisi");
                 });
 
-            modelBuilder.Entity("lunchBlazor.Shared.Models.Golongan", b =>
+            modelBuilder.Entity("man_power_planning.Shared.Models.Golongan", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -93,7 +93,7 @@ namespace lunchBlazor.Server.Migrations
                     b.ToTable("Golongan");
                 });
 
-            modelBuilder.Entity("lunchBlazor.Shared.Models.HistoryMpp", b =>
+            modelBuilder.Entity("man_power_planning.Shared.Models.HistoryMpp", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -122,7 +122,7 @@ namespace lunchBlazor.Server.Migrations
                     b.ToTable("HistoryMpp");
                 });
 
-            modelBuilder.Entity("lunchBlazor.Shared.Models.JenisMpp", b =>
+            modelBuilder.Entity("man_power_planning.Shared.Models.JenisMpp", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -145,7 +145,7 @@ namespace lunchBlazor.Server.Migrations
                     b.ToTable("JenisMpp");
                 });
 
-            modelBuilder.Entity("lunchBlazor.Shared.Models.JenisPermintaan", b =>
+            modelBuilder.Entity("man_power_planning.Shared.Models.JenisPermintaan", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -168,7 +168,7 @@ namespace lunchBlazor.Server.Migrations
                     b.ToTable("JenisPermintaan");
                 });
 
-            modelBuilder.Entity("lunchBlazor.Shared.Models.JurusanPendidikan", b =>
+            modelBuilder.Entity("man_power_planning.Shared.Models.JurusanPendidikan", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -191,7 +191,7 @@ namespace lunchBlazor.Server.Migrations
                     b.ToTable("JurusanPendidikan");
                 });
 
-            modelBuilder.Entity("lunchBlazor.Shared.Models.Lokasi", b =>
+            modelBuilder.Entity("man_power_planning.Shared.Models.Lokasi", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -214,7 +214,7 @@ namespace lunchBlazor.Server.Migrations
                     b.ToTable("Lokasi");
                 });
 
-            modelBuilder.Entity("lunchBlazor.Shared.Models.MppChildForm", b =>
+            modelBuilder.Entity("man_power_planning.Shared.Models.MppChildForm", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -337,7 +337,7 @@ namespace lunchBlazor.Server.Migrations
                     b.ToTable("MppChildForm");
                 });
 
-            modelBuilder.Entity("lunchBlazor.Shared.Models.MppForm", b =>
+            modelBuilder.Entity("man_power_planning.Shared.Models.MppForm", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -430,7 +430,7 @@ namespace lunchBlazor.Server.Migrations
                     b.ToTable("MppForm");
                 });
 
-            modelBuilder.Entity("lunchBlazor.Shared.Models.Pendidikan", b =>
+            modelBuilder.Entity("man_power_planning.Shared.Models.Pendidikan", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -453,7 +453,7 @@ namespace lunchBlazor.Server.Migrations
                     b.ToTable("Pendidikan");
                 });
 
-            modelBuilder.Entity("lunchBlazor.Shared.Models.Posisi", b =>
+            modelBuilder.Entity("man_power_planning.Shared.Models.Posisi", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -476,7 +476,7 @@ namespace lunchBlazor.Server.Migrations
                     b.ToTable("Posisi");
                 });
 
-            modelBuilder.Entity("lunchBlazor.Shared.Models.Status", b =>
+            modelBuilder.Entity("man_power_planning.Shared.Models.Status", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -504,7 +504,7 @@ namespace lunchBlazor.Server.Migrations
                     b.ToTable("Status");
                 });
 
-            modelBuilder.Entity("lunchBlazor.Shared.Models.SumberPemenuhan", b =>
+            modelBuilder.Entity("man_power_planning.Shared.Models.SumberPemenuhan", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -527,7 +527,7 @@ namespace lunchBlazor.Server.Migrations
                     b.ToTable("SumberPemenuhan");
                 });
 
-            modelBuilder.Entity("lunchBlazor.Shared.Models.User", b =>
+            modelBuilder.Entity("man_power_planning.Shared.Models.User", b =>
                 {
                     b.Property<string>("UserID")
                         .ValueGeneratedOnAdd()
@@ -562,37 +562,37 @@ namespace lunchBlazor.Server.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("lunchBlazor.Shared.Models.MppChildForm", b =>
+            modelBuilder.Entity("man_power_planning.Shared.Models.MppChildForm", b =>
                 {
-                    b.HasOne("lunchBlazor.Shared.Models.Departemen", "Departemen")
+                    b.HasOne("man_power_planning.Shared.Models.Departemen", "Departemen")
                         .WithMany()
                         .HasForeignKey("DepartemenId");
 
-                    b.HasOne("lunchBlazor.Shared.Models.Divisi", "DevisiTujuan")
+                    b.HasOne("man_power_planning.Shared.Models.Divisi", "DevisiTujuan")
                         .WithMany()
                         .HasForeignKey("DevisiTujuanId");
 
-                    b.HasOne("lunchBlazor.Shared.Models.Golongan", "Golongan")
+                    b.HasOne("man_power_planning.Shared.Models.Golongan", "Golongan")
                         .WithMany()
                         .HasForeignKey("GolonganId");
 
-                    b.HasOne("lunchBlazor.Shared.Models.JenisPermintaan", "JenisPermintaan")
+                    b.HasOne("man_power_planning.Shared.Models.JenisPermintaan", "JenisPermintaan")
                         .WithMany()
                         .HasForeignKey("JenisPermintaanId");
 
-                    b.HasOne("lunchBlazor.Shared.Models.Lokasi", "Lokasi")
+                    b.HasOne("man_power_planning.Shared.Models.Lokasi", "Lokasi")
                         .WithMany()
                         .HasForeignKey("LokasiId");
 
-                    b.HasOne("lunchBlazor.Shared.Models.MppForm", "MppForm")
+                    b.HasOne("man_power_planning.Shared.Models.MppForm", "MppForm")
                         .WithMany("MppChildForm")
                         .HasForeignKey("MppFormId");
 
-                    b.HasOne("lunchBlazor.Shared.Models.Posisi", "Posisi")
+                    b.HasOne("man_power_planning.Shared.Models.Posisi", "Posisi")
                         .WithMany()
                         .HasForeignKey("PosisiId");
 
-                    b.HasOne("lunchBlazor.Shared.Models.SumberPemenuhan", "SumberPemenuhan")
+                    b.HasOne("man_power_planning.Shared.Models.SumberPemenuhan", "SumberPemenuhan")
                         .WithMany()
                         .HasForeignKey("SumberPemenuhanId");
 
@@ -613,25 +613,25 @@ namespace lunchBlazor.Server.Migrations
                     b.Navigation("SumberPemenuhan");
                 });
 
-            modelBuilder.Entity("lunchBlazor.Shared.Models.MppForm", b =>
+            modelBuilder.Entity("man_power_planning.Shared.Models.MppForm", b =>
                 {
-                    b.HasOne("lunchBlazor.Shared.Models.Divisi", "Divisi")
+                    b.HasOne("man_power_planning.Shared.Models.Divisi", "Divisi")
                         .WithMany()
                         .HasForeignKey("DivisiId");
 
-                    b.HasOne("lunchBlazor.Shared.Models.JenisMpp", "JenisMpp")
+                    b.HasOne("man_power_planning.Shared.Models.JenisMpp", "JenisMpp")
                         .WithMany()
                         .HasForeignKey("JenisMppId");
 
-                    b.HasOne("lunchBlazor.Shared.Models.Lokasi", "KategoriLokasi")
+                    b.HasOne("man_power_planning.Shared.Models.Lokasi", "KategoriLokasi")
                         .WithMany()
                         .HasForeignKey("KategoriLokasiId");
 
-                    b.HasOne("lunchBlazor.Shared.Models.Status", "Status")
+                    b.HasOne("man_power_planning.Shared.Models.Status", "Status")
                         .WithMany()
                         .HasForeignKey("StatusId");
 
-                    b.HasOne("lunchBlazor.Shared.Models.User", "User")
+                    b.HasOne("man_power_planning.Shared.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
 
@@ -646,7 +646,7 @@ namespace lunchBlazor.Server.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("lunchBlazor.Shared.Models.MppForm", b =>
+            modelBuilder.Entity("man_power_planning.Shared.Models.MppForm", b =>
                 {
                     b.Navigation("MppChildForm");
                 });

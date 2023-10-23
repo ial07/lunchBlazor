@@ -1,9 +1,8 @@
 using System.Net;
 using System.Security.Claims;
 using System.Text;
-using lunchBlazor.Server.Data;
+using man_power_planning.Server.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;

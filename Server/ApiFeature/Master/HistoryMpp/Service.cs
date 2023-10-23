@@ -1,6 +1,7 @@
 using lunchBlazor.Server.Data;
 using lunchBlazor.Shared.Helper;
 using lunchBlazor.Shared.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Sieve.Models;
 using Sieve.Services;
@@ -22,24 +23,41 @@ namespace RepositoryPattern.Services.HistoryMppService
         {
             try
             {
-                var departemen = _AppDbContext.HistoryMpp.Where(d => (bool)d.IsActive).AsQueryable();
-                var result = _SieveProcessor.Apply(model, departemen);
-                var departemenList = await PageList<HistoryMpp>.ShowDataAsync(
-                    departemen,
+                var HistoryMpp = _AppDbContext.HistoryMpp.Where(d => d.IsActive == true).AsQueryable();
+                var result = _SieveProcessor.Apply(model, HistoryMpp);
+                var HistoryMppList = await PageList<HistoryMpp>.ShowDataAsync(
+                    HistoryMpp,
                     result,
                     model.Page,
                     model.PageSize
                 );
-                return departemenList;
+                return HistoryMppList;
             }
 
-            catch (Exception ex)
+            catch (CustomException)
             {
-                throw new(ex.Message);
+                throw;
             }
         }
 
-        public async Task<HistoryMpp> Post(CreateHistoryMpp items)
+        public async Task<Object> GetId(Guid Id)
+        {
+            try
+            {
+                var checkData = await _AppDbContext.HistoryMpp.FirstOrDefaultAsync(x => x.Id == Id);
+                if (checkData == null)
+                {
+                    throw new CustomException(400, "Data tidak ditemukan");
+                }
+                return new { Data = checkData, Code = 200 }; ;
+            }
+            catch (CustomException)
+            {
+                throw;
+            }
+        }
+
+        public async Task<Object> Post(CreateHistoryMpp items)
         {
             try
             {
@@ -49,60 +67,54 @@ namespace RepositoryPattern.Services.HistoryMppService
                     Notes = items.Notes,
                     UserId = items.UserId,
                     MppId = items.MppId,
-
                     IsActive = true,
                     CreatedAt = DateTime.Now
                 };
 
                 _AppDbContext.HistoryMpp.Add(roleData);
                 await _AppDbContext.SaveChangesAsync();
-                return roleData;
+                return new { code = 200, message = "Data berhasil ditambahkan", data = roleData };
             }
-            catch (Exception ex)
+            catch (CustomException)
             {
-                throw new(ex.Message);
+                throw;
             }
         }
 
-        public async Task<HistoryMpp> Put(Guid id, CreateHistoryMpp items)
+        public async Task<Object> Put(Guid id, CreateHistoryMpp items)
         {
             try
             {
-                var roleData = await _AppDbContext.HistoryMpp.FindAsync(id);
-                if (roleData == null)
-                {
-                    throw new("Opss Id not found");
-                }
-
+                var roleData = await _AppDbContext.HistoryMpp.FindAsync(id) ?? throw new CustomException(400, "Data tidak ditemukan"); ;
                 roleData.Notes = items.Notes;
-                roleData.IsActive = items.IsActive;
+                roleData.UpdatedAt = DateTime.Now;
                 _AppDbContext.HistoryMpp.Update(roleData);
                 await _AppDbContext.SaveChangesAsync();
-                return roleData;
+                return new { code = 201, message = "Data berhasil diperbarui", data = roleData };
             }
-            catch (Exception ex)
+            catch (CustomException)
             {
-                throw new(ex.Message);
+                throw;
             }
         }
 
-        public async Task<HistoryMpp> Delete(Guid id)
+        public async Task<Object> Delete(Guid id)
         {
             try
             {
                 var roleData = await _AppDbContext.HistoryMpp.FindAsync(id);
                 if (roleData == null)
                 {
-                    throw new("Opss Id not found");
+                    throw new CustomException(400, "Data tidak ditemukan");
                 }
                 roleData.IsActive = false;
                 _AppDbContext.HistoryMpp.Update(roleData);
                 await _AppDbContext.SaveChangesAsync();
-                return roleData;
+                return new { code = 201, message = "Data berhasil dihapus", data = roleData }; ; ;
             }
-            catch (Exception ex)
+            catch (CustomException)
             {
-                throw new(ex.Message);
+                throw;
             }
         }
     }

@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-public class CreateFirstMpps
+public class CreateFirstMpp
 {
     public string? NrpPemohon { get; set; }
     public string? NamaPemohon { get; set; }

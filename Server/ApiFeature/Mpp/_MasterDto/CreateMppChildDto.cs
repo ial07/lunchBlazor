@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-public class CreateMppChilds
+public class CreateMppChild
 {
     public Guid? MppFormId { get; set; }
     /// <Informasi MP Planning>

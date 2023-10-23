@@ -12,6 +12,7 @@ using RepositoryPattern.Services.AuthService;
 using RepositoryPattern.Services.DepartemenService;
 using RepositoryPattern.Services.DivisiService;
 using RepositoryPattern.Services.GolonganService;
+using RepositoryPattern.Services.HistoryMppService;
 using RepositoryPattern.Services.JenisMppService;
 using RepositoryPattern.Services.JenisPermintaanService;
 using RepositoryPattern.Services.JurusanPendidikanService;
@@ -22,7 +23,6 @@ using RepositoryPattern.Services.PendidikanService;
 using RepositoryPattern.Services.PosisiService;
 using RepositoryPattern.Services.StatusService;
 using RepositoryPattern.Services.SumberPemenuhanService;
-using RepositoryPattern.Services.UserService;
 using Sieve.Services;
 
 [assembly: ApiController]
@@ -50,10 +50,13 @@ builder.Services.AddScoped<IStatusService, StatusService>();
 builder.Services.AddScoped<IPendidikanService, PendidikanService>();
 builder.Services.AddScoped<IJurusanPendidikanService, JurusanPendidikanService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
-builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IMppFormService, MppFormService>();
 builder.Services.AddScoped<IMppChildFormService, MppChildFormService>();
+builder.Services.AddScoped<IHistoryMppService, HistoryMppService>();
+
 builder.Services.AddScoped<ValidationDto>();
+builder.Services.AddScoped<ValidationAuthDto>();
+
 
 builder.Services.AddAuthentication(options =>
 {

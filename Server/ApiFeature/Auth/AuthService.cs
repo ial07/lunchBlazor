@@ -30,7 +30,7 @@ namespace RepositoryPattern.Services.AuthService
             this.key = configuration.GetSection("AppSettings")["JwtKey"];
         }
 
-        private string CreateJWT(UserForm? user)
+        private string CreateJWT(LoginDto? user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var keys = Encoding.ASCII.GetBytes(key);
@@ -50,7 +50,7 @@ namespace RepositoryPattern.Services.AuthService
             return tokenHandler.WriteToken(token);
         }
 
-        public async Task<Object> LoginAsync([FromBody] UserForm login)
+        public async Task<Object> LoginAsync([FromBody] LoginDto login)
         {
             string token = CreateJWT(login);
             var httpClient = new HttpClient();
@@ -67,11 +67,11 @@ namespace RepositoryPattern.Services.AuthService
                 var responseContent = await response.Content.ReadAsStringAsync();
                 if (responseContent.Contains("Your account is invalid !"))
                 {
-                    throw new CustomException(400, responseContent);
+                    throw new CustomException(400, "Your account is invalid !");
                 }
                 if (responseContent.Contains("Your account is invalid or please check your User ID and Password again !"))
                 {
-                    throw new CustomException(400, responseContent);
+                    throw new CustomException(400, "Your account is invalid or please check your User ID and Password again !");
                 }
                 Users userResponse = JsonConvert.DeserializeObject<Users>(responseContent);
                 var checkData = await _AppDbContext.Users.FirstOrDefaultAsync(x => x.UserID == userResponse.UserID);
@@ -122,7 +122,7 @@ namespace RepositoryPattern.Services.AuthService
             }
         }
 
-        public async Task<Users> Post(UserForm items)
+        public async Task<Users> Post(LoginDto items)
         {
             try
             {
@@ -148,7 +148,7 @@ namespace RepositoryPattern.Services.AuthService
             }
         }
 
-        public async Task<Users> Put(Guid id, UserForm items)
+        public async Task<Users> Put(Guid id, LoginDto items)
         {
             try
             {

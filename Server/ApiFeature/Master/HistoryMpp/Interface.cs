@@ -5,8 +5,9 @@ using Sieve.Models;
 public interface IHistoryMppService
 {
     Task<PageList<HistoryMpp>> Get(SieveModel model);
-    Task<HistoryMpp> Post(CreateHistoryMpp model);
-    Task<HistoryMpp> Put(Guid id, CreateHistoryMpp items);
-    Task<HistoryMpp> Delete(Guid id);
+    Task<Object> Post(CreateHistoryMpp model);
+    Task<Object> Put(Guid id, CreateHistoryMpp items);
+    Task<Object> GetId(Guid id);
+    Task<Object> Delete(Guid id);
 
 }

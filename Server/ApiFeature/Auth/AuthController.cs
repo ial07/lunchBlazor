@@ -1,25 +1,29 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace test_blazor.Server.Controllers
+namespace blazor.Server.Controllers
 {
     [ApiController]
     public class AuthController : ControllerBase
     {
         private readonly IAuthService _IAuthService;
         private readonly ErrorHandlingUtility _errorUtility;
-        public AuthController(IAuthService authService)
+        private readonly ValidationAuthDto _masterValidationService;
+        public AuthController(IAuthService authService, ValidationAuthDto MasterValidationService)
         {
             _IAuthService = authService;
             _errorUtility = new ErrorHandlingUtility();
+            _masterValidationService = MasterValidationService;
         }
 
         [HttpPost]
         [Route("api/auth/login")]
-        public async Task<IActionResult> LoginAsync([FromBody] UserForm login)
+        public async Task<IActionResult> LoginAsync([FromBody] LoginDto login)
         {
-            if (login.UserID == null || login.Password == null)
+            var validationErrors = _masterValidationService.ValidateCreateInput(login);
+            if (validationErrors.Count > 0)
             {
-                throw new CustomException(400, "UserId atau Password Wajib diisi");
+                var errorResponse = new { code = 400, errorMessage = validationErrors };
+                return BadRequest(errorResponse);
             }
             try
             {
